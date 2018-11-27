@@ -80,7 +80,7 @@ public class ManagingRegistry {
                 sumSueldo = sumSueldo+registry.getSueldo();
                 
             }
-            deftable.addRow(new Object[]{"TOTAL", sumOrdinarios,sumRNocturno, sumExtraDiurna, sumExtraNocturna,
+            deftable.addRow(new Object[]{"TOTAL:", sumOrdinarios,sumRNocturno, sumExtraDiurna, sumExtraNocturna,
                     sumSueldo});
 
         } catch (ParseException ex) {
