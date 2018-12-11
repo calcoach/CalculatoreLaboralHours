@@ -25,6 +25,7 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
 
+        //Edit Table contents
         this.jTextField1.setText("1000");
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -40,6 +41,7 @@ public class Home extends javax.swing.JFrame {
                 return types[columnIndex];
             }
         });
+        
         
     }
 
@@ -80,20 +82,20 @@ public class Home extends javax.swing.JFrame {
         jSpinner2 = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        jCheckBox2 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        selectTypeDay = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTextField1.setBackground(new java.awt.Color(171, 235, 198));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -112,8 +114,9 @@ public class Home extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Fecha/Hora Fin");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 160, 30));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 160, 30));
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, 24, 1));
         jSpinner1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpinner1StateChanged(evt);
@@ -125,13 +128,15 @@ public class Home extends javax.swing.JFrame {
         jLabel4.setText("Fecha/Hora Inicio");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 170, 30));
 
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, 24, 1));
         jSpinner2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSpinner2StateChanged(evt);
             }
         });
-        getContentPane().add(jSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 50, 30));
+        getContentPane().add(jSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, 50, 30));
 
+        jTable1.setBackground(new java.awt.Color(130, 224, 170));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -148,27 +153,16 @@ public class Home extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.setGridColor(new java.awt.Color(171, 235, 198));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, -1, 110));
-
-        buttonGroup1.add(jCheckBox1);
-        jCheckBox1.setText("Lunes a Sabado");
-        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 130, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, 110));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Tipo de dia");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
 
-        buttonGroup1.add(jCheckBox2);
-        jCheckBox2.setText("Dominical o festivo");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 130, -1));
-
+        jButton1.setBackground(new java.awt.Color(40, 180, 99));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Calcular");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -176,38 +170,44 @@ public class Home extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 440, 150, 50));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 150, 50));
 
-        buttonGroup1.add(jCheckBox3);
-        jCheckBox3.setText("Ordinario - Dominical o festivo");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 210, -1));
-
-        buttonGroup1.add(jCheckBox4);
-        jCheckBox4.setText("Dominical o festivo - Ordinario");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 210, -1));
-
+        jButton2.setBackground(new java.awt.Color(40, 180, 99));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Ver Historial");
+        jButton2.setText("Ver Registro");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 490, 150, 50));
-        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 110, 30));
-        getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 110, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/horaslaborales/maxresdefault.jpg"))); // NOI18N
+        jDateChooser1.setBackground(new java.awt.Color(171, 235, 198));
+        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 110, 30));
+
+        jDateChooser2.setBackground(new java.awt.Color(171, 235, 198));
+        getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 110, 30));
+
+        selectTypeDay.setBackground(new java.awt.Color(171, 235, 198));
+        selectTypeDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes a Sabado", "Dominical Festivo", "Inicia dia Ordinario Termina Dominical/Festivo", "Inicia Dominical Festivo Termina Dia Ordinario" }));
+        selectTypeDay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectTypeDayActionPerformed(evt);
+            }
+        });
+        getContentPane().add(selectTypeDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 270, 30));
+
+        jButton3.setBackground(new java.awt.Color(40, 180, 99));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton3.setText("Guardar en Registro");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, 50));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 580));
 
         pack();
@@ -216,10 +216,6 @@ public class Home extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -235,21 +231,16 @@ public class Home extends javax.swing.JFrame {
                     calc = new Calculadora((int) this.jSpinner1.getValue(), (int) jSpinner2.getValue(),
                             Integer.valueOf(this.jTextField1.getText()));
 
-                    if (this.jCheckBox1.isSelected()) {
-                        calc.setDia(1);
-                    } else if (this.jCheckBox2.isSelected()) {
-                        calc.setDia(2);
-                    } else if (this.jCheckBox3.isSelected()) {
-                        calc.setDia(3);
-                    } else if (this.jCheckBox4.isSelected()) {
-                        calc.setDia(4);
+                    if (this.selectTypeDay.getSelectedItem()!=null) {
+                        calc.setDia(selectTypeDay.getSelectedIndex()+1);
+                   
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Selecccione el dia");
                         return;
                     }
 
                     showData(calc);
-                    ManagingRegistry.saveRegistry(this.jDateChooser1,jSpinner1,this.jDateChooser2, jSpinner2, calc );
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Escriba un rango de horas valido : (1-24)");
                 }
@@ -262,28 +253,20 @@ public class Home extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
-
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
-
     private void jSpinner1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner1StateChanged
         // TODO add your handling code here:
-        ActionEvent ev = null;
+       /* ActionEvent ev = null;
         if((this.jSpinner2.getValue()!=null)&((int)jSpinner2.getValue()!=0)) {
             jButton1ActionPerformed(ev);
-        }
+        }*/
     
         
     }//GEN-LAST:event_jSpinner1StateChanged
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         // TODO add your handling code here:
-        ActionEvent ev = null;
-        this.jButton1ActionPerformed(ev);
+       /* ActionEvent ev = null;
+        this.jButton1ActionPerformed(ev);*/
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jSpinner2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinner2StateChanged
@@ -299,6 +282,19 @@ public class Home extends javax.swing.JFrame {
         history.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void selectTypeDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectTypeDayActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_selectTypeDayActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Calculadora  calc = new Calculadora((int) this.jSpinner1.getValue(), (int) jSpinner2.getValue(),
+                            Integer.valueOf(this.jTextField1.getText()));
+        calc.setDia(selectTypeDay.getSelectedIndex()+1);
+        ManagingRegistry.saveRegistry(this.jDateChooser1,jSpinner1,this.jDateChooser2, jSpinner2, calc );
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,10 +343,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -363,5 +356,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> selectTypeDay;
     // End of variables declaration//GEN-END:variables
 }

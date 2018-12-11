@@ -59,14 +59,16 @@ public class ODBC {
         }
     }
     
-    public void insert(String date, String time, int [] horas, double sueldo) {
+    public void insert(String date, String time, int [] horas, double sueldo) throws ExceptionLaboralHours {
         //String sql = "INSERT INTO primera_tabla(name,capacity) VALUES(?,?)";
 
+        this.checkRepeatRegistry(date);
         String sql = "INSERT INTO Registros(start_day, time_start_day, Ordinaria, RNocturno, ExtraDiurna,"
                 + "ExtraNocturna, SueldoDia)\n"
                 +" VALUES(?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
             pstmt.setString(1, date);
             pstmt.setString(2,time);
             pstmt.setInt(3, horas[0]);
@@ -80,34 +82,37 @@ public class ODBC {
         }
     }
     
-    public void selectAll() {
-        String sql = "SELECT\n"
-                + " start_day,\n"
-                + " time_start_day\n"
-                + "FROM\n"
-                + "Registros ;";
+    
+    
+    public ArrayList<Integer> selectRegistriesMonthYear(int year) {
+        String sql = "SELECT start_day FROM Registros ;";
+        ArrayList <Integer>months = new ArrayList();
         
-        try (Connection conn = this.connect();
+        try (Connection conn = this.connect(); 
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
 
-            // loop through the result set
+           
             while (rs.next()) {
-                /* System.out.println(rs.getInt("id") + "\t"
-                        + rs.getString("name") + "\t"
-                        + rs.getDouble("capacity");*/
-                System.out.println(rs.getString("start_day")+"/n"+
-                         rs.getString("time_start_day"));
+                
+               
+                if(!months.contains(Integer.valueOf(rs.getString(1).substring(5, 7)))){
+                    months.add(Integer.valueOf(rs.getString(1).substring(5, 7)));
+                    
+                }
+                
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return months;
     }
     
-    public  ArrayList <Registry> selectRegistries() throws ParseException {
+    public  ArrayList <Registry> selectMonthRegistries(String consult) throws ParseException {
         ArrayList <Registry> a = new ArrayList();
+        
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros";
+                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'";
         
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
@@ -156,4 +161,26 @@ public class ODBC {
             System.out.println(e.getMessage());
         }
     }
+    
+    private void checkRepeatRegistry(String dato) throws ExceptionLaboralHours{
+             
+        Connection con = this.connect();
+        try {
+            
+            
+            String sql = "SELECT start_day FROM Registros WHERE start_day ='" + dato+ "'";
+            PreparedStatement estatement =  con.prepareStatement(sql);
+            ResultSet res = estatement.executeQuery();
+            
+            if(res.getString("start_day").equals(dato)){
+               throw new ExceptionLaboralHours("Dato repetido");
+            }
+            
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
 }
+
+

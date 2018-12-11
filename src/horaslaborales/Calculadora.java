@@ -15,7 +15,7 @@ public class Calculadora {
 
     int inicio;
     int fin;
-    int dia;
+    int dia; //Refers to type of turn: 1 to 4
     int sueldo;
     double valorhora;
     int contT = 0;
