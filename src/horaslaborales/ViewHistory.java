@@ -5,6 +5,13 @@
  */
 package horaslaborales;
 
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Alejandro
@@ -16,8 +23,13 @@ public class ViewHistory extends javax.swing.JFrame {
      */
     public ViewHistory() {
         initComponents();
-        
+
         ManagingRegistry.chargueMonthRegistries(this.selectMounth, jTable1);
+    }
+
+    public void updateTable() {
+        java.awt.event.ActionEvent evt = null;
+        selectMounthActionPerformed(evt);
     }
 
     /**
@@ -29,17 +41,27 @@ public class ViewHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         selectMounth = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton4.setBackground(new java.awt.Color(40, 180, 99));
+        jButton4.setText("Agregar Registro");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 200, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -49,23 +71,12 @@ public class ViewHistory extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Dia inicio", "Horas Ordinarias", "Horas R. Nocturno", "H. Extras Diurno", "H. Extras Nocturno", "Sueldo dia"
+                "Fecha", "Horas Ordinarias", "Horas R. Nocturno", "H. Extras Diurno", "H. Extras Nocturno", "Sueldo dia"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 900, 320));
-
-        jButton1.setBackground(new java.awt.Color(40, 180, 99));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Home_24px.png"))); // NOI18N
-        jButton1.setText("  HOME");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 490, 150, 50));
 
         jButton2.setBackground(new java.awt.Color(40, 180, 99));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -75,7 +86,7 @@ public class ViewHistory extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, 150, 40));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 500, 150, 40));
 
         selectMounth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,30 +99,58 @@ public class ViewHistory extends javax.swing.JFrame {
         jLabel1.setText("Seleccionar mes");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 130, -1));
 
+        jButton3.setBackground(new java.awt.Color(40, 180, 99));
+        jButton3.setText("Editar Registro");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 500, 200, 40));
+
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 1, 990, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Home h = new Home();
-        h.setVisible(true);
-        h.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         ManagingRegistry.saveRegistryToExcel(jTable1);
+        System.out.println(evt);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void selectMounthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectMounthActionPerformed
         // TODO add your handling code here:
-        
+
         ManagingRegistry.chargueMonthRegistries(selectMounth, jTable1);
     }//GEN-LAST:event_selectMounthActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int rowSelected = jTable1.getSelectedRow();
+
+        if (rowSelected != -1) {
+            DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+            Vector v = (Vector) m.getDataVector().get(rowSelected);
+            AddRegistry editRegistry = new AddRegistry(ManagingRegistry.searchRegistry((String)v.get(0)));
+            editRegistry.setVisible(rootPaneCheckingEnabled);
+            editRegistry.setLocationRelativeTo(null);
+            
+        } else{
+            JOptionPane.showMessageDialog(rootPane, "Seleccione el Registro en la tabla");
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        AddRegistry window = new AddRegistry();
+        window.setVisible(true);
+        window.setLocationRelativeTo(null);
+        window.addWindowListener(new ClosedWindowEvent(this));
+
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,8 +189,9 @@ public class ViewHistory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

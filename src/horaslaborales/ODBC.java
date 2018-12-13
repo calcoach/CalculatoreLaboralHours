@@ -82,6 +82,38 @@ public class ODBC {
         }
     }
     
+    public  Registry selectRegistry(String consult) throws ExceptionLaboralHours, ParseException {
+        
+        
+        String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
+                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'"
+                + "ORDER BY start_day ASC" ;
+        
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            Registry reg = new Registry();
+            while (rs.next()) {
+                
+                CalendarString date = new CalendarString(rs.getString("start_day"));
+                reg.setStartDay(date.getDate());
+                reg.setOrdinaria(rs.getInt("Ordinaria"));
+                reg.setRNocturno(rs.getInt("RNocturno"));
+                reg.setExtraDiurna(rs.getInt("ExtraDiurna"));
+                reg.setExtranocturna(rs.getInt("ExtraNocturna"));
+                reg.setSueldo(rs.getDouble("SueldoDia"));
+                
+               
+            }
+            return reg;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+    }
     
     
     public ArrayList<Integer> selectRegistriesMonthYear(int year) {
@@ -112,7 +144,8 @@ public class ODBC {
         ArrayList <Registry> a = new ArrayList();
         
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'";
+                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'"
+                + "ORDER BY start_day ASC" ;
         
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();

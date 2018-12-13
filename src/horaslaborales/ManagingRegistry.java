@@ -11,12 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,6 +36,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 public class ManagingRegistry {
 
     public static String URL_ODBC = "Prueba.db";
+
     public static void saveRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
             JSpinner hora2, Calculadora cal) {
 
@@ -48,39 +44,39 @@ public class ManagingRegistry {
             ODBC conect = new ODBC(URL_ODBC);
             conect.createNewTable();
             CalendarString date = new CalendarString(fecha1.getCalendar());
-            
+
             int[] horas = cal.calcularHoras();
 
             conect.insert(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
             //System.out.println(horas[0]);
-        }  catch (java.lang.NullPointerException e) {
+        } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");
         } catch (ExceptionLaboralHours e) {
             JOptionPane.showMessageDialog(null, "Fecha ocupada por otro registro");
         }
     }
 
-    public static void chargueMonthRegistries(JComboBox JCombo, JTable table){
-        
-        if(JCombo.getItemCount()==0){
+    public static void chargueMonthRegistries(JComboBox JCombo, JTable table) {
+
+        if (JCombo.getItemCount() == 0) {
             ODBC conect = new ODBC(URL_ODBC);
             ArrayList<Integer> registries = conect.selectRegistriesMonthYear(2018);
-           
+
             for (Integer registry : registries) {
-                
-                JCombo.addItem( CalendarString.getNameMounth(registry));
-               
-             }
+
+                JCombo.addItem(CalendarString.getNameMounth(registry));
+
+            }
             int n = registries.size();
-            
-            chargueRegistries(table, CalendarString.YearMonthString(2018, registries.get(n-1)));
-            JCombo.setSelectedIndex(n-1);
-        }else{
+
+            chargueRegistries(table, CalendarString.YearMonthString(2018, registries.get(n - 1)));
+            JCombo.setSelectedIndex(n - 1);
+        } else {
             chargueRegistries(table, CalendarString.getYearMonthByNameMonth(2018, JCombo.getSelectedItem().toString()));
         }
-        
+
     }
-    
+
     private static void chargueRegistries(JTable table, String consult) {
 
         try {
@@ -115,6 +111,20 @@ public class ManagingRegistry {
         } catch (ParseException ex) {
             Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static Registry searchRegistry(String consult){
+
+        try {
+            ODBC conect = new ODBC(URL_ODBC);
+           return conect.selectRegistry(consult);
+        } catch (ExceptionLaboralHours ex) {
+            Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException e){
+            
+        }
+       JOptionPane.showMessageDialog(null,"No se encuentra registro"); 
+       return null;
     }
 
     public static void saveRegistryToExcel(JTable table) {
@@ -183,18 +193,16 @@ public class ManagingRegistry {
     }
 
     private static void setValueCell(Vector data, Cell cell, int n) {
-       
+
         if (data.get(n).getClass().getName().equals(Integer.class.getName())) {
-            double d = (int)((int) data.get(n))  ;
-            
+            double d = (int) ((int) data.get(n));
+
             cell.setCellValue(d);
-                  
-            
+
         } else if (data.get(n).getClass().getName().equals(Double.class.getName())) {
             cell.setCellValue((Double) data.get(n));
-           
-            
-        } else  {
+
+        } else {
             cell.setCellValue(String.valueOf(data.get(n)));
         }
     }

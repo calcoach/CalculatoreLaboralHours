@@ -33,7 +33,7 @@ public class HorasLaborales {
     public static void main(String[] args) {
         
             // TODO code application logic here
-            Home ventana = new Home();
+            ViewHistory ventana = new ViewHistory();
             ventana.setLocationRelativeTo(null);
             ventana.setVisible(true);
             
