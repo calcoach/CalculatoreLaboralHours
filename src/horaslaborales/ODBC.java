@@ -21,13 +21,13 @@ import java.util.Date;
  * @author Alejandro
  */
 public class ODBC {
-    
+
     String url = "jdbc:sqlite:";
-    
+
     public ODBC(String url) {
         this.url = this.url.concat(url);
     }
-    
+
     private Connection connect() {
         // SQLite connection string
         //String url = "jdbc:sqlite:C://sqlite/db/test.db";
@@ -39,7 +39,7 @@ public class ODBC {
         }
         return conn;
     }
-    
+
     public void createNewTable() {
         // SQLite connection string
 
@@ -48,29 +48,29 @@ public class ODBC {
                 + "start_day text,"
                 + "time_start_day text, Ordinaria double, RNocturno double,"
                 + "ExtraDiurna double, ExtraNocturna double, SueldoDia double)";
-        
+
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement()) {
             // create a new table
             stmt.execute(sql);
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void insert(String date, String time, int [] horas, double sueldo) throws ExceptionLaboralHours {
+
+    public void insert(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {
         //String sql = "INSERT INTO primera_tabla(name,capacity) VALUES(?,?)";
 
         this.checkRepeatRegistry(date);
         String sql = "INSERT INTO Registros(start_day, time_start_day, Ordinaria, RNocturno, ExtraDiurna,"
                 + "ExtraNocturna, SueldoDia)\n"
-                +" VALUES(?,?,?,?,?,?,?)";
+                + " VALUES(?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
+
             pstmt.setString(1, date);
-            pstmt.setString(2,time);
+            pstmt.setString(2, time);
             pstmt.setInt(3, horas[0]);
             pstmt.setInt(4, horas[1]);
             pstmt.setInt(5, horas[2]);
@@ -81,14 +81,31 @@ public class ODBC {
             System.out.println(e.getMessage());
         }
     }
-    
-    public  Registry selectRegistry(String consult) throws ExceptionLaboralHours, ParseException {
-        
-        
+
+    public void deleteRegistry(String consult) {
+
+        String sql = "DELETE FROM Registros WHERE start_day = ?";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, consult);
+            // execute the delete statement
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public Registry selectRegistry(String consult) throws ExceptionLaboralHours, ParseException {
+
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
                 + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'"
-                + "ORDER BY start_day ASC" ;
-        
+                + "ORDER BY start_day ASC";
+
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
@@ -96,7 +113,7 @@ public class ODBC {
             // loop through the result set
             Registry reg = new Registry();
             while (rs.next()) {
-                
+
                 CalendarString date = new CalendarString(rs.getString("start_day"));
                 reg.setStartDay(date.getDate());
                 reg.setOrdinaria(rs.getInt("Ordinaria"));
@@ -104,49 +121,45 @@ public class ODBC {
                 reg.setExtraDiurna(rs.getInt("ExtraDiurna"));
                 reg.setExtranocturna(rs.getInt("ExtraNocturna"));
                 reg.setSueldo(rs.getDouble("SueldoDia"));
-                
-               
+
             }
             return reg;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
-        
+
     }
-    
-    
+
     public ArrayList<Integer> selectRegistriesMonthYear(int year) {
         String sql = "SELECT start_day FROM Registros ;";
-        ArrayList <Integer>months = new ArrayList();
-        
-        try (Connection conn = this.connect(); 
+        ArrayList<Integer> months = new ArrayList();
+
+        try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
 
-           
             while (rs.next()) {
-                
-               
-                if(!months.contains(Integer.valueOf(rs.getString(1).substring(5, 7)))){
+
+                if (!months.contains(Integer.valueOf(rs.getString(1).substring(5, 7)))) {
                     months.add(Integer.valueOf(rs.getString(1).substring(5, 7)));
-                    
+
                 }
-                
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return months;
     }
-    
-    public  ArrayList <Registry> selectMonthRegistries(String consult) throws ParseException {
-        ArrayList <Registry> a = new ArrayList();
-        
+
+    public ArrayList<Registry> selectMonthRegistries(String consult) throws ParseException {
+        ArrayList<Registry> a = new ArrayList();
+
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
                 + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'"
-                + "ORDER BY start_day ASC" ;
-        
+                + "ORDER BY start_day ASC";
+
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
@@ -165,55 +178,58 @@ public class ODBC {
                 reg.setExtraDiurna(rs.getInt("ExtraDiurna"));
                 reg.setExtranocturna(rs.getInt("ExtraNocturna"));
                 reg.setSueldo(rs.getDouble("SueldoDia"));
-                a.add(reg);   
-               
+                a.add(reg);
+
             }
             return a;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
-        
+
     }
-    
-    public void update(String start_day, String time_start_day) {
-        String sql = "UPDATE Registros SET start_day = ? , "
-                + "time_start_day = ? "
-                + "WHERE start_day = ?";
-        
+
+    public void update(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {
+        String sql = "UPDATE Registros SET time_start_day = ?, Ordinaria = ?, RNocturno = ?, ExtraDiurna = ?,"
+                + "ExtraNocturna = ?, SueldoDia = ? WHERE start_day = ?";
+
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, start_day);
-            pstmt.setString(2, time_start_day);
-            
+            pstmt.setString(1, time);
+            pstmt.setInt(2, horas[0]);
+            pstmt.setInt(3, horas[1]);
+            pstmt.setInt(4, horas[2]);
+            pstmt.setInt(5, horas[3]);
+            pstmt.setDouble(6, sueldo);
+            pstmt.setString(7, date);
+
             // update 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    private void checkRepeatRegistry(String dato) throws ExceptionLaboralHours{
-             
+
+    private void checkRepeatRegistry(String dato) throws ExceptionLaboralHours {
+
         Connection con = this.connect();
         try {
-            
-            
-            String sql = "SELECT start_day FROM Registros WHERE start_day ='" + dato+ "'";
-            PreparedStatement estatement =  con.prepareStatement(sql);
+
+            String sql = "SELECT start_day FROM Registros WHERE start_day ='" + dato + "'";
+            PreparedStatement estatement = con.prepareStatement(sql);
             ResultSet res = estatement.executeQuery();
-            
-            if(res.getString("start_day").equals(dato)){
-               throw new ExceptionLaboralHours("Dato repetido");
+
+            if (res.getString("start_day").equals(dato)) {
+
+                throw new ExceptionLaboralHours("Dato repetido");
+
             }
-            
-        } catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
+
     }
 }
-
-

@@ -8,7 +8,11 @@ package horaslaborales;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
+import java.io.File;
 import java.util.Vector;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -48,6 +52,7 @@ public class ViewHistory extends javax.swing.JFrame {
         selectMounth = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,7 +66,7 @@ public class ViewHistory extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 200, 40));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 170, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,7 +111,16 @@ public class ViewHistory extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 500, 200, 40));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, 170, 40));
+
+        jButton5.setBackground(new java.awt.Color(40, 180, 99));
+        jButton5.setText("Eliminar Registro");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 560, 170, 40));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 1, 990, 620));
@@ -118,6 +132,8 @@ public class ViewHistory extends javax.swing.JFrame {
         // TODO add your handling code here:
         ManagingRegistry.saveRegistryToExcel(jTable1);
         System.out.println(evt);
+        
+      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void selectMounthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectMounthActionPerformed
@@ -135,6 +151,7 @@ public class ViewHistory extends javax.swing.JFrame {
             Vector v = (Vector) m.getDataVector().get(rowSelected);
             AddRegistry editRegistry = new AddRegistry(ManagingRegistry.searchRegistry((String)v.get(0)));
             editRegistry.setVisible(rootPaneCheckingEnabled);
+            editRegistry.addWindowListener(new ClosedWindowEvent(this));
             editRegistry.setLocationRelativeTo(null);
             
         } else{
@@ -151,6 +168,21 @@ public class ViewHistory extends javax.swing.JFrame {
         window.addWindowListener(new ClosedWindowEvent(this));
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        int rowSelected = jTable1.getSelectedRow();
+
+        if (rowSelected != -1) {
+            DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+            Vector v = (Vector) m.getDataVector().get(rowSelected);
+            ManagingRegistry.deleteRegistry((String)v.get(0));
+            this.updateTable();
+            
+        } else{
+            JOptionPane.showMessageDialog(rootPane, "Seleccione el Registro en la tabla");
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,6 +224,7 @@ public class ViewHistory extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

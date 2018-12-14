@@ -72,7 +72,7 @@ public class CalendarString {
         } else{
             fecha.append(calendar.get(Calendar.DAY_OF_MONTH));
         }
-        System.out.println(fecha.toString());
+        
         return fecha.toString();
     }
     public String getYearMonthString(Date dat){

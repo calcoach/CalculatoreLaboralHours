@@ -48,7 +48,26 @@ public class ManagingRegistry {
             int[] horas = cal.calcularHoras();
 
             conect.insert(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
-            //System.out.println(horas[0]);
+            
+        } catch (java.lang.NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Error");
+        } catch (ExceptionLaboralHours e) {
+            JOptionPane.showMessageDialog(null, "Fecha ocupada por otro registro");
+        }
+    }
+    
+    public static void updateRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
+            JSpinner hora2, Calculadora cal) {
+
+        try {
+            ODBC conect = new ODBC(URL_ODBC);
+            
+            CalendarString date = new CalendarString(fecha1.getCalendar());
+
+            int[] horas = cal.calcularHoras();
+
+            conect.update(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
+            
         } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");
         } catch (ExceptionLaboralHours e) {
@@ -111,6 +130,15 @@ public class ManagingRegistry {
         } catch (ParseException ex) {
             Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static void deleteRegistry(String date) {
+
+        
+            ODBC conect = new ODBC(URL_ODBC);
+            conect.deleteRegistry(date);
+      
+       
     }
 
     public static Registry searchRegistry(String consult){
@@ -206,5 +234,7 @@ public class ManagingRegistry {
             cell.setCellValue(String.valueOf(data.get(n)));
         }
     }
+
+    
 
 }
