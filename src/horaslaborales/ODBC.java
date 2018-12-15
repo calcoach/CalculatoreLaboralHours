@@ -15,6 +15,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -57,6 +59,57 @@ public class ODBC {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void createNewTableUsers() {
+        // SQLite connection string
+
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS Users(ID integer PRIMARY KEY,"
+                + "user text,pass text, last_salary text)";
+
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //Agregar usuarios
+    public void editSalary(String salary, String user) {
+        this.createNewTableUsers();
+        String sql = "UPDATE Users SET last_salary = ? WHERE user = ?";
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, salary);
+            pstmt.setString(2, user);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String selectSalary(String user) {
+        this.createNewTableUsers();
+        String last_salary = "";
+        String sql = "SELECT last_salary FROM Users WHERE user LIKE '%" + user + "%'";
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+            
+            while(rs.next()){
+                last_salary = rs.getString("last_salary");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         return last_salary;
     }
 
     public void insert(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {

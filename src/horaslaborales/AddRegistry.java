@@ -26,9 +26,9 @@ public class AddRegistry extends javax.swing.JFrame {
 
     public AddRegistry() {
         initComponents();
-
+        ManagingRegistry.getSalary(jTextField1, "prueba");
         //Edit Table contents
-        this.jTextField1.setText("1000");
+        
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -48,9 +48,9 @@ public class AddRegistry extends javax.swing.JFrame {
 
     public AddRegistry(Registry reg) {
         initComponents();
-
+        ManagingRegistry.getSalary(jTextField1, "prueba");
         //Edit Table contents
-        this.jTextField1.setText("1000");
+        
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -68,6 +68,7 @@ public class AddRegistry extends javax.swing.JFrame {
 
         this.registry = reg;
         preChargedData();
+        
     }
 
     /**
@@ -79,7 +80,7 @@ public class AddRegistry extends javax.swing.JFrame {
         if (registry != null) {
             this.jDateChooser1.setDate(registry.getStartDay());
             jDateChooser1.setSelectableDateRange(registry.getStartDay(), registry.getStartDay());
-
+            
         }
     }
 
@@ -99,6 +100,8 @@ public class AddRegistry extends javax.swing.JFrame {
         table.addRow(new Object[]{"Extra Diurna", horas[2], costo[2]});
         table.addRow(new Object[]{"Extra Nocturna", horas[3], costo[3]});
         table.addRow(new Object[]{"TOTAL", horas[4], costo[4]});
+        
+        
 
     }
 
@@ -128,11 +131,6 @@ public class AddRegistry extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.setBackground(new java.awt.Color(171, 235, 198));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
@@ -235,10 +233,6 @@ public class AddRegistry extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Calculadora calc;
@@ -314,7 +308,7 @@ public class AddRegistry extends javax.swing.JFrame {
             
             ManagingRegistry.updateRegistry(jDateChooser1, jSpinner1, jDateChooser2, jSpinner2, calc);
         }
-
+         ManagingRegistry.updateLastSalary(jTextField1, "prueba");
         this.dispose();
     }//GEN-LAST:event_saveRegistryActionPerformed
 

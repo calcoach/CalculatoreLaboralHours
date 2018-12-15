@@ -10,6 +10,14 @@ import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
 import java.io.File;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -25,10 +33,34 @@ public class ViewHistory extends javax.swing.JFrame {
     /**
      * Creates new form ViewHistory
      */
+    File file;
+
     public ViewHistory() {
         initComponents();
 
         ManagingRegistry.chargueMonthRegistries(this.selectMounth, jTable1);
+
+    }
+
+    private void initFX(JFXPanel fxPanel) {
+        // This method is invoked on the JavaFX thread
+        Scene scene = createScene();
+        fxPanel.setScene(scene);
+    }
+
+    
+    private  Scene createScene() {
+        Group root = new Group();
+        Scene scene = new Scene(root, Color.ALICEBLUE);
+
+        FileChooser fileChooser = new FileChooser();
+        file = fileChooser.showSaveDialog(scene.getWindow());
+        if(file!=null){
+            ManagingRegistry.saveRegistryToExcel(jTable1, file.getAbsolutePath());
+        }
+        
+        
+        return (scene);
     }
 
     public void updateTable() {
@@ -45,28 +77,28 @@ public class ViewHistory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
+        AddRegistry = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        exportToExcel = new javax.swing.JButton();
         selectMounth = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        editRegistry = new javax.swing.JButton();
+        deleteRegistry = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton4.setBackground(new java.awt.Color(40, 180, 99));
-        jButton4.setText("Agregar Registro");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        AddRegistry.setBackground(new java.awt.Color(40, 180, 99));
+        AddRegistry.setText("Agregar Registro");
+        AddRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                AddRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 170, 40));
+        getContentPane().add(AddRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 170, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,15 +115,15 @@ public class ViewHistory extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 900, 320));
 
-        jButton2.setBackground(new java.awt.Color(40, 180, 99));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setText("Exportar a Excel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        exportToExcel.setBackground(new java.awt.Color(40, 180, 99));
+        exportToExcel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        exportToExcel.setText("Exportar a Excel");
+        exportToExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                exportToExcelActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 500, 150, 40));
+        getContentPane().add(exportToExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 500, 150, 40));
 
         selectMounth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,23 +136,23 @@ public class ViewHistory extends javax.swing.JFrame {
         jLabel1.setText("Seleccionar mes");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 130, -1));
 
-        jButton3.setBackground(new java.awt.Color(40, 180, 99));
-        jButton3.setText("Editar Registro");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        editRegistry.setBackground(new java.awt.Color(40, 180, 99));
+        editRegistry.setText("Editar Registro");
+        editRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                editRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, 170, 40));
+        getContentPane().add(editRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, 170, 40));
 
-        jButton5.setBackground(new java.awt.Color(40, 180, 99));
-        jButton5.setText("Eliminar Registro");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        deleteRegistry.setBackground(new java.awt.Color(40, 180, 99));
+        deleteRegistry.setText("Eliminar Registro");
+        deleteRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                deleteRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 560, 170, 40));
+        getContentPane().add(deleteRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 560, 170, 40));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 1, 990, 620));
@@ -128,13 +160,21 @@ public class ViewHistory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void exportToExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportToExcelActionPerformed
         // TODO add your handling code here:
-        ManagingRegistry.saveRegistryToExcel(jTable1);
-        System.out.println(evt);
-        
-      
-    }//GEN-LAST:event_jButton2ActionPerformed
+       final JFXPanel fxPanel = new JFXPanel();
+        this.add(fxPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0));
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                initFX(fxPanel);
+            }
+        });
+
+        //show();
+        //
+
+    }//GEN-LAST:event_exportToExcelActionPerformed
 
     private void selectMounthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectMounthActionPerformed
         // TODO add your handling code here:
@@ -142,47 +182,47 @@ public class ViewHistory extends javax.swing.JFrame {
         ManagingRegistry.chargueMonthRegistries(selectMounth, jTable1);
     }//GEN-LAST:event_selectMounthActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void editRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRegistryActionPerformed
         // TODO add your handling code here:
         int rowSelected = jTable1.getSelectedRow();
 
         if (rowSelected != -1) {
             DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
             Vector v = (Vector) m.getDataVector().get(rowSelected);
-            AddRegistry editRegistry = new AddRegistry(ManagingRegistry.searchRegistry((String)v.get(0)));
+            AddRegistry editRegistry = new AddRegistry(ManagingRegistry.searchRegistry((String) v.get(0)));
             editRegistry.setVisible(rootPaneCheckingEnabled);
             editRegistry.addWindowListener(new ClosedWindowEvent(this));
             editRegistry.setLocationRelativeTo(null);
-            
-        } else{
+
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Seleccione el Registro en la tabla");
         }
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_editRegistryActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void AddRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddRegistryActionPerformed
         // TODO add your handling code here:
         AddRegistry window = new AddRegistry();
         window.setVisible(true);
         window.setLocationRelativeTo(null);
         window.addWindowListener(new ClosedWindowEvent(this));
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_AddRegistryActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void deleteRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRegistryActionPerformed
         // TODO add your handling code here:
         int rowSelected = jTable1.getSelectedRow();
 
         if (rowSelected != -1) {
             DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
             Vector v = (Vector) m.getDataVector().get(rowSelected);
-            ManagingRegistry.deleteRegistry((String)v.get(0));
+            ManagingRegistry.deleteRegistry((String) v.get(0));
             this.updateTable();
-            
-        } else{
+
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Seleccione el Registro en la tabla");
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_deleteRegistryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,11 +260,11 @@ public class ViewHistory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddRegistry;
     private javax.swing.JLabel background;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton deleteRegistry;
+    private javax.swing.JButton editRegistry;
+    private javax.swing.JButton exportToExcel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

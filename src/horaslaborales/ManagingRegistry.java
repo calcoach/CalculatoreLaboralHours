@@ -19,6 +19,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -36,6 +37,18 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 public class ManagingRegistry {
 
     public static String URL_ODBC = "Prueba.db";
+    
+    public static void updateLastSalary(JTextField salary, String user){
+        ODBC conect = new ODBC(URL_ODBC);
+        conect.editSalary(salary.getText(), user);
+        
+    }
+    
+    public static void getSalary(JTextField salary, String user){
+        ODBC conect = new ODBC(URL_ODBC);
+        salary.setText(conect.selectSalary(user));
+       
+    }
 
     public static void saveRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
             JSpinner hora2, Calculadora cal) {
@@ -155,7 +168,7 @@ public class ManagingRegistry {
        return null;
     }
 
-    public static void saveRegistryToExcel(JTable table) {
+    public static void saveRegistryToExcel(JTable table, String rute) {
         DefaultTableModel deftable = (DefaultTableModel) table.getModel();
 
         SXSSFWorkbook wb = new SXSSFWorkbook(100);
@@ -179,7 +192,7 @@ public class ManagingRegistry {
         }
 
         // Write the output to a file
-        try (OutputStream fileOut = new FileOutputStream("Registro.xlsx")) {
+        try (OutputStream fileOut = new FileOutputStream(rute+".xlsx")) {
             wb.write(fileOut);
             wb.close();
         } catch (FileNotFoundException ex) {
