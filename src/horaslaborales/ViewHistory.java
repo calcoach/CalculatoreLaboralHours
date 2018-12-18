@@ -5,22 +5,15 @@
  */
 package horaslaborales;
 
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 import java.io.File;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -92,13 +85,14 @@ public class ViewHistory extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AddRegistry.setBackground(new java.awt.Color(40, 180, 99));
+        AddRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Plus_Math_24px.png"))); // NOI18N
         AddRegistry.setText("Agregar Registro");
         AddRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(AddRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 170, 40));
+        getContentPane().add(AddRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 160, 40));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,13 +111,14 @@ public class ViewHistory extends javax.swing.JFrame {
 
         exportToExcel.setBackground(new java.awt.Color(40, 180, 99));
         exportToExcel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        exportToExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Export_24px_1.png"))); // NOI18N
         exportToExcel.setText("Exportar a Excel");
         exportToExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exportToExcelActionPerformed(evt);
             }
         });
-        getContentPane().add(exportToExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 500, 150, 40));
+        getContentPane().add(exportToExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 500, 160, 40));
 
         selectMounth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,22 +132,24 @@ public class ViewHistory extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 130, -1));
 
         editRegistry.setBackground(new java.awt.Color(40, 180, 99));
+        editRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Pencil_24px.png"))); // NOI18N
         editRegistry.setText("Editar Registro");
         editRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(editRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, 170, 40));
+        getContentPane().add(editRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 500, 150, 40));
 
         deleteRegistry.setBackground(new java.awt.Color(40, 180, 99));
+        deleteRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Trash_Can_24px_1.png"))); // NOI18N
         deleteRegistry.setText("Eliminar Registro");
         deleteRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(deleteRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 560, 170, 40));
+        getContentPane().add(deleteRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 560, 160, 40));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 1, 990, 620));

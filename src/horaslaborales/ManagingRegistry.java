@@ -1,4 +1,4 @@
-/*
+     /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,13 +6,8 @@
 package horaslaborales;
 
 import com.toedter.calendar.JDateChooser;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -21,14 +16,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 /**
  *
@@ -50,7 +37,7 @@ public class ManagingRegistry {
        
     }
 
-    public static void saveRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
+    public static boolean saveRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
             JSpinner hora2, Calculadora cal) {
 
         try {
@@ -61,12 +48,17 @@ public class ManagingRegistry {
             int[] horas = cal.calcularHoras();
 
             conect.insert(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
+            //Succesfullsave
+            return true;
             
         } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");
         } catch (ExceptionLaboralHours e) {
             JOptionPane.showMessageDialog(null, "Fecha ocupada por otro registro");
+            
         }
+        //Errors
+        return false;
     }
     
     public static void updateRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
@@ -169,85 +161,22 @@ public class ManagingRegistry {
     }
 
     public static void saveRegistryToExcel(JTable table, String rute) {
-        DefaultTableModel deftable = (DefaultTableModel) table.getModel();
-
-        SXSSFWorkbook wb = new SXSSFWorkbook(100);
-        Sheet sheet = wb.createSheet();
-
-        Row head = sheet.createRow(0);
-        head.setHeightInPoints(20);
-
-        createHead(table, wb, head, 0, HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-
-        int N = deftable.getDataVector().size();
-
-        for (int it = 0; it < N; it++) {
-            Vector j = (Vector) deftable.getDataVector().elementAt(it);
-
-            Row row = sheet.createRow(it + 1);
-            row.setHeightInPoints(20);
-
-            createCell(j, wb, row, 0, HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
-
-        }
-
-        // Write the output to a file
-        try (OutputStream fileOut = new FileOutputStream(rute+".xlsx")) {
-            wb.write(fileOut);
-            wb.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
+        WriteExcelRegistry write = new WriteExcelRegistry(table, rute);
+        int returnSave = write.save();
+        switch(returnSave){
+            
+            case 1:
+                break;
+                
+            case -1:
+                JOptionPane.showMessageDialog(table, "Error al guardar excel");
+                break;
+                
+            default:
+                break;
+                
         }
 
     }
-
-    private static void createCell(Vector data, Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign) {
-
-        if (column <= data.size() - 1) {
-            Cell cell = row.createCell(column);
-            setValueCell(data, cell, column);
-            CellStyle cellStyle = wb.createCellStyle();
-            cellStyle.setAlignment(halign);
-            cellStyle.setVerticalAlignment(valign);
-
-            cell.setCellStyle(cellStyle);
-            createCell(data, wb, row, column + 1, halign, valign);
-        }
-
-    }
-
-    //Crea la cabecera
-    private static void createHead(JTable table, Workbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign) {
-
-        if (column <= table.getColumnCount() - 1) {
-            Cell cell = row.createCell(column);
-            cell.setCellValue(table.getColumnName(column));
-            CellStyle cellStyle = wb.createCellStyle();
-            cellStyle.setAlignment(halign);
-            cellStyle.setVerticalAlignment(valign);
-
-            cell.setCellStyle(cellStyle);
-            createHead(table, wb, row, column + 1, halign, valign);
-        }
-    }
-
-    private static void setValueCell(Vector data, Cell cell, int n) {
-
-        if (data.get(n).getClass().getName().equals(Integer.class.getName())) {
-            double d = (int) ((int) data.get(n));
-
-            cell.setCellValue(d);
-
-        } else if (data.get(n).getClass().getName().equals(Double.class.getName())) {
-            cell.setCellValue((Double) data.get(n));
-
-        } else {
-            cell.setCellValue(String.valueOf(data.get(n)));
-        }
-    }
-
-    
 
 }

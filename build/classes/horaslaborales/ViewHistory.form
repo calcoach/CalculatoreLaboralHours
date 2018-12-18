@@ -31,6 +31,9 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="63" green="b4" red="28" type="rgb"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8_Plus_Math_24px.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Agregar Registro"/>
       </Properties>
       <Events>
@@ -38,7 +41,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="100" y="500" width="170" height="40"/>
+          <AbsoluteConstraints x="100" y="500" width="160" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -115,6 +118,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8_Export_24px_1.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Exportar a Excel"/>
       </Properties>
       <Events>
@@ -122,7 +128,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="770" y="500" width="150" height="40"/>
+          <AbsoluteConstraints x="750" y="500" width="160" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -162,6 +168,9 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="63" green="b4" red="28" type="rgb"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8_Pencil_24px.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Editar Registro"/>
       </Properties>
       <Events>
@@ -169,7 +178,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="310" y="500" width="170" height="40"/>
+          <AbsoluteConstraints x="310" y="500" width="150" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -178,6 +187,9 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="63" green="b4" red="28" type="rgb"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8_Trash_Can_24px_1.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Eliminar Registro"/>
       </Properties>
       <Events>
@@ -185,7 +197,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="100" y="560" width="170" height="40"/>
+          <AbsoluteConstraints x="100" y="560" width="160" height="40"/>
         </Constraint>
       </Constraints>
     </Component>

@@ -6,12 +6,8 @@
 package horaslaborales;
 
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
-import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -124,6 +120,7 @@ public class AddRegistry extends javax.swing.JFrame {
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         selectTypeDay = new javax.swing.JComboBox<>();
         saveRegistry = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -194,13 +191,14 @@ public class AddRegistry extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(40, 180, 99));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Calculator_24px.png"))); // NOI18N
         jButton1.setText("Calcular");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 150, 50));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 120, 40));
 
         jDateChooser1.setBackground(new java.awt.Color(171, 235, 198));
         getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 110, 30));
@@ -219,13 +217,25 @@ public class AddRegistry extends javax.swing.JFrame {
 
         saveRegistry.setBackground(new java.awt.Color(40, 180, 99));
         saveRegistry.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        saveRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Save_24px.png"))); // NOI18N
         saveRegistry.setText("Guardar en Registro");
         saveRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveRegistryActionPerformed(evt);
             }
         });
-        getContentPane().add(saveRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, 50));
+        getContentPane().add(saveRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, -1, 40));
+
+        jButton2.setBackground(new java.awt.Color(40, 180, 99));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Cancel_24px.png"))); // NOI18N
+        jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 470, 130, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maxresdefault.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 580));
@@ -303,14 +313,21 @@ public class AddRegistry extends javax.swing.JFrame {
         calc.setDia(selectTypeDay.getSelectedIndex() + 1);
         if (registry == null) {
 
-            ManagingRegistry.saveRegistry(this.jDateChooser1, jSpinner1, this.jDateChooser2, jSpinner2, calc);
+            boolean h = ManagingRegistry.saveRegistry(this.jDateChooser1, jSpinner1, this.jDateChooser2, jSpinner2, calc);
+            if(h)
+                dispose();
         } else {
             
             ManagingRegistry.updateRegistry(jDateChooser1, jSpinner1, jDateChooser2, jSpinner2, calc);
         }
          ManagingRegistry.updateLastSalary(jTextField1, "prueba");
-        this.dispose();
+        
     }//GEN-LAST:event_saveRegistryActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,6 +376,7 @@ public class AddRegistry extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
