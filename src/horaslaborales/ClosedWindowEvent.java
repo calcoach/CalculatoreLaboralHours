@@ -5,17 +5,36 @@
  */
 package horaslaborales;
 
+import Interface.HistoryPane;
+import Interface.SesionWindow;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowListener;
 
 /**
  *
  * @author Alejandro
  */
-public class ClosedWindowEvent implements WindowListener{
+public class ClosedWindowEvent implements WindowListener, MouseListener, MouseMotionListener{
     
-    ViewHistory window;
-    public ClosedWindowEvent(ViewHistory window){
-        this.window = window;
+    //ViewHistory window;
+    HistoryPane pane;
+    SesionWindow ses; 
+    
+    
+    public ClosedWindowEvent( ){
+        //this.window = window;
+    }
+
+    public ClosedWindowEvent(SesionWindow ses) {
+        this.ses = ses;
+    }
+    
+    
+    
+    public ClosedWindowEvent(HistoryPane pane){
+        this.pane=pane;
     }
 
     @Override
@@ -30,8 +49,8 @@ public class ClosedWindowEvent implements WindowListener{
 
     @Override
     public void windowClosed(java.awt.event.WindowEvent e) {
-
-        window.updateTable();
+       this.pane.updateTable();
+        
     }
 
     @Override
@@ -52,6 +71,46 @@ public class ClosedWindowEvent implements WindowListener{
     @Override
     public void windowDeactivated(java.awt.event.WindowEvent e) {
 
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+        this.ses.dispose();
+        System.out.println("aqui");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+         this.ses.dispose();
+         System.out.println("aqui");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+       this.ses.dispose();
+       System.out.println("aqui");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+       this.ses.dispose();
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+             this.ses.dispose();
+       System.out.println("aqui");                                                                                                        
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+      System.out.println("aqui");   
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

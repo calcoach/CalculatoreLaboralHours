@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,9 +23,11 @@ import java.util.logging.Logger;
 public class ODBC {
 
     String url = "jdbc:sqlite:";
+    Sesion ses;
 
-    public ODBC(String url) {
+    public ODBC(String url, Sesion ses) {
         this.url = this.url.concat(url);
+        this.ses = ses;
     }
 
     private Connection connect() {
@@ -46,7 +46,7 @@ public class ODBC {
         // SQLite connection string
 
         // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS Registros(ID integer PRIMARY KEY,"
+        String sql = "CREATE TABLE IF NOT EXISTS "+ses.user+"(ID integer PRIMARY KEY,"
                 + "start_day text,"
                 + "time_start_day text, Ordinaria double, RNocturno double,"
                 + "ExtraDiurna double, ExtraNocturna double, SueldoDia double)";
@@ -81,18 +81,22 @@ public class ODBC {
     //Agregar usuarios
     public void editSalary(String salary, String user) {
         this.createNewTableUsers();
-        String sql = "UPDATE Users SET last_salary = ? WHERE user = ?";
-        try (Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, salary);
-            pstmt.setString(2, user);
-            pstmt.executeUpdate();
+        if (!selectSalary(user).equals(salary)) {
 
-        } catch (SQLException ex) {
-            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+            String sql = "UPDATE " +ses.user+" SET last_salary = ? WHERE user = ? ";
+            try (Connection conn = this.connect();
+                    PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, salary);
+                pstmt.setString(2, user);
+                pstmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }
-    
+
     public String selectSalary(String user) {
         this.createNewTableUsers();
         String last_salary = "";
@@ -100,23 +104,23 @@ public class ODBC {
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 last_salary = rs.getString("last_salary");
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         return last_salary;
+
+        return last_salary;
     }
 
     public void insert(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {
         //String sql = "INSERT INTO primera_tabla(name,capacity) VALUES(?,?)";
 
         this.checkRepeatRegistry(date);
-        String sql = "INSERT INTO Registros(start_day, time_start_day, Ordinaria, RNocturno, ExtraDiurna,"
+        String sql = "INSERT INTO " +ses.user+"(start_day, time_start_day, Ordinaria, RNocturno, ExtraDiurna,"
                 + "ExtraNocturna, SueldoDia)\n"
                 + " VALUES(?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
@@ -137,7 +141,7 @@ public class ODBC {
 
     public void deleteRegistry(String consult) {
 
-        String sql = "DELETE FROM Registros WHERE start_day = ?";
+        String sql = "DELETE FROM " +ses.user+" WHERE start_day = ?";
 
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -156,7 +160,7 @@ public class ODBC {
     public Registry selectRegistry(String consult) throws ExceptionLaboralHours, ParseException {
 
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'"
+                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM " +ses.user+" WHERE start_day LIKE '%" + consult + "%'"
                 + "ORDER BY start_day ASC";
 
         try (Connection conn = this.connect();
@@ -184,8 +188,8 @@ public class ODBC {
 
     }
 
-    public ArrayList<Integer> selectRegistriesMonthYear(int year) {
-        String sql = "SELECT start_day FROM Registros ;";
+    public ArrayList<Integer> selectRegistriesMonthYear(String year) {
+        String sql = "SELECT start_day FROM " +ses.user+" ;";
         ArrayList<Integer> months = new ArrayList();
 
         try (Connection conn = this.connect();
@@ -194,7 +198,8 @@ public class ODBC {
 
             while (rs.next()) {
 
-                if (!months.contains(Integer.valueOf(rs.getString(1).substring(5, 7)))) {
+                if (months.contains(Integer.valueOf(rs.getString(1).substring(5, 7))) == false
+                        & rs.getString(1).contains(year) == true) {
                     months.add(Integer.valueOf(rs.getString(1).substring(5, 7)));
 
                 }
@@ -206,11 +211,34 @@ public class ODBC {
         return months;
     }
 
+    public ArrayList<String> selectRegistriesYears() {
+        String sql = "SELECT start_day FROM " +ses.user+" ;";
+        ArrayList<String> years = new ArrayList();
+
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+
+                if (!years.contains(rs.getString(1).substring(0, 4))) {
+                    years.add(rs.getString(1).substring(0, 4));
+
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return years;
+
+    }
+
     public ArrayList<Registry> selectMonthRegistries(String consult) throws ParseException {
         ArrayList<Registry> a = new ArrayList();
 
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM Registros WHERE start_day LIKE '%" + consult + "%'"
+                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM " +ses.user+" WHERE start_day LIKE '%" + consult + "%'"
                 + "ORDER BY start_day ASC";
 
         try (Connection conn = this.connect();
@@ -243,7 +271,7 @@ public class ODBC {
     }
 
     public void update(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {
-        String sql = "UPDATE Registros SET time_start_day = ?, Ordinaria = ?, RNocturno = ?, ExtraDiurna = ?,"
+        String sql = "UPDATE " +ses.user+" SET time_start_day = ?, Ordinaria = ?, RNocturno = ?, ExtraDiurna = ?,"
                 + "ExtraNocturna = ?, SueldoDia = ? WHERE start_day = ?";
 
         try (Connection conn = this.connect();
@@ -270,7 +298,7 @@ public class ODBC {
         Connection con = this.connect();
         try {
 
-            String sql = "SELECT start_day FROM Registros WHERE start_day ='" + dato + "'";
+            String sql = "SELECT start_day FROM " +ses.user+" WHERE start_day ='" + dato + "'";
             PreparedStatement estatement = con.prepareStatement(sql);
             ResultSet res = estatement.executeQuery();
 

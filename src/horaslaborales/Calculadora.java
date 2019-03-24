@@ -74,7 +74,33 @@ public class Calculadora {
     }
     
     public int [] calcularHoras(){
-        return calcularHoras(inicio, fin);
+        
+        if(dia==1 | dia==2){
+            
+            return calcularHoras(inicio, fin);
+        }else{
+            
+            int [] horas1 = calcularHoras(inicio, 24);
+            int [] horas2 = calcularHoras(0,fin);
+            int [] horasT = new int [11];
+            horasT[0] = horas1[0]; //Horas ordinarias
+            horasT[1] = horas1[1];//Horas recargo ordinario
+            horasT[2] = horas1[2];//Extra diurno ordinario
+            horasT[3] = horas1[3];//Extra nocturno hordinario
+            horasT[4] = horas1[4];//Total dia 1
+            horasT[5] = horas2[0];//Horas festivo
+            horasT[6] = horas2[1];//Horas recargo festivo
+            horasT[7] = horas2[2];//Horas Extra diurno festivo
+            horasT[8] = horas2[3];//Horas Extra recargo nocturno
+            horasT[9] = horas2[4];//Horas Totales dia 2
+            horasT[10] = horas1[4] + horas2[4];//Total horas
+            
+            return horasT;
+        }
+        
+        
+        
+        
     }
 
     public double[] calcularSueldo() {
@@ -99,12 +125,18 @@ public class Calculadora {
                 
                 double [] sueldo1 = sueldoDiaOrdinario(horasdia1);
                 double [] sueldo2 = sueldoDiaFestivo(horasdia2);
-                subhoras = new double [5];
-                subhoras[0] = sueldo1[0]+sueldo2[0];
-                subhoras[1] = sueldo1[1]+sueldo2[1];
-                subhoras[2] = sueldo1[2]+sueldo2[2];
-                subhoras[3] = sueldo1[3]+sueldo2[3];
-                subhoras[4] = sueldo1[4]+sueldo2[4];
+                subhoras = new double [11];
+                subhoras[0] = sueldo1[0];//Dia 1
+                subhoras[1] = sueldo1[1];
+                subhoras[2] = sueldo1[2];
+                subhoras[3] = sueldo1[3];
+                subhoras[4] = sueldo1[4];
+                subhoras[5] = sueldo2[0];//Dia 2
+                subhoras[6] = sueldo2[1];
+                subhoras[7] = sueldo2[2];
+                subhoras[8] = sueldo2[3];
+                subhoras[9] = sueldo2[4];
+                subhoras[10] =sueldo1[4]+sueldo2[4];
                 
                 break;
                 
@@ -115,13 +147,18 @@ public class Calculadora {
                 
                 double [] Sueldo1 = sueldoDiaFestivo(Horasdia1);
                 double [] Sueldo2 = sueldoDiaOrdinario(Horasdia2);
-                subhoras = new double [5];
-                subhoras[0] = Sueldo1[0]+Sueldo2[0];
-                subhoras[1] = Sueldo1[1]+Sueldo2[1];
-                subhoras[2] = Sueldo1[2]+Sueldo2[2];
-                subhoras[3] = Sueldo1[3]+Sueldo2[3];
-                subhoras[4] = Sueldo1[4]+Sueldo2[4];
-                
+                subhoras = new double [11];
+                subhoras[0] = Sueldo1[0];//Dia 1
+                subhoras[1] = Sueldo1[1];
+                subhoras[2] = Sueldo1[2];
+                subhoras[3] = Sueldo1[3];
+                subhoras[4] = Sueldo1[4];
+                subhoras[5] = Sueldo2[0];//Dia 2
+                subhoras[6] = Sueldo2[1];
+                subhoras[7] = Sueldo2[2];
+                subhoras[8] = Sueldo2[3];
+                subhoras[9] = Sueldo2[4];
+                subhoras[10] =Sueldo1[4]+Sueldo2[4];
                 
                 break;
                 
@@ -138,9 +175,9 @@ public class Calculadora {
 
         double[] subhoras = new double[5];
         subhoras[0] = (horas[0] * valorhora);
-        subhoras[1] = (horas[1] * valorhora * 1.35);
-        subhoras[2] = (horas[2] * valorhora * 1.25);
-        subhoras[3] = (horas[3] * valorhora * 1.75);
+        subhoras[1] = (horas[1] * valorhora * 1.35);//REcargo dia ordinzrio
+        subhoras[2] = (horas[2] * valorhora * 1.25);//Extra diurno
+        subhoras[3] = (horas[3] * valorhora * 1.75);//Extra nocturno
         subhoras[4] = subhoras[0] + subhoras[1] + subhoras[2] + subhoras[3];
         return subhoras;
     }
@@ -148,10 +185,10 @@ public class Calculadora {
     private double[] sueldoDiaFestivo(int horas[]) {
 
         double[] subhoras = new double[5];
-        subhoras[0] = (horas[0] * valorhora * 2.75);
-        subhoras[1] = (horas[1] * valorhora * 2.1);
-        subhoras[2] = (horas[2] * valorhora * 2);
-        subhoras[3] = (horas[3] * valorhora * 2.5);
+        subhoras[0] = (horas[0] * valorhora * 1.75);//Verificar   festivo
+        subhoras[1] = (horas[1] * valorhora * 2.1);//Recargo festivo
+        subhoras[2] = (horas[2] * valorhora * 2);//Extra diurno festivo
+        subhoras[3] = (horas[3] * valorhora * 2.5);//Extra recargo festivo
         subhoras[4] = subhoras[0] + subhoras[1] + subhoras[2] + subhoras[3];
         return subhoras;
     }

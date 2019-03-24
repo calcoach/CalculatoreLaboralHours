@@ -11,95 +11,103 @@ import java.util.Date;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
- *This class parse date of calendar to String and String to calendar
+ * This class parse date of calendar to String and String to calendar
+ *
  * @author Alejandro
  */
 public class CalendarString {
-    
+
     String date;
     Calendar calendar;
     Date date1;
-    
-    public CalendarString(String date){
+
+    public CalendarString(String date) {
         this.date = date;
     }
-    
-    public CalendarString(){
-        
+
+    public CalendarString() {
+
     }
-    
-    public CalendarString(Calendar calendar){
+
+    public CalendarString(Calendar calendar) {
         this.calendar = calendar;
     }
 
-    public  Date getDate() throws ParseException {
-        
+    public Date getDate() throws ParseException {
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse(this.date.toString());
-            
+
         return date;
     }
-    
-    public String getStringDate(Date dat){
+
+    public String getStringDate(Date dat) {
         Calendar ncalendar;
         ncalendar = getInstance();
         ncalendar.setTime(dat);
         StringBuilder fecha = new StringBuilder();
         fecha.append(String.valueOf(ncalendar.get(Calendar.YEAR)))
-                    .append("-")
-                    .append(ncalendar.get(Calendar.MONTH) + 1)
-                    .append("-");
-                if(ncalendar.get(Calendar.DAY_OF_MONTH) < 10){
-                    fecha.append("0").append(ncalendar.get(Calendar.DAY_OF_MONTH));
-                } else{
-                    fecha.append(ncalendar.get(Calendar.DAY_OF_MONTH));
-                }
-                    
+                .append("-");
+        if (ncalendar.get(Calendar.MONTH) < 10) {
+            fecha.append("0");
+        }
+        fecha.append(ncalendar.get(Calendar.MONTH) + 1)
+                .append("-");
+
+        if (ncalendar.get(Calendar.DAY_OF_MONTH) < 10) {
+            fecha.append("0").append(ncalendar.get(Calendar.DAY_OF_MONTH));
+        } else {
+            fecha.append(ncalendar.get(Calendar.DAY_OF_MONTH));
+        }
+
         return fecha.toString();
     }
-    
-    public String getStringDate(){
+
+    public String getStringDate() {
         StringBuilder fecha = new StringBuilder();
         fecha.append(String.valueOf(calendar.get(Calendar.YEAR)))
-                    .append("-")
-                    .append(calendar.get(Calendar.MONTH) + 1)
-                    .append("-");
-        if(calendar.get(Calendar.DAY_OF_MONTH)<10){
+                .append("-");
+        if (calendar.get(Calendar.MONTH) < 10) {
+            fecha.append("0");
+        }
+        fecha.append(calendar.get(Calendar.MONTH) + 1)
+                .append("-");
+        if (calendar.get(Calendar.DAY_OF_MONTH) < 10) {
             fecha.append("0").append(calendar.get(Calendar.DAY_OF_MONTH));
-            
-        } else{
+
+        } else {
             fecha.append(calendar.get(Calendar.DAY_OF_MONTH));
         }
-        
+
         return fecha.toString();
     }
-    public String getYearMonthString(Date dat){
+
+    public String getYearMonthString(Date dat) {
         calendar = getInstance();
         calendar.setTime(dat);
         StringBuilder fecha = new StringBuilder();
         fecha.append(String.valueOf(calendar.get(Calendar.YEAR)))
-                    .append("-")
-                    .append(calendar.get(Calendar.MONTH) + 1);
+                .append("-")
+                .append(calendar.get(Calendar.MONTH) + 1);
         return fecha.toString();
     }
-    
+
     public static String YearMonthString(int year, int month) {
 
         StringBuilder fecha = new StringBuilder();
         fecha.append(year)
                 .append("-");
-        if(month < 10 ){
+        if (month < 10) {
             fecha.append("0").append(month);
-        } else{
+        } else {
             fecha.append(month);
         }
         return fecha.toString();
     }
-    
-    public static String getNameMounth(int i){
-        String [] names = new String[12];
+
+    public static String getNameMounth(int i) {
+        String[] names = new String[12];
         names[0] = "Enero";
         names[1] = "Febrero";
         names[2] = "Marzo";
@@ -112,12 +120,12 @@ public class CalendarString {
         names[9] = "Octubre";
         names[10] = "Noviembre";
         names[11] = "Diciembre";
-        
-        return names[i-1];     
-        
+
+        return names[i - 1];
+
     }
-    
-    public static String getYearMonthByNameMonth(int year,String name){
+
+    public static String getYearMonthByNameMonth(int year, String name) {
         StringBuilder fecha = new StringBuilder();
         switch (name) {
             case "Enero":
@@ -149,5 +157,5 @@ public class CalendarString {
         }
         return "";
     }
-    
+
 }

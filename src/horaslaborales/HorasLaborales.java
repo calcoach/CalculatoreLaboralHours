@@ -5,6 +5,9 @@
  */
 package horaslaborales;
 
+import Interface.MainWindow;
+import Interface.SesionWindow;
+
 
 /**
  *
@@ -18,10 +21,17 @@ public class HorasLaborales {
     public static void main(String[] args) {
         
             // TODO code application logic here
-            ViewHistory ventana = new ViewHistory();
+            /*ViewHistory ventana = new ViewHistory();
             ventana.setLocationRelativeTo(null);
-            ventana.setVisible(true);
+            ventana.setVisible(true);*/
             
+            /*MainWindow window = new MainWindow();
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);*/
+            
+            SesionWindow ses = new SesionWindow();
+            ses.setLocationRelativeTo(null);
+            ses.setVisible(true);
             
             /*Date h = new Date("2018/10/11");
             System.out.println(h.getTime());

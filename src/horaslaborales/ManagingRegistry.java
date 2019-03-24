@@ -1,4 +1,4 @@
-     /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,6 +6,7 @@
 package horaslaborales;
 
 import com.toedter.calendar.JDateChooser;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,24 +25,29 @@ import javax.swing.table.DefaultTableModel;
 public class ManagingRegistry {
 
     public static String URL_ODBC = "Prueba.db";
+    private Sesion ses;
     
-    public static void updateLastSalary(JTextField salary, String user){
-        ODBC conect = new ODBC(URL_ODBC);
-        conect.editSalary(salary.getText(), user);
-        
-    }
-    
-    public static void getSalary(JTextField salary, String user){
-        ODBC conect = new ODBC(URL_ODBC);
-        salary.setText(conect.selectSalary(user));
-       
+    public ManagingRegistry(Sesion sesion){
+        ses = sesion;
     }
 
-    public static boolean saveRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
-            JSpinner hora2, Calculadora cal) {
+    public void updateLastSalary(JTextField salary, String user) {
+        ODBC conect = new ODBC(URL_ODBC, this.ses);
+        conect.editSalary(salary.getText(), user);
+
+    }
+
+    public void getSalary(JTextField salary, String user) {
+        ODBC conect = new ODBC(URL_ODBC, ses);
+        salary.setText(conect.selectSalary(user));
+
+    }
+
+    //MOdificacion en registro: Incluir hora de inicio y hora fin
+    public  boolean saveRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculadora cal) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC);
+            ODBC conect = new ODBC(URL_ODBC, ses);
             conect.createNewTable();
             CalendarString date = new CalendarString(fecha1.getCalendar());
 
@@ -50,29 +56,29 @@ public class ManagingRegistry {
             conect.insert(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
             //Succesfullsave
             return true;
-            
+
         } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");
         } catch (ExceptionLaboralHours e) {
             JOptionPane.showMessageDialog(null, "Fecha ocupada por otro registro");
-            
+
         }
         //Errors
         return false;
     }
-    
-    public static void updateRegistry(JDateChooser fecha1, JSpinner hora1, JDateChooser fecha2,
-            JSpinner hora2, Calculadora cal) {
+
+    //MOdificacion en registro: Incluir hora de inicio y hora fin
+    public void updateRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculadora cal) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC);
-            
+            ODBC conect = new ODBC(URL_ODBC, ses);
+
             CalendarString date = new CalendarString(fecha1.getCalendar());
 
             int[] horas = cal.calcularHoras();
 
             conect.update(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
-            
+
         } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");
         } catch (ExceptionLaboralHours e) {
@@ -80,31 +86,58 @@ public class ManagingRegistry {
         }
     }
 
-    public static void chargueMonthRegistries(JComboBox JCombo, JTable table) {
+    public void chargueMonthRegistries(JComboBox JCombo, JTable table, JComboBox year) {
 
-        if (JCombo.getItemCount() == 0) {
-            ODBC conect = new ODBC(URL_ODBC);
-            ArrayList<Integer> registries = conect.selectRegistriesMonthYear(2018);
+        //ComboBox Year need contain year
+        if (year.getItemCount() > 0) {
 
-            for (Integer registry : registries) {
+            int yearInt =Integer.valueOf((String)year.getSelectedItem());
+            if (JCombo.getItemCount() == 0) {
+                ODBC conect = new ODBC(URL_ODBC, ses);
 
-                JCombo.addItem(CalendarString.getNameMounth(registry));
+                ArrayList<Integer> registries = conect.selectRegistriesMonthYear((String) year.getSelectedItem());
 
+                for (Integer registry : registries) {
+
+                    JCombo.addItem(CalendarString.getNameMounth(registry));
+
+                }
+
+                chargueRegistries(table, CalendarString.getYearMonthByNameMonth(yearInt,
+                        (String) JCombo.getSelectedItem()));
+
+            } else {
+
+                chargueRegistries(table, CalendarString.getYearMonthByNameMonth(yearInt,
+                        (String) JCombo.getSelectedItem()));
             }
-            int n = registries.size();
 
-            chargueRegistries(table, CalendarString.YearMonthString(2018, registries.get(n - 1)));
-            JCombo.setSelectedIndex(n - 1);
-        } else {
-            chargueRegistries(table, CalendarString.getYearMonthByNameMonth(2018, JCombo.getSelectedItem().toString()));
         }
 
     }
 
-    private static void chargueRegistries(JTable table, String consult) {
+    public void chargueYearRegistries(JComboBox year) {
+
+        ODBC conect = new ODBC(URL_ODBC, ses);
+
+        ArrayList<String> registries = conect.selectRegistriesYears();
+
+        year.removeAllItems();
+
+        for (String registry : registries) {
+
+            year.addItem(registry);
+
+        }
+
+        int n = year.getItemCount();
+        year.setSelectedIndex(n - 1);
+    }
+
+    private void chargueRegistries(JTable table, String consult) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC);
+            ODBC conect = new ODBC(URL_ODBC, ses);
             ArrayList<Registry> registries = conect.selectMonthRegistries(consult);
 
             DefaultTableModel deftable = (DefaultTableModel) table.getModel();
@@ -115,12 +148,15 @@ public class ManagingRegistry {
             int sumExtraDiurna = 0;
             int sumExtraNocturna = 0;
             double sumSueldo = 0;
+            
+            DecimalFormat df = new DecimalFormat("#.##");
+            
             for (Registry registry : registries) {
 
                 CalendarString c = new CalendarString();
                 deftable.addRow(new Object[]{c.getStringDate(registry.getStartDay()), registry.getOrdinaria(),
                     registry.getRNocturno(), registry.getExtraDiurna(), registry.getExtranocturna(),
-                    registry.getSueldo()});
+                    Double.valueOf(df.format(registry.getSueldo()))});
 
                 sumOrdinarios = sumOrdinarios + registry.getOrdinaria();
                 sumRNocturno = sumRNocturno + registry.getRNocturno();
@@ -130,51 +166,49 @@ public class ManagingRegistry {
 
             }
             deftable.addRow(new Object[]{"TOTAL:", sumOrdinarios, sumRNocturno, sumExtraDiurna, sumExtraNocturna,
-                sumSueldo});
+                Double.valueOf(df.format(sumSueldo))});
 
         } catch (ParseException ex) {
             Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void deleteRegistry(String date) {
 
-        
-            ODBC conect = new ODBC(URL_ODBC);
-            conect.deleteRegistry(date);
-      
-       
+    public void deleteRegistry(String date) {
+
+        ODBC conect = new ODBC(URL_ODBC, ses);
+        conect.deleteRegistry(date);
+
     }
 
-    public static Registry searchRegistry(String consult){
+    public Registry searchRegistry(String consult) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC);
-           return conect.selectRegistry(consult);
+            ODBC conect = new ODBC(URL_ODBC, ses);
+            return conect.selectRegistry(consult);
         } catch (ExceptionLaboralHours ex) {
             Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException e){
-            
+        } catch (ParseException e) {
+
         }
-       JOptionPane.showMessageDialog(null,"No se encuentra registro"); 
-       return null;
+        JOptionPane.showMessageDialog(null, "No se encuentra registro");
+        return null;
     }
 
-    public static void saveRegistryToExcel(JTable table, String rute) {
+    public void saveRegistryToExcel(JTable table, String rute) {
         WriteExcelRegistry write = new WriteExcelRegistry(table, rute);
         int returnSave = write.save();
-        switch(returnSave){
-            
+        switch (returnSave) {
+
             case 1:
                 break;
-                
+
             case -1:
                 JOptionPane.showMessageDialog(table, "Error al guardar excel");
                 break;
-                
+
             default:
                 break;
-                
+
         }
 
     }
