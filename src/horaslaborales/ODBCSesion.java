@@ -7,12 +7,14 @@ package horaslaborales;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.NewRegistry;
 
 /**
  *
@@ -87,6 +89,29 @@ public class ODBCSesion {
 
         }
         return users;
+    }
+    
+    public int createUser(NewRegistry reg){
+        
+        // !!! VALIDAR SI USUAARIO ESTA REPETIDO
+               String sql = "INSERT INTO Users(user, last_salary, periods_payment, mensualBonuses, termination_payment,"
+                + "comisions) VALUES(?,?,?,?,?,?)";
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,reg.getNameUser());
+            pstmt.setString(2, reg.getSalary());
+            pstmt.setInt(3, reg.getPeriods_payment());
+            pstmt.setString(4, reg.getMensualBonuses());
+            pstmt.setString(5, reg.getTerminationPayment());
+            pstmt.setBoolean(6, reg.Comision());
+            
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        return 1;
     }
     
     

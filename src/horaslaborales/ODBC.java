@@ -83,7 +83,7 @@ public class ODBC {
         this.createNewTableUsers();
         if (!selectSalary(user).equals(salary)) {
 
-            String sql = "UPDATE " +ses.user+" SET last_salary = ? WHERE user = ? ";
+            String sql = "UPDATE Users SET last_salary = ? WHERE user = ? ";
             try (Connection conn = this.connect();
                     PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, salary);
@@ -96,6 +96,88 @@ public class ODBC {
         }
 
     }
+    
+    
+    public int selectPeriodsPayment(){
+        int periods = 0;
+        String sql = "SELECT periods_payment FROM Users WHERE user LIKE '"+ this.ses.getUser()+"'";
+        try (Connection conn = this.connect()){ 
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+               periods = rs.getInt(1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return periods;
+    }
+    
+    
+    public String selectTerminationPayment(){
+        String payment = "";
+        String sql = "SELECT termination_payment FROM Users WHERE user LIKE '"+ this.ses.getUser()+"'";
+        try (Connection conn = this.connect()){ 
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+               payment = rs.getString(1);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payment;
+    }
+    
+    public void updateTerminationPayment(String terminationPayment){
+        
+        String sql = "UPDATE Users SET termination_payment = ? WHERE User LIKE '"+ses.getUser()+"'";
+        
+        
+        try( Connection conn = this.connect();
+              PreparedStatement pstmt = conn.prepareStatement(sql)){
+            
+            pstmt.setString(1, terminationPayment); 
+            pstmt.executeUpdate();
+            
+        } catch (SQLException ex){
+            
+             Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex); 
+        }
+        
+    }
+    
+    
+    
+    public ArrayList<Double> selectRevenuePeriod(String initialPeriod, String finalPeriod){
+        
+        String sql = "SELECT SueldoDia FROM "+this.ses.getUser()+" WHERE start_day >= '"+
+                initialPeriod + "' and start_day <= '"+finalPeriod+"' order by start_day";
+        ArrayList<Double> revenues = new ArrayList();
+        
+        try (Connection conn = this.connect()){ 
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while(rs.next()){
+               revenues.add(rs.getDouble(1));
+               
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return revenues;
+        
+    }
+    
 
     public String selectSalary(String user) {
         this.createNewTableUsers();
@@ -233,6 +315,41 @@ public class ODBC {
         return years;
 
     }
+    
+    public String selectMensualBonuses(){
+        
+        String bonus = "";
+        String sql2 = "SELECT mensualBonuses FROM Users WHERE user LIKE '"+ses.getUser()+"';";
+        try (Connection conn = this.connect()){
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql2);
+            
+            while(rs.next()){
+                bonus = rs.getString(1);
+            }
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return bonus;
+    }
+    
+    public void updateBonuses(String bonus){
+        
+        String sql = "UPDATE Users SET mensualBonuses = ? WHERE User LIKE '"+ses.getUser()+"'";
+        
+        try(Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            
+            pstmt.setString(1, bonus);
+           
+            
+        } catch (SQLException ex){
+            
+            System.out.println(ex.getMessage());
+        }
+    }
+  
 
     public ArrayList<Registry> selectMonthRegistries(String consult) throws ParseException {
         ArrayList<Registry> a = new ArrayList();

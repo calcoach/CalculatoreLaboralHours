@@ -330,7 +330,7 @@ public class MainWindow extends javax.swing.JFrame {
         resetColor(btn_About);
         opaqueBorder();
         border4.setOpaque(true);
-        //showAbout();
+        showConfig();
     }//GEN-LAST:event_btn_ConfigMousePressed
 
     /**
@@ -411,7 +411,43 @@ public class MainWindow extends javax.swing.JFrame {
     private void showAbout() {
 
         background.removeAll();
+        InfoPane info = new InfoPane(this.user);
+        info.setVisible(true);
+        JButton close = (JButton) info.getComponent(1);
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SesionWindow sw = new SesionWindow();
+                sw.setLocationRelativeTo(null);
+                sw.setVisible(true);
+                close();
+            }
+
+        });
+        background.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+
         background.updateUI();
+    }
+
+    private void showConfig() {
+
+        background.removeAll();
+        ConfigPane config = new ConfigPane(this.user);
+        config.setVisible(true);
+        JButton close = (JButton) config.getComponent(4);
+        close.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SesionWindow sw = new SesionWindow();
+                sw.setLocationRelativeTo(null);
+                sw.setVisible(true);
+                close();
+            }
+
+        });
+        background.add(config, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+        background.updateUI();
+
     }
 
     private void showHistory() {

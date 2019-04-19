@@ -5,8 +5,6 @@
  */
 package horaslaborales;
 
-import com.toedter.calendar.JDateChooser;
-import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -23,8 +21,10 @@ public class AddRegistry extends javax.swing.JFrame {
      */
     Registry registry;
     ManagingRegistry managing;
+    Sesion user;
 
     public AddRegistry(Sesion user) {
+        this.user = user;
         initComponents();
         managing = new ManagingRegistry(user);
         preConfigureWindow();
@@ -51,7 +51,8 @@ public class AddRegistry extends javax.swing.JFrame {
     }
 
     private void preConfigureWindow() {
-        managing.getSalary(jTextField1, "prueba");
+
+        managing.getSalary(salary, user.getUser());
         //Edit Table contents
         this.selectTypeDay.setSelectedIndex(-1);
 
@@ -102,7 +103,7 @@ public class AddRegistry extends javax.swing.JFrame {
         }
     }
 
-    private void showData(Calculadora calc) {
+    private void showData(Calculator calc) {
 
         if (jTable1.getSize().height > 0) {
 
@@ -145,7 +146,7 @@ public class AddRegistry extends javax.swing.JFrame {
 
             if (this.selectTypeDay.getSelectedIndex() != -1) {
 
-                if (!this.jTextField1.getText().isEmpty()) {
+                if (!this.salary.getText().isEmpty()) {
 
                     if (getTimeChooser(time1) != getTimeChooser(time2)) {
 
@@ -185,7 +186,7 @@ public class AddRegistry extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jTextField1 = new javax.swing.JTextField();
+        salary = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -209,13 +210,13 @@ public class AddRegistry extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setBackground(new java.awt.Color(171, 235, 198));
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        salary.setBackground(new java.awt.Color(171, 235, 198));
+        salary.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                salaryKeyPressed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 110, 30));
+        getContentPane().add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 110, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Sueldo");
@@ -350,13 +351,17 @@ public class AddRegistry extends javax.swing.JFrame {
 
     private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
         // TODO add your handling code here:
-        Calculadora calc;
+        Calculator calc;
         jTable1.removeAll();
         jTable1.updateUI();
 
         if (verifiedEntries()) {
 
-            calc = new Calculadora(getTimeChooser(time1), getTimeChooser(time2), Integer.valueOf(this.jTextField1.getText()));
+            String sal = this.salary.getText().replaceAll(" ", "");
+
+            double i = Double.parseDouble(sal);
+
+            calc = new Calculator(getTimeChooser(time1), getTimeChooser(time2), (int) i);
             calc.setDia(selectTypeDay.getSelectedIndex() + 1);
             showData(calc);
 
@@ -364,9 +369,9 @@ public class AddRegistry extends javax.swing.JFrame {
 
     }//GEN-LAST:event_calculateActionPerformed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void salaryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_salaryKeyPressed
 
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_salaryKeyPressed
 
     private void selectTypeDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectTypeDayActionPerformed
         // TODO add your handling code here:
@@ -377,9 +382,13 @@ public class AddRegistry extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (verifiedEntries()) {
 
-            Calculadora calc = new Calculadora(getTimeChooser(time1), getTimeChooser(time2),
-                    Integer.valueOf(this.jTextField1.getText()));
+            String sal = this.salary.getText().replace(" ", "");
+            double i = Double.parseDouble(sal);
+
+            Calculator calc = new Calculator(getTimeChooser(time1), getTimeChooser(time2),
+                    (int) i);
             calc.setDia(selectTypeDay.getSelectedIndex() + 1);
+            
             if (registry == null) {
 
                 boolean h = managing.saveRegistry(this.jDateChooser1, this.jDateChooser2, calc);
@@ -392,7 +401,7 @@ public class AddRegistry extends javax.swing.JFrame {
                 managing.updateRegistry(jDateChooser1, jDateChooser2, calc);
 
             }
-            managing.updateLastSalary(jTextField1, "prueba");
+            //managing.updateLastSalary(salary, "prueba");
             //dispose();
 
         }
@@ -503,7 +512,7 @@ public class AddRegistry extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField salary;
     private javax.swing.JButton saveRegistry;
     private javax.swing.JComboBox<String> selectTypeDay;
     private javax.swing.JCheckBox startToday;

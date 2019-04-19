@@ -6,8 +6,13 @@
 package Interface;
 
 import horaslaborales.AddRegistry;
+import horaslaborales.DeductionsCalculator;
+import horaslaborales.FieldString;
 import horaslaborales.ManagingRegistry;
 import horaslaborales.Sesion;
+import java.util.Calendar;
+import static java.util.Calendar.getInstance;
+import java.util.Date;
 
 /**
  *
@@ -20,20 +25,48 @@ public class HomePane extends javax.swing.JPanel {
      */
     Sesion user;
     ManagingRegistry managing;
+    DeductionsCalculator cal;
+    boolean datechanged = false;
+
     public HomePane(Sesion user) {
         initComponents();
         this.user = user;
         managing = new ManagingRegistry(user);
+        cal = new DeductionsCalculator(user);
         preconfig();
     }
-    
-         
-     
-    
-    private void preconfig(){
-        managing.getSalary(salary, "prueba");
+
+    private void preconfig() {
+        managing.getSalary(salary, user.getUser());
         labelUser.setText(user.getUser());
         salary.setEditable(false);
+
+        chargeInfo();
+        chargeCalendar();
+    }
+    
+    private void chargeCalendar(){
+        Calendar calendar = getInstance();
+        String datePay = cal.getPeriod()[1];
+        String[] split = datePay.split("-");
+
+        calendar.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
+
+        date.setCalendar(calendar);
+    }
+
+    private void chargeInfo() {
+
+        actualSalary.setText(FieldString.fieldNum(cal.getCurrentSalary()));
+        this.health.setText(FieldString.fieldNum(cal.getHealth()));
+        pension.setText(FieldString.fieldNum(cal.getPension()));
+        totalDeductions.setText(FieldString.fieldNum(cal.getTotalDeductions()));
+        totalSalary.setText(FieldString.fieldNum(cal.getSalary()));
+        bonuses.setText(FieldString.fieldNum(cal.getMensualBonuses()));
+        terminationPayment.setText(FieldString.fieldNum(cal.getTerminationPayment()));
+
+        totalIncomes.setText(FieldString.fieldNum(cal.getTotalIncomes()));
+
     }
 
     /**
@@ -57,23 +90,25 @@ public class HomePane extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        totalDeductions = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        totalSalary = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        actualSalary = new javax.swing.JTextField();
+        terminationPayment = new javax.swing.JTextField();
+        health = new javax.swing.JTextField();
+        bonuses = new javax.swing.JTextField();
+        pension = new javax.swing.JTextField();
+        totalIncomes = new javax.swing.JTextField();
         addRegistry = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         labelUser = new javax.swing.JLabel();
         closeSesion = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
+        date = new com.toedter.calendar.JDateChooser();
+        jLabel14 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -91,7 +126,7 @@ public class HomePane extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Cesantias");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 99, 30));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 99, 30));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 805, 15));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -100,62 +135,93 @@ public class HomePane extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Bonos ");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 99, 30));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 99, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Pension");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 99, 30));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 99, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Salud");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 99, 30));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 99, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Deducciones");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 99, 30));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 99, 30));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Ingresos");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Total Deducciones");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 110, 30));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 110, 30));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Devengado Actual");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 120, 30));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 120, 30));
 
-        jTextField7.setBackground(new java.awt.Color(0, 204, 51));
-        add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 330, 130, 30));
+        totalDeductions.setEditable(false);
+        totalDeductions.setBackground(new java.awt.Color(0, 204, 51));
+        totalDeductions.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        totalDeductions.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(totalDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 130, 30));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("TOTAL A RECIBIR : ");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 120, 30));
-        add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 240, 40));
+
+        totalSalary.setEditable(false);
+        totalSalary.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        totalSalary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(totalSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 240, 40));
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 800, 10));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Total Ingresos");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, 99, 30));
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 99, 30));
 
-        jTextField9.setBackground(new java.awt.Color(0, 204, 51));
-        add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 130, 30));
+        actualSalary.setEditable(false);
+        actualSalary.setBackground(new java.awt.Color(0, 204, 51));
+        actualSalary.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        actualSalary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(actualSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 130, 30));
 
-        jTextField10.setBackground(new java.awt.Color(0, 204, 51));
-        add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 130, 30));
+        terminationPayment.setEditable(false);
+        terminationPayment.setBackground(new java.awt.Color(0, 204, 51));
+        terminationPayment.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        terminationPayment.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(terminationPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 130, 30));
 
-        jTextField11.setBackground(new java.awt.Color(0, 204, 51));
-        add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 230, 130, 30));
+        health.setEditable(false);
+        health.setBackground(new java.awt.Color(0, 204, 51));
+        health.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(health, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 130, 30));
 
-        jTextField12.setBackground(new java.awt.Color(0, 204, 51));
-        add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 130, 30));
+        bonuses.setEditable(false);
+        bonuses.setBackground(new java.awt.Color(0, 204, 51));
+        bonuses.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bonuses.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(bonuses, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 130, 30));
 
-        jTextField13.setBackground(new java.awt.Color(0, 204, 51));
-        add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, 130, 30));
+        pension.setEditable(false);
+        pension.setBackground(new java.awt.Color(0, 204, 51));
+        pension.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        pension.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pension.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pensionActionPerformed(evt);
+            }
+        });
+        add(pension, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 130, 30));
 
-        jTextField14.setBackground(new java.awt.Color(0, 204, 51));
-        add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, 130, 30));
+        totalIncomes.setEditable(false);
+        totalIncomes.setBackground(new java.awt.Color(0, 204, 51));
+        totalIncomes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        totalIncomes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(totalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 130, 30));
 
         addRegistry.setBackground(new java.awt.Color(0, 204, 51));
         addRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Clock_64px_1.png"))); // NOI18N
@@ -170,9 +236,9 @@ public class HomePane extends javax.swing.JPanel {
 
         jButton2.setBackground(new java.awt.Color(0, 204, 51));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Money_Bag_48px.png"))); // NOI18N
-        jButton2.setText("Agregar Ingresos");
+        jButton2.setText("Agregar Ingresos Adicionales");
         jButton2.setBorderPainted(false);
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 190, 60));
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 230, 60));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("$");
@@ -190,6 +256,31 @@ public class HomePane extends javax.swing.JPanel {
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_50px_2.png"))); // NOI18N
         add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 40));
+
+        date.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dateFocusGained(evt);
+            }
+        });
+        date.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dateMouseClicked(evt);
+            }
+        });
+        date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                datePropertyChange(evt);
+            }
+        });
+        date.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
+                dateVetoableChange(evt);
+            }
+        });
+        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 110, 30));
+
+        jLabel14.setText("Fecha de pago");
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void salaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaryActionPerformed
@@ -203,16 +294,54 @@ public class HomePane extends javax.swing.JPanel {
         reg.setVisible(true);
     }//GEN-LAST:event_addRegistryActionPerformed
 
+    private void pensionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pensionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pensionActionPerformed
+
+    private void datePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_datePropertyChange
+        // TODO add your handling code here:
+        
+      if(evt.getOldValue()!=null){
+         
+          Calendar calendar = this.date.getCalendar();
+          int day = calendar.get(Calendar.DATE);
+          cal.setCut2(day);
+          
+          this.chargeInfo();
+      }
+
+    }//GEN-LAST:event_datePropertyChange
+
+    private void dateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateFocusGained
+        // TODO add your handling code here:
+        datechanged = true;
+    }//GEN-LAST:event_dateFocusGained
+
+    private void dateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_dateMouseClicked
+
+    private void dateVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_dateVetoableChange
+        // TODO add your handling code here:
+        System.out.println("hola");
+    }//GEN-LAST:event_dateVetoableChange
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField actualSalary;
     private javax.swing.JButton addRegistry;
+    private javax.swing.JTextField bonuses;
     private javax.swing.JButton closeSesion;
+    private com.toedter.calendar.JDateChooser date;
+    private javax.swing.JTextField health;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -224,15 +353,12 @@ public class HomePane extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel labelUser;
+    private javax.swing.JTextField pension;
     private javax.swing.JTextField salary;
+    private javax.swing.JTextField terminationPayment;
+    private javax.swing.JTextField totalDeductions;
+    private javax.swing.JTextField totalIncomes;
+    private javax.swing.JTextField totalSalary;
     // End of variables declaration//GEN-END:variables
 }

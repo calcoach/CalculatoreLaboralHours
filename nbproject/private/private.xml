@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/ODBCSesion.java</file>
-            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/userPanel.java</file>
-            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/HistoryPane.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/Question3.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/Question2.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/DeductionsCalculator.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/ManagingDataUser.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/AddRegistry.java</file>
             <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/SesionWindow.java</file>
-            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/MainWindow.java</file>
-            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/ClosedWindowEvent.java</file>
             <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/HomePane.java</file>
-            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/ExceptionLaboralHours.java</file>
-            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/Sesion.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/horaslaborales/ODBC.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/Question1.java</file>
+            <file>file:/D:/Sincronizado/Proyectos/HorasLaborales/src/Interface/WindowRegistry.java</file>
         </group>
     </open-files>
 </project-private>

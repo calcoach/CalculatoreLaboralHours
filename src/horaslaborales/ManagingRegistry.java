@@ -31,20 +31,21 @@ public class ManagingRegistry {
         ses = sesion;
     }
 
-    public void updateLastSalary(JTextField salary, String user) {
+    public void updateLastSalary(JTextField salary) {
         ODBC conect = new ODBC(URL_ODBC, this.ses);
-        conect.editSalary(salary.getText(), user);
+        conect.editSalary(FieldString.deleteWhiteSpaces(salary.getText()), ses.getUser());
 
     }
 
     public void getSalary(JTextField salary, String user) {
         ODBC conect = new ODBC(URL_ODBC, ses);
-        salary.setText(conect.selectSalary(user));
+        String s = conect.selectSalary(user);
+        salary.setText(FieldString.fieldNum(s));
 
     }
 
-    //MOdificacion en registro: Incluir hora de inicio y hora fin
-    public  boolean saveRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculadora cal) {
+    //Modificacion en registro: Incluir hora de inicio y hora fin
+    public  boolean saveRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculator cal) {
 
         try {
             ODBC conect = new ODBC(URL_ODBC, ses);
@@ -63,12 +64,12 @@ public class ManagingRegistry {
             JOptionPane.showMessageDialog(null, "Fecha ocupada por otro registro");
 
         }
-        //Errors
+        
         return false;
     }
 
     //MOdificacion en registro: Incluir hora de inicio y hora fin
-    public void updateRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculadora cal) {
+    public void updateRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculator cal) {
 
         try {
             ODBC conect = new ODBC(URL_ODBC, ses);
