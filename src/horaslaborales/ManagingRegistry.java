@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -26,30 +25,34 @@ public class ManagingRegistry {
 
     public static String URL_ODBC = "Prueba.db";
     private Sesion ses;
-    
-    public ManagingRegistry(Sesion sesion){
+    ODBC conect;
+
+    public ManagingRegistry(Sesion sesion) {
+       
         ses = sesion;
+        conect = new ODBC(URL_ODBC, ses);
+        conect.createNewTableUser();
     }
 
     public void updateLastSalary(JTextField salary) {
-        ODBC conect = new ODBC(URL_ODBC, this.ses);
+
         conect.editSalary(FieldString.deleteWhiteSpaces(salary.getText()), ses.getUser());
 
     }
 
     public void getSalary(JTextField salary, String user) {
-        ODBC conect = new ODBC(URL_ODBC, ses);
+
+        
         String s = conect.selectSalary(user);
         salary.setText(FieldString.fieldNum(s));
 
     }
 
     //Modificacion en registro: Incluir hora de inicio y hora fin
-    public  boolean saveRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculator cal) {
+    public boolean saveRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculator cal) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC, ses);
-            conect.createNewTable();
+
             CalendarString date = new CalendarString(fecha1.getCalendar());
 
             int[] horas = cal.calcularHoras();
@@ -64,7 +67,7 @@ public class ManagingRegistry {
             JOptionPane.showMessageDialog(null, "Fecha ocupada por otro registro");
 
         }
-        
+
         return false;
     }
 
@@ -72,7 +75,6 @@ public class ManagingRegistry {
     public void updateRegistry(JDateChooser fecha1, JDateChooser fecha2, Calculator cal) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC, ses);
 
             CalendarString date = new CalendarString(fecha1.getCalendar());
 
@@ -92,9 +94,8 @@ public class ManagingRegistry {
         //ComboBox Year need contain year
         if (year.getItemCount() > 0) {
 
-            int yearInt =Integer.valueOf((String)year.getSelectedItem());
+            int yearInt = Integer.valueOf((String) year.getSelectedItem());
             if (JCombo.getItemCount() == 0) {
-                ODBC conect = new ODBC(URL_ODBC, ses);
 
                 ArrayList<Integer> registries = conect.selectRegistriesMonthYear((String) year.getSelectedItem());
 
@@ -119,8 +120,6 @@ public class ManagingRegistry {
 
     public void chargueYearRegistries(JComboBox year) {
 
-        ODBC conect = new ODBC(URL_ODBC, ses);
-
         ArrayList<String> registries = conect.selectRegistriesYears();
 
         year.removeAllItems();
@@ -138,7 +137,7 @@ public class ManagingRegistry {
     private void chargueRegistries(JTable table, String consult) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC, ses);
+
             ArrayList<Registry> registries = conect.selectMonthRegistries(consult);
 
             DefaultTableModel deftable = (DefaultTableModel) table.getModel();
@@ -149,9 +148,9 @@ public class ManagingRegistry {
             int sumExtraDiurna = 0;
             int sumExtraNocturna = 0;
             double sumSueldo = 0;
-            
+
             DecimalFormat df = new DecimalFormat("#.##");
-            
+
             for (Registry registry : registries) {
 
                 CalendarString c = new CalendarString();
@@ -176,7 +175,6 @@ public class ManagingRegistry {
 
     public void deleteRegistry(String date) {
 
-        ODBC conect = new ODBC(URL_ODBC, ses);
         conect.deleteRegistry(date);
 
     }
@@ -184,7 +182,7 @@ public class ManagingRegistry {
     public Registry searchRegistry(String consult) {
 
         try {
-            ODBC conect = new ODBC(URL_ODBC, ses);
+
             return conect.selectRegistry(consult);
         } catch (ExceptionLaboralHours ex) {
             Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,6 +194,7 @@ public class ManagingRegistry {
     }
 
     public void saveRegistryToExcel(JTable table, String rute) {
+
         WriteExcelRegistry write = new WriteExcelRegistry(table, rute);
         int returnSave = write.save();
         switch (returnSave) {

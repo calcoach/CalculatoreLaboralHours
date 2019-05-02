@@ -108,7 +108,7 @@ public class ODBCSesion {
             
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            
             return -1;
         }
         return 1;

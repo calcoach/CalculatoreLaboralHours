@@ -34,8 +34,18 @@ public class ManagingDataUser {
        return database.selectMensualBonuses();
    }
    
+   public int getPeriodsPayment(){
+       
+       return database.selectPeriodsPayment();
+   }
+   
    public void updateBonuses(String bonus){
        
        database.updateBonuses(bonus);
+   }
+   
+   public void updatePeriodsPayment(int periods){
+       
+       database.updatePeriodsPayment(periods);
    }
 }

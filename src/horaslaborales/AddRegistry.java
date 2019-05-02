@@ -31,12 +31,13 @@ public class AddRegistry extends javax.swing.JFrame {
 
     }
 
-    public AddRegistry(Registry reg) {
+    public AddRegistry(Registry reg, Sesion user) {
         initComponents();
-        preConfigureWindow();
-
+        this.user = user;
         this.registry = reg;
+        managing = new ManagingRegistry(user);
         preChargedData();
+        preConfigureWindow();
 
     }
 
@@ -44,7 +45,11 @@ public class AddRegistry extends javax.swing.JFrame {
         int select = combo.getSelectedIndex();
 
         if (select == 0) {
-            return 24;
+            if (selectTypeDay.getSelectedIndex() == 2 | selectTypeDay.getSelectedIndex() == 3) {
+                return 0;
+            } else {
+                return 24;
+            }
         } else {
             return select;
         }
@@ -53,6 +58,7 @@ public class AddRegistry extends javax.swing.JFrame {
     private void preConfigureWindow() {
 
         managing.getSalary(salary, user.getUser());
+
         //Edit Table contents
         this.selectTypeDay.setSelectedIndex(-1);
 
@@ -115,23 +121,34 @@ public class AddRegistry extends javax.swing.JFrame {
         DefaultTableModel table = (DefaultTableModel) this.jTable1.getModel();
         table.setNumRows(0);
 
-        /*table.addRow(new Object[]{"Ordinaria", horas[0], costo[0]});
-        table.addRow(new Object[]{"R.Nocturna", horas[1], costo[1]});
-        table.addRow(new Object[]{"Extra Diurna", horas[2], costo[2]});
-        table.addRow(new Object[]{"Extra Nocturna", horas[3], costo[3]});*/
         int n = horas.length;
+        
         for (int i = 0; i < n; i++) {
 
             if (horas[i] != 0) {
 
                 if (n > 5 & this.selectTypeDay.getSelectedIndex() == 3) {
                     if (i < 5) {
-                        table.addRow(new Object[]{nameHours(i + 5), horas[i], costo[i]});
+
+                        if (i != 4) {
+                            table.addRow(new Object[]{nameHours(i + 5), horas[i], costo[i]});
+                        }
+
                     } else {
                         table.addRow(new Object[]{nameHours(i - 5), horas[i], costo[i]});
+
+                    }
+
+                } else if (getTimeChooser(time2) < getTimeChooser(time1)) {
+
+                    if (i > 4 & i < 9) {
+                        table.addRow(new Object[]{nameHours(i-5), horas[i], costo[i]});
+                    } else {
+                        table.addRow(new Object[]{nameHours(i), horas[i], costo[i]});
                     }
 
                 } else {
+
                     table.addRow(new Object[]{nameHours(i), horas[i], costo[i]});
                 }
             }
@@ -388,7 +405,7 @@ public class AddRegistry extends javax.swing.JFrame {
             Calculator calc = new Calculator(getTimeChooser(time1), getTimeChooser(time2),
                     (int) i);
             calc.setDia(selectTypeDay.getSelectedIndex() + 1);
-            
+
             if (registry == null) {
 
                 boolean h = managing.saveRegistry(this.jDateChooser1, this.jDateChooser2, calc);
@@ -443,14 +460,15 @@ public class AddRegistry extends javax.swing.JFrame {
 
     private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
         // TODO add your handling code here:
-        if (this.jDateChooser1.getCalendar() == null) {
+        /*if (this.jDateChooser1.getCalendar() == null) {
+            
             if (selectTypeDay.getSelectedIndex() > 1) {
                 Calendar c = jDateChooser2.getCalendar();
                 c.add(Calendar.DAY_OF_MONTH, -1);
                 jDateChooser2.setCalendar(c);
             }
 
-        }
+        }*/
     }//GEN-LAST:event_jDateChooser2PropertyChange
 
     /**
