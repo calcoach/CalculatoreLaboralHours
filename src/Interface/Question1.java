@@ -5,6 +5,7 @@
  */
 package Interface;
 
+import horaslaborales.FieldString;
 import horaslaborales.Question;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -43,7 +44,7 @@ public class Question1 extends javax.swing.JPanel  implements Question{
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        salary = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -91,12 +92,12 @@ public class Question1 extends javax.swing.JPanel  implements Question{
         jLabel9.setText("Periodo de Pago de Nómina*");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 240, 44));
 
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        salary.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField2KeyReleased(evt);
+                salaryKeyReleased(evt);
             }
         });
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 140, 28));
+        add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 140, 28));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("$");
@@ -113,10 +114,11 @@ public class Question1 extends javax.swing.JPanel  implements Question{
         reg.setPeriods_payment(4);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+    private void salaryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_salaryKeyReleased
         // TODO add your handling code here:
-        reg.setSalary(this.jTextField2.getText());
-    }//GEN-LAST:event_jTextField2KeyReleased
+        salary.setText(FieldString.fieldNum(salary.getText()));
+        reg.setSalary(FieldString.deleteWhiteSpaces(salary.getText()));
+    }//GEN-LAST:event_salaryKeyReleased
 
     private void jRadioButton1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jRadioButton1KeyReleased
         // TODO add your handling code here:
@@ -137,13 +139,13 @@ public class Question1 extends javax.swing.JPanel  implements Question{
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField salary;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public boolean hasNullInputs() {
 
-        if( this.jTextField2.getText().equals("")){
+        if( this.salary.getText().equals("")){
             
             JLabel message = new JLabel("Escriba su sueldo");
             message.setForeground(Color.red);

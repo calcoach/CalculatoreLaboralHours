@@ -5,9 +5,13 @@
  */
 package Interface;
 
+import horaslaborales.ODBC;
 import horaslaborales.ODBCSesion;
 import horaslaborales.Question;
+import horaslaborales.Sesion;
+import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import models.NewRegistry;
 
@@ -42,10 +46,11 @@ public class WindowRegistry extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nameUser = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         questionpane = new javax.swing.JPanel();
+        cancel = new javax.swing.JButton();
         next = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,12 +77,12 @@ public class WindowRegistry extends javax.swing.JFrame {
         jLabel1.setText("Nombre y Apellido*");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 130, 30));
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        nameUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                nameUserKeyReleased(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 203, 34));
+        jPanel2.add(nameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 203, 34));
 
         jLabel10.setBackground(new java.awt.Color(255, 0, 0));
         jLabel10.setText("Los campos con ( * )son obligatorios. ");
@@ -97,6 +102,16 @@ public class WindowRegistry extends javax.swing.JFrame {
         questionpane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(questionpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 480, 260));
 
+        cancel.setBackground(new java.awt.Color(0, 153, 51));
+        cancel.setText("CANCELAR");
+        cancel.setBorder(null);
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 100, 30));
+
         next.setBackground(new java.awt.Color(0, 153, 51));
         next.setText("SIGUIENTE ");
         next.setBorder(null);
@@ -105,7 +120,7 @@ public class WindowRegistry extends javax.swing.JFrame {
                 nextActionPerformed(evt);
             }
         });
-        jPanel2.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 100, 30));
+        jPanel2.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, 100, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 670, 460));
 
@@ -117,6 +132,7 @@ public class WindowRegistry extends javax.swing.JFrame {
         questionpane.removeAll();
         if (numquestion > 0) {
             numquestion--;
+            next.setText("Siguiente");
         }
 
         chargeQuestion();
@@ -126,22 +142,40 @@ public class WindowRegistry extends javax.swing.JFrame {
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
         // TODO add your handling code here:
 
-        if (!checkInputs((Question)questionpane.getComponent(0))) {
+        try {
+            JPanel actualQuestion = (JPanel) questionpane.getComponent(0);
 
-            questionpane.removeAll();
-            if (numquestion <= 2) {
+            if (actualQuestion != null) {
 
-                numquestion++;
+                if (!checkInputs((Question) actualQuestion)) {
+
+                    questionpane.removeAll();
+                    if (numquestion <= 2) {
+
+                        numquestion++;
+                    }
+                }
+
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+
         }
 
         chargeQuestion();
     }//GEN-LAST:event_nextActionPerformed
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+    private void nameUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameUserKeyReleased
         // TODO add your handling code here:
-        reg.setNameUser(this.jTextField1.getText());
-    }//GEN-LAST:event_jTextField1KeyReleased
+        reg.setNameUser(this.nameUser.getText());
+    }//GEN-LAST:event_nameUserKeyReleased
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        // TODO add your handling code here:
+        SesionWindow w = new SesionWindow();
+        w.setVisible(true);
+        w.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,18 +229,7 @@ public class WindowRegistry extends javax.swing.JFrame {
 
             case 3:
 
-                System.out.println(reg.getMensualBonuses());
-                System.out.println(reg.getTerminationPayment());
-                System.out.println(reg.getSalary());
-                ODBCSesion odb = new ODBCSesion("Prueba.db");
-                //PROGRAMAR RESPUESTA AL CREAR USUARIO
-                if (!reg.getNameUser().equals(null)) {
-
-                    odb.createUser(reg);
-                    SesionWindow w = new SesionWindow();
-                    w.setVisible(true);
-                    w.setLocationRelativeTo(null);
-                }
+                createUser();
 
                 break;
 
@@ -223,11 +246,12 @@ public class WindowRegistry extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton cancel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField nameUser;
     private javax.swing.JButton next;
     private javax.swing.JPanel questionpane;
     // End of variables declaration//GEN-END:variables
@@ -235,5 +259,44 @@ public class WindowRegistry extends javax.swing.JFrame {
     private boolean checkInputs(Question question) {
 
         return question.hasNullInputs();
+    }
+
+    private boolean checkNameUser() {
+
+        if (nameUser.getText().equals("")) {
+            JLabel message = new JLabel("Escriba el nombre de usuario");
+            message.setForeground(Color.red);
+            jPanel2.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70));
+            return false;
+        }
+
+        return true;
+    }
+
+    private void createUser() {
+
+        ODBCSesion odb = new ODBCSesion("Prueba.db");
+        //PROGRAMAR RESPUESTA AL CREAR USUARIO
+        if (checkNameUser()) {
+
+            int response = odb.createUser(reg);
+
+            if (response == 1) {
+                ODBC database = new ODBC("Prueba.db", new Sesion(reg.getNameUser(), ""));
+                database.createNewTableUser();
+                SesionWindow w = new SesionWindow();
+                w.setVisible(true);
+                w.setLocationRelativeTo(null);
+                this.dispose();
+            } else {
+
+                JLabel message = new JLabel("Este usuario ya existe");
+                message.setForeground(Color.red);
+                this.jPanel2.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30));
+                System.out.println(reg.getSalary());
+                System.out.println(this.numquestion);
+            }
+
+        }
     }
 }

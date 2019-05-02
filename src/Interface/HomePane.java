@@ -6,6 +6,7 @@
 package Interface;
 
 import horaslaborales.AddRegistry;
+import horaslaborales.ClosedWindowEvent;
 import horaslaborales.DeductionsCalculator;
 import horaslaborales.FieldString;
 import horaslaborales.ManagingRegistry;
@@ -29,6 +30,7 @@ public class HomePane extends javax.swing.JPanel {
     boolean datechanged = false;
 
     public HomePane(Sesion user) {
+       
         initComponents();
         this.user = user;
         managing = new ManagingRegistry(user);
@@ -37,6 +39,7 @@ public class HomePane extends javax.swing.JPanel {
     }
 
     private void preconfig() {
+       
         managing.getSalary(salary, user.getUser());
         labelUser.setText(user.getUser());
         salary.setEditable(false);
@@ -46,6 +49,7 @@ public class HomePane extends javax.swing.JPanel {
     }
     
     private void chargeCalendar(){
+       
         Calendar calendar = getInstance();
         String datePay = cal.getPeriod()[1];
         String[] split = datePay.split("-");
@@ -53,6 +57,11 @@ public class HomePane extends javax.swing.JPanel {
         calendar.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
 
         date.setCalendar(calendar);
+    }
+    
+    public void updateInfo(){
+        cal.recalculateCurrentSalary();
+        chargeInfo();
     }
 
     private void chargeInfo() {
@@ -109,6 +118,8 @@ public class HomePane extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         date = new com.toedter.calendar.JDateChooser();
         jLabel14 = new javax.swing.JLabel();
+        totalIncomes1 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -179,8 +190,8 @@ public class HomePane extends javax.swing.JPanel {
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 800, 10));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Total Ingresos");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 99, 30));
+        jLabel12.setText("Auxilio de transporte");
+        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 130, 30));
 
         actualSalary.setEditable(false);
         actualSalary.setBackground(new java.awt.Color(0, 204, 51));
@@ -221,7 +232,7 @@ public class HomePane extends javax.swing.JPanel {
         totalIncomes.setBackground(new java.awt.Color(0, 204, 51));
         totalIncomes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         totalIncomes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(totalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 130, 30));
+        add(totalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 130, 30));
 
         addRegistry.setBackground(new java.awt.Color(0, 204, 51));
         addRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Clock_64px_1.png"))); // NOI18N
@@ -257,16 +268,6 @@ public class HomePane extends javax.swing.JPanel {
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_50px_2.png"))); // NOI18N
         add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 40));
 
-        date.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dateFocusGained(evt);
-            }
-        });
-        date.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dateMouseClicked(evt);
-            }
-        });
         date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 datePropertyChange(evt);
@@ -281,6 +282,16 @@ public class HomePane extends javax.swing.JPanel {
 
         jLabel14.setText("Fecha de pago");
         add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
+
+        totalIncomes1.setEditable(false);
+        totalIncomes1.setBackground(new java.awt.Color(0, 204, 51));
+        totalIncomes1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        totalIncomes1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        add(totalIncomes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 130, 30));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setText("Total Ingresos");
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 99, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void salaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaryActionPerformed
@@ -292,6 +303,7 @@ public class HomePane extends javax.swing.JPanel {
         AddRegistry reg = new AddRegistry(this.user);
         reg.setLocationRelativeTo(null);
         reg.setVisible(true);
+        reg.addWindowListener(new ClosedWindowEvent(this));
     }//GEN-LAST:event_addRegistryActionPerformed
 
     private void pensionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pensionActionPerformed
@@ -312,19 +324,9 @@ public class HomePane extends javax.swing.JPanel {
 
     }//GEN-LAST:event_datePropertyChange
 
-    private void dateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateFocusGained
-        // TODO add your handling code here:
-        datechanged = true;
-    }//GEN-LAST:event_dateFocusGained
-
-    private void dateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_dateMouseClicked
-
     private void dateVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_dateVetoableChange
         // TODO add your handling code here:
-        System.out.println("hola");
+      
     }//GEN-LAST:event_dateVetoableChange
 
 
@@ -343,6 +345,7 @@ public class HomePane extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -359,6 +362,7 @@ public class HomePane extends javax.swing.JPanel {
     private javax.swing.JTextField terminationPayment;
     private javax.swing.JTextField totalDeductions;
     private javax.swing.JTextField totalIncomes;
+    private javax.swing.JTextField totalIncomes1;
     private javax.swing.JTextField totalSalary;
     // End of variables declaration//GEN-END:variables
 }

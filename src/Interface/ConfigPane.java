@@ -5,15 +5,10 @@
  */
 package Interface;
 
-import horaslaborales.AddRegistry;
-import horaslaborales.DeductionsCalculator;
 import horaslaborales.FieldString;
 import horaslaborales.ManagingDataUser;
 import horaslaborales.ManagingRegistry;
 import horaslaborales.Sesion;
-import java.util.Calendar;
-import static java.util.Calendar.getInstance;
-import java.util.Date;
 
 /**
  *
@@ -27,7 +22,7 @@ public class ConfigPane extends javax.swing.JPanel {
     Sesion user;
     ManagingRegistry managing;
     ManagingDataUser managingData;
-    
+
     public ConfigPane(Sesion user) {
         initComponents();
         this.user = user;
@@ -35,20 +30,32 @@ public class ConfigPane extends javax.swing.JPanel {
         managingData = new ManagingDataUser(user);
         preconfig();
     }
-    
-         
-     
-    
-    private void preconfig(){
+
+    private void preconfig() {
         managing.getSalary(salary, user.getUser());
         labelUser.setText(user.getUser());
         editTerminationPayment.setText(FieldString.fieldNum(managingData.getTerminationPayment()));
         editBonuses.setText(FieldString.fieldNum(String.valueOf(managingData.getBonuses())));
         
-        
+        switch(managingData.getPeriodsPayment()){
+            
+            case 1:
+                this.monthly.setSelected(true);
+                break;
+                
+            case 2:
+                this.biweekly.setSelected(true);
+                break;
+                
+            case 4:
+                this.weekly.setSelected(true);
+                break;
+                
+            default:
+                break;
+        }
+
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,6 +66,7 @@ public class ConfigPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         salary = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -70,9 +78,9 @@ public class ConfigPane extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         editTerminationPayment = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        biweekly = new javax.swing.JRadioButton();
+        weekly = new javax.swing.JRadioButton();
+        monthly = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         editBonuses = new javax.swing.JTextField();
@@ -85,11 +93,6 @@ public class ConfigPane extends javax.swing.JPanel {
         jLabel1.setText("Dia de pago");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, 130, -1));
 
-        salary.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salaryActionPerformed(evt);
-            }
-        });
         salary.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 salaryKeyReleased(evt);
@@ -123,11 +126,6 @@ public class ConfigPane extends javax.swing.JPanel {
         jLabel17.setText("Editar Cesantias");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 130, -1));
 
-        editTerminationPayment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editTerminationPaymentActionPerformed(evt);
-            }
-        });
         editTerminationPayment.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 editTerminationPaymentKeyReleased(evt);
@@ -139,24 +137,32 @@ public class ConfigPane extends javax.swing.JPanel {
         jLabel14.setText("$");
         add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 20, 30));
 
-        jRadioButton1.setText("Quincenal");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(biweekly);
+        biweekly.setText("Quincenal");
+        biweekly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                biweeklyActionPerformed(evt);
             }
         });
-        add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
+        add(biweekly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
 
-        jRadioButton2.setText("Semanal");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(weekly);
+        weekly.setText("Semanal");
+        weekly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                weeklyActionPerformed(evt);
             }
         });
-        add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, -1));
+        add(weekly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, -1));
 
-        jRadioButton3.setText("Mensual");
-        add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+        buttonGroup1.add(monthly);
+        monthly.setText("Mensual");
+        monthly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monthlyActionPerformed(evt);
+            }
+        });
+        add(monthly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Periodo de Pago de Nómina*");
@@ -166,11 +172,6 @@ public class ConfigPane extends javax.swing.JPanel {
         jLabel18.setText("Editar Bonos Mensuales");
         add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 170, -1));
 
-        editBonuses.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBonusesActionPerformed(evt);
-            }
-        });
         editBonuses.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 editBonusesKeyReleased(evt);
@@ -183,50 +184,79 @@ public class ConfigPane extends javax.swing.JPanel {
         add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 20, 30));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void salaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaryActionPerformed
+    private void biweeklyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_biweeklyActionPerformed
         // TODO add your handling code here:
-       
-        
-    }//GEN-LAST:event_salaryActionPerformed
+        managingData.updatePeriodsPayment(2);
+    }//GEN-LAST:event_biweeklyActionPerformed
 
-    private void editTerminationPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTerminationPaymentActionPerformed
+    private void weeklyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weeklyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_editTerminationPaymentActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+        managingData.updatePeriodsPayment(4);
+    }//GEN-LAST:event_weeklyActionPerformed
 
     private void salaryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_salaryKeyReleased
         // TODO add your handling code here:
+        int caretPosition = salary.getCaretPosition();
         salary.setText(FieldString.fieldNum(salary.getText()));
-         managing.updateLastSalary(salary);
-    }//GEN-LAST:event_salaryKeyReleased
-
-    private void editBonusesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBonusesActionPerformed
-        // TODO add your handling code here:
+        int size = salary.getText().length();
         
-    }//GEN-LAST:event_editBonusesActionPerformed
+        if (caretPosition > size) {
+            caretPosition = caretPosition - (caretPosition - size);
+
+        } else if (!evt.isActionKey()) {
+            caretPosition++;
+        }
+
+        salary.setCaretPosition(caretPosition);
+        managing.updateLastSalary(salary);
+    }//GEN-LAST:event_salaryKeyReleased
 
     private void editTerminationPaymentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editTerminationPaymentKeyReleased
         // TODO add your handling code here:
+
+        int caretPosition = editTerminationPayment.getCaretPosition();
         editTerminationPayment.setText(FieldString.fieldNum(editTerminationPayment.getText()));
+        int size = editTerminationPayment.getText().length();
+
+        if (caretPosition > size) {
+            caretPosition = caretPosition - (caretPosition - size);
+
+        } else if (!evt.isActionKey()) {
+            caretPosition++;
+        }
+
+        editTerminationPayment.setCaretPosition(caretPosition);
         managingData.updateTerminationPayment(FieldString.deleteWhiteSpaces(editTerminationPayment.getText()));
-        
+
     }//GEN-LAST:event_editTerminationPaymentKeyReleased
 
     private void editBonusesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editBonusesKeyReleased
         // TODO add your handling code here:
+        int caretPosition = editBonuses.getCaretPosition();
+
         editBonuses.setText(FieldString.fieldNum(editBonuses.getText()));
+        int size = editBonuses.getText().length();
+
+        if (caretPosition > size) {
+            caretPosition = caretPosition - (caretPosition - size);
+
+        } else if (!evt.isActionKey()) {
+            caretPosition++;
+        }
+
+        editBonuses.setCaretPosition(caretPosition);
         managingData.updateBonuses(FieldString.deleteWhiteSpaces(editBonuses.getText()));
     }//GEN-LAST:event_editBonusesKeyReleased
 
+    private void monthlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthlyActionPerformed
+        // TODO add your handling code here:
+        managingData.updatePeriodsPayment(1);
+    }//GEN-LAST:event_monthlyActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton biweekly;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton closeSesion;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JTextField editBonuses;
@@ -240,10 +270,9 @@ public class ConfigPane extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JLabel labelUser;
+    private javax.swing.JRadioButton monthly;
     private javax.swing.JTextField salary;
+    private javax.swing.JRadioButton weekly;
     // End of variables declaration//GEN-END:variables
 }

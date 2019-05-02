@@ -135,6 +135,6 @@ public class Question2 extends javax.swing.JPanel implements Question{
     @Override
     public boolean hasNullInputs() {
 
-        return true;
+        return false;
     }
 }
