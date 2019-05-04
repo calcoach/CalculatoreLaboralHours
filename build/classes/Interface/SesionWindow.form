@@ -144,7 +144,7 @@
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="110" y="220" width="200" height="210"/>
+              <AbsoluteConstraints x="110" y="220" width="210" height="210"/>
             </Constraint>
           </Constraints>
 

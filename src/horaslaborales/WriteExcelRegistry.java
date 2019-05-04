@@ -82,7 +82,8 @@ public class WriteExcelRegistry {
         return 1;
     }
 
-    private static void createHead(JTable table, SXSSFWorkbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign) {
+    private static void createHead(JTable table, SXSSFWorkbook wb, Row row, int column, 
+            HorizontalAlignment halign, VerticalAlignment valign) {
 
         if (column <= table.getColumnCount() - 1) {
             Cell cell = row.createCell(column);
@@ -100,7 +101,8 @@ public class WriteExcelRegistry {
         }
     }
     
-    private static void createCell(Vector data, SXSSFWorkbook wb, Row row, int column, HorizontalAlignment halign, VerticalAlignment valign) {
+    private static void createCell(Vector data, SXSSFWorkbook wb, Row row, int column, 
+            HorizontalAlignment halign, VerticalAlignment valign) {
 
         if (column <= data.size() - 1) {
             Cell cell = row.createCell(column);

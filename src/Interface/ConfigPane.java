@@ -5,10 +5,11 @@
  */
 package Interface;
 
-import horaslaborales.FieldString;
+import Inputs.FieldString;
 import horaslaborales.ManagingDataUser;
 import horaslaborales.ManagingRegistry;
 import horaslaborales.Sesion;
+import javax.swing.JTextField;
 
 /**
  *
@@ -33,26 +34,39 @@ public class ConfigPane extends javax.swing.JPanel {
 
     private void preconfig() {
         managing.getSalary(salary, user.getUser());
-        labelUser.setText(user.getUser());
+       
         editTerminationPayment.setText(FieldString.fieldNum(managingData.getTerminationPayment()));
         editBonuses.setText(FieldString.fieldNum(String.valueOf(managingData.getBonuses())));
-        
-        switch(managingData.getPeriodsPayment()){
-            
+
+        switch (managingData.getPeriodsPayment()) {
+
             case 1:
                 this.monthly.setSelected(true);
                 break;
-                
+
             case 2:
                 this.biweekly.setSelected(true);
                 break;
-                
+
             case 4:
                 this.weekly.setSelected(true);
                 break;
-                
+
             default:
                 break;
+        }
+
+        if (managingData.getComision()) {
+            this.jCheckBox3.setSelected(true);
+        } else {
+            this.jCheckBox4.setSelected(true);
+        }
+
+        if (managingData.getTransportAssistance()) {
+
+            this.jCheckBox1.setSelected(true);
+        } else {
+            this.jCheckBox2.setSelected(true);
         }
 
     }
@@ -67,12 +81,11 @@ public class ConfigPane extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         salary = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        labelUser = new javax.swing.JLabel();
-        closeSesion = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
         date = new com.toedter.calendar.JDateChooser();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -85,57 +98,50 @@ public class ConfigPane extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         editBonuses = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jCheckBox4 = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Dia de pago");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, 130, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 130, -1));
 
         salary.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 salaryKeyReleased(evt);
             }
         });
-        add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 144, 31));
+        add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 144, 31));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("$");
-        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 20, 30));
-
-        labelUser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        labelUser.setText("user");
-        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 70, 20));
-
-        closeSesion.setBackground(new java.awt.Color(0, 204, 0));
-        closeSesion.setForeground(new java.awt.Color(255, 255, 255));
-        closeSesion.setText("Cerrrar Sesion");
-        closeSesion.setBorder(null);
-        add(closeSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, 120, 20));
-
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_50px_2.png"))); // NOI18N
-        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 40));
-        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 500, 140, 30));
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 20, 30));
+        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 140, 30));
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel16.setText("Editar Sueldo");
-        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 130, -1));
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 130, -1));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setText("Editar Cesantias");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 130, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 130, -1));
 
         editTerminationPayment.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 editTerminationPaymentKeyReleased(evt);
             }
         });
-        add(editTerminationPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 144, 31));
+        add(editTerminationPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 144, 31));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel14.setText("$");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 20, 30));
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 20, 30));
 
         buttonGroup1.add(biweekly);
         biweekly.setText("Quincenal");
@@ -144,7 +150,7 @@ public class ConfigPane extends javax.swing.JPanel {
                 biweeklyActionPerformed(evt);
             }
         });
-        add(biweekly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, -1, -1));
+        add(biweekly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
 
         buttonGroup1.add(weekly);
         weekly.setText("Semanal");
@@ -153,7 +159,7 @@ public class ConfigPane extends javax.swing.JPanel {
                 weeklyActionPerformed(evt);
             }
         });
-        add(weekly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, -1));
+        add(weekly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, -1, -1));
 
         buttonGroup1.add(monthly);
         monthly.setText("Mensual");
@@ -162,26 +168,70 @@ public class ConfigPane extends javax.swing.JPanel {
                 monthlyActionPerformed(evt);
             }
         });
-        add(monthly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+        add(monthly, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Periodo de Pago de Nómina*");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 240, 44));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 240, 44));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("Editar Bonos Mensuales");
-        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 170, -1));
+        add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 170, -1));
 
         editBonuses.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 editBonusesKeyReleased(evt);
             }
         });
-        add(editBonuses, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 144, 31));
+        add(editBonuses, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 144, 31));
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel19.setText("$");
-        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 20, 30));
+        add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 20, 30));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Auxilio de transporte");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 450, 150, 20));
+
+        buttonGroup3.add(jCheckBox1);
+        jCheckBox1.setText("Si");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 480, -1, -1));
+
+        buttonGroup3.add(jCheckBox2);
+        jCheckBox2.setText("No");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+        add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Comisiones");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 150, 20));
+
+        buttonGroup2.add(jCheckBox3);
+        jCheckBox3.setText("Si");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+        add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
+
+        buttonGroup2.add(jCheckBox4);
+        jCheckBox4.setText("No");
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
+        add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void biweeklyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_biweeklyActionPerformed
@@ -198,16 +248,7 @@ public class ConfigPane extends javax.swing.JPanel {
         // TODO add your handling code here:
         int caretPosition = salary.getCaretPosition();
         salary.setText(FieldString.fieldNum(salary.getText()));
-        int size = salary.getText().length();
-        
-        if (caretPosition > size) {
-            caretPosition = caretPosition - (caretPosition - size);
-
-        } else if (!evt.isActionKey()) {
-            caretPosition++;
-        }
-
-        salary.setCaretPosition(caretPosition);
+        FieldString.moveCaret(caretPosition, salary, evt);
         managing.updateLastSalary(salary);
     }//GEN-LAST:event_salaryKeyReleased
 
@@ -216,16 +257,8 @@ public class ConfigPane extends javax.swing.JPanel {
 
         int caretPosition = editTerminationPayment.getCaretPosition();
         editTerminationPayment.setText(FieldString.fieldNum(editTerminationPayment.getText()));
-        int size = editTerminationPayment.getText().length();
 
-        if (caretPosition > size) {
-            caretPosition = caretPosition - (caretPosition - size);
-
-        } else if (!evt.isActionKey()) {
-            caretPosition++;
-        }
-
-        editTerminationPayment.setCaretPosition(caretPosition);
+        FieldString.moveCaret(caretPosition, editTerminationPayment, evt);
         managingData.updateTerminationPayment(FieldString.deleteWhiteSpaces(editTerminationPayment.getText()));
 
     }//GEN-LAST:event_editTerminationPaymentKeyReleased
@@ -235,16 +268,7 @@ public class ConfigPane extends javax.swing.JPanel {
         int caretPosition = editBonuses.getCaretPosition();
 
         editBonuses.setText(FieldString.fieldNum(editBonuses.getText()));
-        int size = editBonuses.getText().length();
-
-        if (caretPosition > size) {
-            caretPosition = caretPosition - (caretPosition - size);
-
-        } else if (!evt.isActionKey()) {
-            caretPosition++;
-        }
-
-        editBonuses.setCaretPosition(caretPosition);
+        FieldString.moveCaret(caretPosition, editBonuses, evt);
         managingData.updateBonuses(FieldString.deleteWhiteSpaces(editBonuses.getText()));
     }//GEN-LAST:event_editBonusesKeyReleased
 
@@ -253,26 +277,53 @@ public class ConfigPane extends javax.swing.JPanel {
         managingData.updatePeriodsPayment(1);
     }//GEN-LAST:event_monthlyActionPerformed
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        // TODO add your handling code here:
+        managingData.updateTransportAssistance(true);
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+        managingData.updateComisions(true);
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        // TODO add your handling code here:
+        managingData.updateComisions(false);
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+        managingData.updateTransportAssistance(false);
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton biweekly;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton closeSesion;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JTextField editBonuses;
     private javax.swing.JTextField editTerminationPayment;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel labelUser;
     private javax.swing.JRadioButton monthly;
     private javax.swing.JTextField salary;
     private javax.swing.JRadioButton weekly;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -5,6 +5,7 @@
  */
 package horaslaborales;
 
+import Inputs.FieldString;
 import com.toedter.calendar.JDateChooser;
 import java.text.DecimalFormat;
 import java.text.ParseException;

@@ -34,9 +34,19 @@ public class ManagingDataUser {
        return database.selectMensualBonuses();
    }
    
+   public boolean getComision(){
+       
+       return database.selectComisions();
+   }
+   
    public int getPeriodsPayment(){
        
        return database.selectPeriodsPayment();
+   }
+   
+   public boolean getTransportAssistance(){
+       
+       return database.transportAssistance();
    }
    
    public void updateBonuses(String bonus){
@@ -48,4 +58,15 @@ public class ManagingDataUser {
        
        database.updatePeriodsPayment(periods);
    }
+   
+   public void updateComisions(boolean comision){
+       
+       database.updateComisions(comision);
+   }
+   
+   public void updateTransportAssistance(boolean transportAssistance){
+       
+       database.updateTransportationAssistance(transportAssistance);
+   }
+           
 }

@@ -20,6 +20,7 @@ public class DeductionsCalculator {
     double currentSalary;
     double health;
     double pension;
+    double transportAssistance=97032;
     int cut1 = 0;
     int cut2 = 0;
 
@@ -78,11 +79,11 @@ public class DeductionsCalculator {
     }
 
     public double getTotalIncomes() {
-        return currentSalary;
+        return currentSalary+this.getTransportAssistance()+Double.valueOf(getMensualBonuses());
     }
 
     public double getSalary() {
-        return currentSalary - getTotalDeductions();
+        return getTotalIncomes() - getTotalDeductions();
     }
 
     public String[] getPeriod() {
@@ -137,6 +138,15 @@ public class DeductionsCalculator {
         String bonuses = String.valueOf(database.selectMensualBonuses());
 
         return bonuses;
+    }
+    
+    public double getTransportAssistance(){
+        
+        if(database.transportAssistance()){
+           return transportAssistance;
+        } else{
+            return 0;
+        }
     }
 
     public String getTerminationPayment() {

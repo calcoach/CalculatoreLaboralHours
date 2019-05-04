@@ -5,6 +5,7 @@
  */
 package Interface;
 
+import Inputs.FieldString;
 import horaslaborales.Question;
 import models.NewRegistry;
 
@@ -37,14 +38,14 @@ public class Question2 extends javax.swing.JPanel implements Question{
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        terminationPayment = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        bonuses = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -56,17 +57,17 @@ public class Question2 extends javax.swing.JPanel implements Question{
         jLabel1.setText("Cesantías");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 91, 27));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        terminationPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                terminationPaymentActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        terminationPayment.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                terminationPaymentKeyReleased(evt);
             }
         });
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 91, 28));
+        add(terminationPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 160, 28));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("$");
@@ -82,7 +83,7 @@ public class Question2 extends javax.swing.JPanel implements Question{
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setText("$");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 20, 20));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 20, 20));
 
         jLabel6.setBackground(new java.awt.Color(255, 0, 0));
         jLabel6.setText("(Si recibe bonos fijos mesuales llenar este campo)");
@@ -92,34 +93,43 @@ public class Question2 extends javax.swing.JPanel implements Question{
         jLabel7.setText("Bonos Fijos Mensuales");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 220, 44));
 
-        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+        bonuses.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField3KeyReleased(evt);
+                bonusesKeyReleased(evt);
             }
         });
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 220, 30));
+        add(bonuses, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 170, 30));
 
         jLabel8.setBackground(new java.awt.Color(255, 0, 0));
         jLabel8.setText("(Si recibe bonos fijos mesuales llenar este campo)");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 250, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void terminationPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_terminationPaymentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_terminationPaymentActionPerformed
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+    private void terminationPaymentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_terminationPaymentKeyReleased
         // TODO add your handling code here:
-        reg.setTerminationPayment(this.jTextField1.getText());
-    }//GEN-LAST:event_jTextField1KeyReleased
+        int caretPosition = terminationPayment.getCaretPosition();
+        terminationPayment.setText(FieldString.fieldNum(terminationPayment.getText()));
+        FieldString.moveCaret(caretPosition, bonuses, evt);
+        reg.setTerminationPayment(FieldString.deleteWhiteSpaces(terminationPayment.getText()));
+    }//GEN-LAST:event_terminationPaymentKeyReleased
 
-    private void jTextField3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyReleased
+    private void bonusesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bonusesKeyReleased
         // TODO add your handling code here:
-        reg.setMensualBonuses(this.jTextField3.getText());
-    }//GEN-LAST:event_jTextField3KeyReleased
+        int caretPosition = bonuses.getCaretPosition();
+        bonuses.setText(FieldString.fieldNum(bonuses.getText()));
+        FieldString.moveCaret(caretPosition, bonuses, evt);
+        
+        reg.setMensualBonuses(FieldString.deleteWhiteSpaces(this.bonuses.getText()));
+        
+    }//GEN-LAST:event_bonusesKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bonuses;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -128,8 +138,7 @@ public class Question2 extends javax.swing.JPanel implements Question{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField terminationPayment;
     // End of variables declaration//GEN-END:variables
 
     @Override

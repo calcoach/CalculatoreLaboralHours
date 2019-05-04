@@ -17,19 +17,24 @@ import javax.swing.JPanel;
  *
  * @author Alejandro
  */
-public class MainWindow extends javax.swing.JFrame {
+public class Prueba extends javax.swing.JFrame {
 
     /**
      * Creates new form MainWindow
      */
     Sesion user;
 
-    public MainWindow(Sesion ses) {
+    public Prueba(Sesion ses) {
         initComponents();
         this.user = ses;
         MouseEvent ev = null;
         this.btn_HomeMousePressed(ev);
 
+        preconfig();
+    }
+    
+    private void preconfig(){
+        labelUser.setText(user.getUser());
     }
 
     /**
@@ -42,38 +47,65 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         parent = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        labelUser = new javax.swing.JLabel();
+        closeSesion = new javax.swing.JButton();
+        background = new javax.swing.JPanel();
         sidepane = new javax.swing.JPanel();
         btn_Home = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        border1 = new javax.swing.JPanel();
         btn_About = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        border3 = new javax.swing.JPanel();
         btn_Config = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        border4 = new javax.swing.JPanel();
         btn_History = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        border2 = new javax.swing.JPanel();
         btn_Turns = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        border5 = new javax.swing.JPanel();
-        background = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1000, 600));
         setMinimumSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(1000, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        parent.setBackground(new java.awt.Color(255, 255, 255));
         parent.setMinimumSize(new java.awt.Dimension(1000, 600));
         parent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(11, 198, 62));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_96px_1.png"))); // NOI18N
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 100, 100));
+
+        labelUser.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelUser.setForeground(new java.awt.Color(255, 255, 255));
+        labelUser.setText("User");
+        jPanel1.add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 70, 30));
+
+        closeSesion.setBackground(new java.awt.Color(255, 51, 51));
+        closeSesion.setText("Cerrar Sesion");
+        closeSesion.setBorderPainted(false);
+        closeSesion.setFocusable(false);
+        closeSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeSesionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(closeSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
+
+        parent.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 690));
+
+        background.setBackground(new java.awt.Color(255, 255, 255));
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        parent.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 920, 590));
 
         sidepane.setBackground(new java.awt.Color(0, 204, 51));
         sidepane.setMinimumSize(new java.awt.Dimension(600, 200));
@@ -91,43 +123,27 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Inicio");
 
-        border1.setOpaque(false);
-        border1.setPreferredSize(new java.awt.Dimension(5, 0));
-
-        javax.swing.GroupLayout border1Layout = new javax.swing.GroupLayout(border1);
-        border1.setLayout(border1Layout);
-        border1Layout.setHorizontalGroup(
-            border1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
-        );
-        border1Layout.setVerticalGroup(
-            border1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout btn_HomeLayout = new javax.swing.GroupLayout(btn_Home);
         btn_Home.setLayout(btn_HomeLayout);
         btn_HomeLayout.setHorizontalGroup(
             btn_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_HomeLayout.createSequentialGroup()
-                .addComponent(border1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         btn_HomeLayout.setVerticalGroup(
             btn_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(border1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_HomeLayout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(26, 26, 26))
         );
 
-        sidepane.add(btn_Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 210, 70));
+        sidepane.add(btn_Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 140, 70));
 
         btn_About.setBackground(new java.awt.Color(0, 204, 51));
         btn_About.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,43 +157,27 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Informacion");
 
-        border3.setOpaque(false);
-        border3.setPreferredSize(new java.awt.Dimension(5, 0));
-
-        javax.swing.GroupLayout border3Layout = new javax.swing.GroupLayout(border3);
-        border3.setLayout(border3Layout);
-        border3Layout.setHorizontalGroup(
-            border3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
-        );
-        border3Layout.setVerticalGroup(
-            border3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout btn_AboutLayout = new javax.swing.GroupLayout(btn_About);
         btn_About.setLayout(btn_AboutLayout);
         btn_AboutLayout.setHorizontalGroup(
             btn_AboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_AboutLayout.createSequentialGroup()
-                .addComponent(border3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         btn_AboutLayout.setVerticalGroup(
             btn_AboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(border3, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addGroup(btn_AboutLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_AboutLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
-        sidepane.add(btn_About, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 210, 70));
+        sidepane.add(btn_About, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 140, 70));
 
         btn_Config.setBackground(new java.awt.Color(0, 204, 51));
         btn_Config.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,43 +191,27 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Configuraciones");
 
-        border4.setOpaque(false);
-        border4.setPreferredSize(new java.awt.Dimension(5, 0));
-
-        javax.swing.GroupLayout border4Layout = new javax.swing.GroupLayout(border4);
-        border4.setLayout(border4Layout);
-        border4Layout.setHorizontalGroup(
-            border4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
-        );
-        border4Layout.setVerticalGroup(
-            border4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout btn_ConfigLayout = new javax.swing.GroupLayout(btn_Config);
         btn_Config.setLayout(btn_ConfigLayout);
         btn_ConfigLayout.setHorizontalGroup(
             btn_ConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_ConfigLayout.createSequentialGroup()
-                .addComponent(border4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btn_ConfigLayout.setVerticalGroup(
             btn_ConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(border4, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addGroup(btn_ConfigLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_ConfigLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
-        sidepane.add(btn_Config, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, -1, -1));
+        sidepane.add(btn_Config, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 170, -1));
 
         btn_History.setBackground(new java.awt.Color(0, 204, 51));
         btn_History.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -241,43 +225,27 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Registros");
 
-        border2.setOpaque(false);
-        border2.setPreferredSize(new java.awt.Dimension(5, 0));
-
-        javax.swing.GroupLayout border2Layout = new javax.swing.GroupLayout(border2);
-        border2.setLayout(border2Layout);
-        border2Layout.setHorizontalGroup(
-            border2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
-        );
-        border2Layout.setVerticalGroup(
-            border2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout btn_HistoryLayout = new javax.swing.GroupLayout(btn_History);
         btn_History.setLayout(btn_HistoryLayout);
         btn_HistoryLayout.setHorizontalGroup(
             btn_HistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_HistoryLayout.createSequentialGroup()
-                .addComponent(border2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         btn_HistoryLayout.setVerticalGroup(
             btn_HistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(border2, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_HistoryLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(23, 23, 23))
+                .addGap(25, 25, 25))
         );
 
-        sidepane.add(btn_History, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 210, 70));
+        sidepane.add(btn_History, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 140, 70));
 
         btn_Turns.setBackground(new java.awt.Color(0, 204, 51));
         btn_Turns.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -291,51 +259,31 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Turnos");
 
-        border5.setOpaque(false);
-        border5.setPreferredSize(new java.awt.Dimension(5, 0));
-
-        javax.swing.GroupLayout border5Layout = new javax.swing.GroupLayout(border5);
-        border5.setLayout(border5Layout);
-        border5Layout.setHorizontalGroup(
-            border5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5, Short.MAX_VALUE)
-        );
-        border5Layout.setVerticalGroup(
-            border5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout btn_TurnsLayout = new javax.swing.GroupLayout(btn_Turns);
         btn_Turns.setLayout(btn_TurnsLayout);
         btn_TurnsLayout.setHorizontalGroup(
             btn_TurnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_TurnsLayout.createSequentialGroup()
-                .addComponent(border5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         btn_TurnsLayout.setVerticalGroup(
             btn_TurnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
-            .addComponent(border5, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_TurnsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel10)
-                .addGap(23, 23, 23))
+                .addGap(26, 26, 26))
         );
 
-        sidepane.add(btn_Turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 210, 70));
+        sidepane.add(btn_Turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 150, 70));
 
-        parent.add(sidepane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 640));
+        parent.add(sidepane, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 820, -1));
 
-        background.setBackground(new java.awt.Color(255, 255, 255));
-        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        parent.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 900, 640));
-
-        getContentPane().add(parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 0, 1110, 640));
+        getContentPane().add(parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 0, 1110, 690));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -347,8 +295,7 @@ public class MainWindow extends javax.swing.JFrame {
         resetColor(btn_About);
         resetColor(btn_Config);
         resetColor(btn_Turns);
-        opaqueBorder();
-        border1.setOpaque(true);
+        
         showHome();
     }//GEN-LAST:event_btn_HomeMousePressed
 
@@ -359,23 +306,9 @@ public class MainWindow extends javax.swing.JFrame {
         resetColor(btn_About);
         resetColor(btn_Config);
         resetColor(btn_Turns);
-        opaqueBorder();
-        border2.setOpaque(true);
+        
         showHistory();
     }//GEN-LAST:event_btn_HistoryMousePressed
-
-    private void btn_AboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AboutMousePressed
-        // TODO add your handling code here:
-        setColor(btn_About);
-        resetColor(btn_Home);
-        resetColor(btn_History);
-        resetColor(btn_Config);
-        resetColor(btn_Turns);
-        opaqueBorder();
-        border3.setOpaque(true);
-        showAbout();
-
-    }//GEN-LAST:event_btn_AboutMousePressed
 
     private void btn_ConfigMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ConfigMousePressed
         // TODO add your handling code here:
@@ -384,8 +317,7 @@ public class MainWindow extends javax.swing.JFrame {
         resetColor(btn_History);
         resetColor(btn_About);
         resetColor(btn_Turns);
-        opaqueBorder();
-        border4.setOpaque(true);
+        
         showConfig();
     }//GEN-LAST:event_btn_ConfigMousePressed
 
@@ -396,10 +328,28 @@ public class MainWindow extends javax.swing.JFrame {
         resetColor(btn_History);
         resetColor(btn_About);
         resetColor(btn_Config);
-        opaqueBorder();
-        border5.setOpaque(true);
+        
         showTurns();
     }//GEN-LAST:event_btn_TurnsMousePressed
+
+    private void btn_AboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_AboutMousePressed
+        // TODO add your handling code here:
+        setColor(btn_About);
+        resetColor(btn_Home);
+        resetColor(btn_History);
+        resetColor(btn_Config);
+        resetColor(btn_Turns);
+        
+        showAbout();
+    }//GEN-LAST:event_btn_AboutMousePressed
+
+    private void closeSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeSesionActionPerformed
+        // TODO add your handling code here:
+        close();
+        SesionWindow sw = new SesionWindow();
+        sw.setLocationRelativeTo(null);
+        sw.setVisible(true);
+    }//GEN-LAST:event_closeSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,14 +368,15 @@ public class MainWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Prueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Prueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Prueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Prueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -438,18 +389,15 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private javax.swing.JPanel border1;
-    private javax.swing.JPanel border2;
-    private javax.swing.JPanel border3;
-    private javax.swing.JPanel border4;
-    private javax.swing.JPanel border5;
     private javax.swing.JPanel btn_About;
     private javax.swing.JPanel btn_Config;
     private javax.swing.JPanel btn_History;
     private javax.swing.JPanel btn_Home;
     private javax.swing.JPanel btn_Turns;
+    private javax.swing.JButton closeSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -458,6 +406,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelUser;
     private javax.swing.JPanel parent;
     private javax.swing.JPanel sidepane;
     // End of variables declaration//GEN-END:variables
@@ -472,31 +422,13 @@ public class MainWindow extends javax.swing.JFrame {
         panel.setBackground(new Color(79, 223, 86));
     }
 
-    private void opaqueBorder() {
-
-        border1.setOpaque(false);
-        border2.setOpaque(false);
-        border3.setOpaque(false);
-        border4.setOpaque(false);
-        border5.setOpaque(false);
-    }
+   
 
     private void showAbout() {
 
         background.removeAll();
         InfoPane info = new InfoPane(this.user);
         info.setVisible(true);
-        JButton close = (JButton) info.getComponent(1);
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SesionWindow sw = new SesionWindow();
-                sw.setLocationRelativeTo(null);
-                sw.setVisible(true);
-                close();
-            }
-
-        });
         background.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         background.updateUI();
@@ -507,17 +439,6 @@ public class MainWindow extends javax.swing.JFrame {
         background.removeAll();
         ConfigPane config = new ConfigPane(this.user);
         config.setVisible(true);
-        JButton close = (JButton) config.getComponent(4);
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SesionWindow sw = new SesionWindow();
-                sw.setLocationRelativeTo(null);
-                sw.setVisible(true);
-                close();
-            }
-
-        });
         background.add(config, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
         background.updateUI();
 
@@ -537,19 +458,6 @@ public class MainWindow extends javax.swing.JFrame {
         background.removeAll();
         HomePane home = new HomePane(this.user);
         home.setVisible(true);
-        JButton close = (JButton) home.getComponent(0);
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SesionWindow sw = new SesionWindow();
-                sw.setLocationRelativeTo(null);
-                sw.setVisible(true);
-                close();
-            }
-
-        });
-        
-        
         background.add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 600));
        
         background.updateUI();
@@ -560,17 +468,6 @@ public class MainWindow extends javax.swing.JFrame {
         background.removeAll();
         TurnsPane turns = new TurnsPane(this.user);
         turns.setVisible(true);
-        JButton close = (JButton) turns.getComponent(0);
-        close.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SesionWindow sw = new SesionWindow();
-                sw.setLocationRelativeTo(null);
-                sw.setVisible(true);
-                close();
-            }
-
-        });
         
         background.add(turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
         background.updateUI();

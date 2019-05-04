@@ -21,7 +21,9 @@ public class Question3 extends javax.swing.JPanel implements Question {
     public Question3(NewRegistry reg) {
         initComponents();
         this.reg = reg;
+        //Comisions and transportAssistance in flase for default
         reg.setComision(false);
+        reg.setTransportAssistance(false);
     }
 
     /**
@@ -34,10 +36,15 @@ public class Question3 extends javax.swing.JPanel implements Question {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jCheckBox4 = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(480, 260));
@@ -46,11 +53,11 @@ public class Question3 extends javax.swing.JPanel implements Question {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Comisiones");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 91, 27));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 91, 27));
 
         jLabel4.setBackground(new java.awt.Color(255, 0, 0));
         jLabel4.setText("¿Recibe comisiones mensuales en su empresa?");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 290, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 290, -1));
 
         buttonGroup1.add(jCheckBox1);
         jCheckBox1.setText("Si");
@@ -59,7 +66,7 @@ public class Question3 extends javax.swing.JPanel implements Question {
                 jCheckBox1ActionPerformed(evt);
             }
         });
-        add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
+        add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
 
         buttonGroup1.add(jCheckBox2);
         jCheckBox2.setText("No");
@@ -68,7 +75,33 @@ public class Question3 extends javax.swing.JPanel implements Question {
                 jCheckBox2ActionPerformed(evt);
             }
         });
-        add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
+        add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Auxilio de Transporte");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 210, -1));
+
+        jLabel5.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel5.setText("¿Recibe auxilio de transporte en su empresa?");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 290, -1));
+
+        buttonGroup2.add(jCheckBox3);
+        jCheckBox3.setText("Si");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
+        add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, -1));
+
+        buttonGroup2.add(jCheckBox4);
+        jCheckBox4.setText("No");
+        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox4ActionPerformed(evt);
+            }
+        });
+        add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -81,13 +114,27 @@ public class Question3 extends javax.swing.JPanel implements Question {
         reg.setComision(false);
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 
     @Override

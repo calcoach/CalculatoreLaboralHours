@@ -31,7 +31,7 @@ public class InfoPane extends javax.swing.JPanel {
     
     private void preconfig(){
         
-        
+       
         
     }
     
@@ -46,9 +46,6 @@ public class InfoPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelUser = new javax.swing.JLabel();
-        closeSesion = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -61,19 +58,6 @@ public class InfoPane extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        labelUser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        labelUser.setText("user");
-        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 70, 20));
-
-        closeSesion.setBackground(new java.awt.Color(0, 204, 0));
-        closeSesion.setForeground(new java.awt.Color(255, 255, 255));
-        closeSesion.setText("Cerrrar Sesion");
-        closeSesion.setBorder(null);
-        add(closeSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, 120, 20));
-
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_50px_2.png"))); // NOI18N
-        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Pension");
@@ -111,8 +95,6 @@ public class InfoPane extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton closeSesion;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -122,6 +104,5 @@ public class InfoPane extends javax.swing.JPanel {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JLabel labelUser;
     // End of variables declaration//GEN-END:variables
 }

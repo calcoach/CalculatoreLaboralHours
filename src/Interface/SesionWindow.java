@@ -119,7 +119,7 @@ public class SesionWindow extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jScrollPane1.setViewportView(jPanel1);
 
-        parent.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 200, 210));
+        parent.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 210, 210));
 
         getContentPane().add(parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 560));
 

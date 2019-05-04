@@ -95,7 +95,7 @@ public class ODBCSesion {
         
         // !!! VALIDAR SI USUAARIO ESTA REPETIDO
                String sql = "INSERT INTO Users(user, last_salary, periods_payment, mensualBonuses, termination_payment,"
-                + "comisions) VALUES(?,?,?,?,?,?)";
+                + "comisions, transport_assistance) VALUES(?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -105,6 +105,7 @@ public class ODBCSesion {
             pstmt.setString(4, reg.getMensualBonuses());
             pstmt.setString(5, reg.getTerminationPayment());
             pstmt.setBoolean(6, reg.Comision());
+            pstmt.setBoolean(7, reg.isTransportAssistance());
             
             pstmt.executeUpdate();
         } catch (SQLException e) {

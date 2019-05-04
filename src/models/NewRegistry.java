@@ -17,6 +17,7 @@ public class NewRegistry {
     String mensualBonuses;
     String terminationPayment;
     boolean comision;
+    boolean transportAssistance;
 
 
     public NewRegistry() {
@@ -42,6 +43,12 @@ public class NewRegistry {
     public int getPeriods_payment() {
         return periods_payment;
     }
+
+    public boolean isTransportAssistance() {
+        return transportAssistance;
+    }
+    
+    
 
     public void setPeriods_payment(int periods_payment) {
         this.periods_payment = periods_payment;
@@ -69,6 +76,11 @@ public class NewRegistry {
 
     public void setComision(boolean comision) {
         this.comision = comision;
+    }
+    
+    public void setTransportAssistance(boolean transportAssistance){
+        
+        this.transportAssistance = transportAssistance;
     }
     
 }

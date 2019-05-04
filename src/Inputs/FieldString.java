@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package horaslaborales;
+package Inputs;
+
+import javax.swing.JTextField;
 
 /**
  *
@@ -56,5 +58,19 @@ public class FieldString {
     public static String deleteWhiteSpaces(String str){
         
         return str.replaceAll(" ", "");
+    }
+    
+    public static void moveCaret(int caretPosition, JTextField field, java.awt.event.KeyEvent evt) {
+
+        int size = field.getText().length();
+
+        if (caretPosition > size) {
+            caretPosition = caretPosition - (caretPosition - size);
+
+        } else if (!evt.isActionKey() & evt.getKeyCode() != 8 &(size>caretPosition)) {
+            caretPosition++;
+        }
+
+        field.setCaretPosition(caretPosition);
     }
 }

@@ -127,6 +127,7 @@ public class AddRegistry extends javax.swing.JFrame {
 
             if (horas[i] != 0) {
 
+                //Mostrar primero info domingo o festivo
                 if (n > 5 & this.selectTypeDay.getSelectedIndex() == 3) {
                     if (i < 5) {
 
@@ -139,6 +140,7 @@ public class AddRegistry extends javax.swing.JFrame {
 
                     }
 
+                 //Mostrar info turno de dos dias ordinario
                 } else if (getTimeChooser(time2) < getTimeChooser(time1)) {
 
                     if (i > 4 & i < 9) {

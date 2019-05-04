@@ -116,13 +116,33 @@ public class ODBC {
         return periods;
     }
 
+    public boolean selectComisions() {
+
+        boolean comisions = false;
+        String sql = "SELECT comisions FROM Users WHERE user LIKE '" + ses.getUser() + "'";
+
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            while(rs.next()){
+                
+                comisions = rs.getBoolean(1);
+            }
+            
+        } catch(SQLException ex){
+            System.out.println(ex);
+        }
+        return comisions;
+    }
+
     public void updatePeriodsPayment(int periods) {
 
         String sql = "UPDATE Users SET periods_payment = ? WHERE User LIKE '" + ses.getUser() + "'";
 
         try (Connection conn = this.connect();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
+
             stmt.setInt(1, periods);
             stmt.executeUpdate();
 
@@ -131,23 +151,38 @@ public class ODBC {
             System.out.println(e);
         }
     }
-
-    public String selectTerminationPayment() {
-        String payment = "";
-        String sql = "SELECT termination_payment FROM Users WHERE user LIKE '" + this.ses.getUser() + "'";
+    
+    public void updateTransportationAssistance(boolean transportation ) {
+        
+        String sql = "UPDATE Users SET transport_assistance = ? WHERE user LIKE '" + this.ses.getUser() + "'";
         try (Connection conn = this.connect()) {
 
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            
+            stmt.setBoolean(1, transportation);
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+    }
+
+    public boolean transportAssistance() {
+
+        boolean res = false;
+        String sql = "SELECT transport_assistance FROM Users WHERE User LIKE '" + this.ses.getUser() + "'";
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                payment = rs.getString(1);
+                res = rs.getBoolean(1);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return payment;
+        return res;
     }
 
     public void updateTerminationPayment(String terminationPayment) {
@@ -363,6 +398,22 @@ public class ODBC {
         }
     }
 
+    public void updateComisions(boolean comision) {
+
+        String sql = "UPDATE Users SET comisions = ? WHERE User LIKE '" + ses.getUser() + "'";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setBoolean(1, comision);
+
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public ArrayList<Registry> selectMonthRegistries(String consult) throws ParseException {
         ArrayList<Registry> a = new ArrayList();
 
@@ -422,5 +473,23 @@ public class ODBC {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public String selectTerminationPayment() {
+        
+        String terminationPayment = "";
+        String sql = "SELECT termination_payment FROM Users WHERE user LIKE '" + ses.getUser() + "';";
+        try (Connection conn = this.connect()) {
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                terminationPayment = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return terminationPayment;
     }
 }

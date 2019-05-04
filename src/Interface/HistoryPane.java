@@ -45,6 +45,9 @@ public class HistoryPane extends javax.swing.JPanel {
         int n = selectMonth.getItemCount();
         selectMonth.setSelectedIndex(n - 1);
         this.jTable1.setVisible(true);
+        jTable1.getTableHeader().setBackground(new java.awt.Color(0, 204, 51));
+        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+        
         
 
     }
@@ -105,43 +108,50 @@ public class HistoryPane extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        jTable1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Fecha", "Horas Ordinarias", "Horas R. Nocturno", "H. Extras Diurno", "H. Extras Nocturno", "Sueldo dia"
             }
         ));
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        jTable1.setRowHeight(25);
+        jTable1.setSelectionBackground(new java.awt.Color(79, 223, 86));
+        jTable1.setShowVerticalLines(false);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 840, 290));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 840, 280));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Seleccionar mes");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 130, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 130, -1));
 
+        selectMonth.setBorder(null);
         selectMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectMonthActionPerformed(evt);
             }
         });
-        add(selectMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 150, 30));
+        add(selectMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 150, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Seleccionar año");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 110, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 110, -1));
 
         selectYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectYearActionPerformed(evt);
             }
         });
-        add(selectYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 50, 90, 30));
+        add(selectYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 90, 30));
 
         AddRegistry.setBackground(new java.awt.Color(0, 204, 51));
         AddRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Plus_Math_24px.png"))); // NOI18N

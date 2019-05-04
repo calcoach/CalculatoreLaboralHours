@@ -8,7 +8,7 @@ package Interface;
 import horaslaborales.AddRegistry;
 import horaslaborales.ClosedWindowEvent;
 import horaslaborales.DeductionsCalculator;
-import horaslaborales.FieldString;
+import Inputs.FieldString;
 import horaslaborales.ManagingRegistry;
 import horaslaborales.Sesion;
 import java.util.Calendar;
@@ -41,7 +41,7 @@ public class HomePane extends javax.swing.JPanel {
     private void preconfig() {
        
         managing.getSalary(salary, user.getUser());
-        labelUser.setText(user.getUser());
+
         salary.setEditable(false);
 
         chargeInfo();
@@ -75,6 +75,21 @@ public class HomePane extends javax.swing.JPanel {
         terminationPayment.setText(FieldString.fieldNum(cal.getTerminationPayment()));
 
         totalIncomes.setText(FieldString.fieldNum(cal.getTotalIncomes()));
+        
+        if(cal.getTransportAssistance()>0){
+            this.transportAssistance.setText(FieldString.fieldNum(cal.getTransportAssistance()));
+            
+        } else {
+           
+            panelVariable.removeAll();
+            
+            panelVariable.add(labelTotalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 120, 30));
+            panelVariable.add(totalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 130, 30));
+            totalIncomes.setText(FieldString.fieldNum(cal.getTotalIncomes()));
+            
+            panelVariable.updateUI();
+            
+        }
 
     }
 
@@ -100,122 +115,115 @@ public class HomePane extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         totalDeductions = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         totalSalary = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel12 = new javax.swing.JLabel();
         actualSalary = new javax.swing.JTextField();
         terminationPayment = new javax.swing.JTextField();
         health = new javax.swing.JTextField();
         bonuses = new javax.swing.JTextField();
         pension = new javax.swing.JTextField();
-        totalIncomes = new javax.swing.JTextField();
         addRegistry = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        labelUser = new javax.swing.JLabel();
-        closeSesion = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
         date = new com.toedter.calendar.JDateChooser();
         jLabel14 = new javax.swing.JLabel();
-        totalIncomes1 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
+        panelVariable = new javax.swing.JPanel();
+        labelTotalIncomes = new javax.swing.JLabel();
+        totalIncomes = new javax.swing.JTextField();
+        labelTransportAssistance = new javax.swing.JLabel();
+        transportAssistance = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Sueldo");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 50, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 50, -1));
 
         salary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salaryActionPerformed(evt);
             }
         });
-        add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 144, 31));
+        add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 144, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Cesantias");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 99, 30));
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 805, 15));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 99, 30));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 800, 15));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Total Ingresos y Deducciones  del mes de marzo");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 334, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 334, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Bonos ");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 99, 30));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 99, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("Pension");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 99, 30));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 99, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("Salud");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 99, 30));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 99, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel7.setText("Deducciones");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 99, 30));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 99, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Ingresos");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setText("Total Deducciones");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 110, 30));
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, 110, 30));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Devengado Actual");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 120, 30));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 120, 30));
 
         totalDeductions.setEditable(false);
         totalDeductions.setBackground(new java.awt.Color(0, 204, 51));
         totalDeductions.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         totalDeductions.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(totalDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 130, 30));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("TOTAL A RECIBIR : ");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 120, 30));
+        add(totalDeductions, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 130, 30));
 
         totalSalary.setEditable(false);
         totalSalary.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalSalary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(totalSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 240, 40));
-        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 800, 10));
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel12.setText("Auxilio de transporte");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 130, 30));
+        add(totalSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 360, 240, 40));
+        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 800, 10));
 
         actualSalary.setEditable(false);
         actualSalary.setBackground(new java.awt.Color(0, 204, 51));
         actualSalary.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         actualSalary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(actualSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 130, 30));
+        add(actualSalary, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 130, 30));
 
         terminationPayment.setEditable(false);
         terminationPayment.setBackground(new java.awt.Color(0, 204, 51));
         terminationPayment.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         terminationPayment.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(terminationPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 130, 30));
+        add(terminationPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, 130, 30));
 
         health.setEditable(false);
         health.setBackground(new java.awt.Color(0, 204, 51));
         health.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         health.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(health, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 130, 30));
+        add(health, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 130, 30));
 
         bonuses.setEditable(false);
         bonuses.setBackground(new java.awt.Color(0, 204, 51));
         bonuses.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bonuses.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(bonuses, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 130, 30));
+        add(bonuses, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 130, 30));
 
         pension.setEditable(false);
         pension.setBackground(new java.awt.Color(0, 204, 51));
@@ -226,13 +234,7 @@ public class HomePane extends javax.swing.JPanel {
                 pensionActionPerformed(evt);
             }
         });
-        add(pension, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 130, 30));
-
-        totalIncomes.setEditable(false);
-        totalIncomes.setBackground(new java.awt.Color(0, 204, 51));
-        totalIncomes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        totalIncomes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(totalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 130, 30));
+        add(pension, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 130, 30));
 
         addRegistry.setBackground(new java.awt.Color(0, 204, 51));
         addRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Clock_64px_1.png"))); // NOI18N
@@ -243,30 +245,18 @@ public class HomePane extends javax.swing.JPanel {
                 addRegistryActionPerformed(evt);
             }
         });
-        add(addRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 210, 60));
+        add(addRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 220, 60));
 
         jButton2.setBackground(new java.awt.Color(0, 204, 51));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Money_Bag_48px.png"))); // NOI18N
-        jButton2.setText("Agregar Ingresos Adicionales");
+        jButton2.setText(" Ingresos Adicionales");
         jButton2.setBorderPainted(false);
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 230, 60));
+        jButton2.setMargin(new java.awt.Insets(2, 10, 2, 10));
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 440, 230, 60));
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("$");
-        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 20, 30));
-
-        labelUser.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        labelUser.setText("user");
-        add(labelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 60, 70, 20));
-
-        closeSesion.setBackground(new java.awt.Color(0, 204, 0));
-        closeSesion.setForeground(new java.awt.Color(255, 255, 255));
-        closeSesion.setText("Cerrrar Sesion");
-        closeSesion.setBorder(null);
-        add(closeSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, 120, 20));
-
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_50px_2.png"))); // NOI18N
-        add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 60, 40));
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, 20, 30));
 
         date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -278,20 +268,46 @@ public class HomePane extends javax.swing.JPanel {
                 dateVetoableChange(evt);
             }
         });
-        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 110, 30));
+        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 110, 30));
 
         jLabel14.setText("Fecha de pago");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, -1, -1));
 
-        totalIncomes1.setEditable(false);
-        totalIncomes1.setBackground(new java.awt.Color(0, 204, 51));
-        totalIncomes1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        totalIncomes1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        add(totalIncomes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 130, 30));
+        panelVariable.setBackground(new java.awt.Color(255, 255, 255));
+        panelVariable.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Total Ingresos");
-        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 99, 30));
+        labelTotalIncomes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTotalIncomes.setText("Total Ingresos");
+        panelVariable.add(labelTotalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 99, 30));
+
+        totalIncomes.setEditable(false);
+        totalIncomes.setBackground(new java.awt.Color(0, 204, 51));
+        totalIncomes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        totalIncomes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelVariable.add(totalIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 130, 30));
+
+        labelTransportAssistance.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTransportAssistance.setText("Auxilio de transporte");
+        panelVariable.add(labelTransportAssistance, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 120, 30));
+
+        transportAssistance.setEditable(false);
+        transportAssistance.setBackground(new java.awt.Color(0, 204, 51));
+        transportAssistance.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        transportAssistance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        panelVariable.add(transportAssistance, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 130, 30));
+
+        add(panelVariable, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 300, 100));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setText("TOTAL A RECIBIR : ");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 120, 30));
+
+        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 20, 300));
+
+        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, 20, 300));
+        add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 800, 240));
     }// </editor-fold>//GEN-END:initComponents
 
     private void salaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaryActionPerformed
@@ -334,18 +350,14 @@ public class HomePane extends javax.swing.JPanel {
     private javax.swing.JTextField actualSalary;
     private javax.swing.JButton addRegistry;
     private javax.swing.JTextField bonuses;
-    private javax.swing.JButton closeSesion;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JTextField health;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -356,13 +368,18 @@ public class HomePane extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel labelUser;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel labelTotalIncomes;
+    private javax.swing.JLabel labelTransportAssistance;
+    private javax.swing.JPanel panelVariable;
     private javax.swing.JTextField pension;
     private javax.swing.JTextField salary;
     private javax.swing.JTextField terminationPayment;
     private javax.swing.JTextField totalDeductions;
     private javax.swing.JTextField totalIncomes;
-    private javax.swing.JTextField totalIncomes1;
     private javax.swing.JTextField totalSalary;
+    private javax.swing.JTextField transportAssistance;
     // End of variables declaration//GEN-END:variables
 }
