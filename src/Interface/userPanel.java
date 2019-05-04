@@ -66,12 +66,10 @@ public class userPanel extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         Sesion user = new Sesion(name, "");
-        /*MainWindow w = new MainWindow(user);
-        w.setLocationRelativeTo(null);
-        w.setVisible(true);*/
-        Prueba p = new Prueba(user);
-        p.setLocationRelativeTo(null);
-        p.setVisible(true);
+       
+        MainWindow mw = new MainWindow(user);
+        mw.setLocationRelativeTo(null);
+        mw.setVisible(true);
         this.windowSesion.dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
