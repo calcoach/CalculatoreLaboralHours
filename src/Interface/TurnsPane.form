@@ -64,13 +64,19 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="4">
+              <Table columnCount="3" rowCount="0">
+                <Column editable="true" title="Numero Turno" type="java.lang.Object"/>
                 <Column editable="true" title="Hora Entrada" type="java.lang.Object"/>
                 <Column editable="true" title="Hora Salida" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -90,5 +96,118 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JComboBox" name="time1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="24">
+            <StringItem index="0" value="12 am"/>
+            <StringItem index="1" value="01 am"/>
+            <StringItem index="2" value="02 am"/>
+            <StringItem index="3" value="03 am"/>
+            <StringItem index="4" value="04 am"/>
+            <StringItem index="5" value="05 am"/>
+            <StringItem index="6" value="06 am"/>
+            <StringItem index="7" value="07 am"/>
+            <StringItem index="8" value="08 am"/>
+            <StringItem index="9" value="09 am"/>
+            <StringItem index="10" value="10 am"/>
+            <StringItem index="11" value="11 am"/>
+            <StringItem index="12" value="12 pm"/>
+            <StringItem index="13" value="01 pm"/>
+            <StringItem index="14" value="02 pm"/>
+            <StringItem index="15" value="03 pm"/>
+            <StringItem index="16" value="04 pm"/>
+            <StringItem index="17" value="05 pm"/>
+            <StringItem index="18" value="06 pm"/>
+            <StringItem index="19" value="07 pm"/>
+            <StringItem index="20" value="08 pm"/>
+            <StringItem index="21" value="09 pm"/>
+            <StringItem index="22" value="10 pm"/>
+            <StringItem index="23" value="11 pm"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="140" y="180" width="-1" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="time2">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="24">
+            <StringItem index="0" value="12 am"/>
+            <StringItem index="1" value="01 am"/>
+            <StringItem index="2" value="02 am"/>
+            <StringItem index="3" value="03 am"/>
+            <StringItem index="4" value="04 am"/>
+            <StringItem index="5" value="05 am"/>
+            <StringItem index="6" value="06 am"/>
+            <StringItem index="7" value="07 am"/>
+            <StringItem index="8" value="08 am"/>
+            <StringItem index="9" value="09 am"/>
+            <StringItem index="10" value="10 am"/>
+            <StringItem index="11" value="11 am"/>
+            <StringItem index="12" value="12 pm"/>
+            <StringItem index="13" value="01 pm"/>
+            <StringItem index="14" value="02 pm"/>
+            <StringItem index="15" value="03 pm"/>
+            <StringItem index="16" value="04 pm"/>
+            <StringItem index="17" value="05 pm"/>
+            <StringItem index="18" value="06 pm"/>
+            <StringItem index="19" value="07 pm"/>
+            <StringItem index="20" value="08 pm"/>
+            <StringItem index="21" value="09 pm"/>
+            <StringItem index="22" value="10 pm"/>
+            <StringItem index="23" value="11 pm"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="280" y="180" width="-1" height="30"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hora entrada"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="130" y="150" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hora salida"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="280" y="150" width="-1" height="-1"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/icons8_Plus_Math_24px.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Agregar"/>
+      </Properties>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+          <AbsoluteConstraints x="170" y="230" width="110" height="40"/>
+        </Constraint>
+      </Constraints>
+    </Component>
   </SubComponents>
 </Form>

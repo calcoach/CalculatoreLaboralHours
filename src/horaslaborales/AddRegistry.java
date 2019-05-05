@@ -5,9 +5,9 @@
  */
 package horaslaborales;
 
+import Inputs.VerifiedAddRegistry;
 import java.util.Calendar;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +22,7 @@ public class AddRegistry extends javax.swing.JFrame {
     Registry registry;
     ManagingRegistry managing;
     Sesion user;
+    VerifiedAddRegistry verifiedRegistry;
 
     public AddRegistry(Sesion user) {
         this.user = user;
@@ -45,7 +46,7 @@ public class AddRegistry extends javax.swing.JFrame {
         int select = combo.getSelectedIndex();
 
         if (select == 0) {
-            if (selectTypeDay.getSelectedIndex() == 2 | selectTypeDay.getSelectedIndex() == 3) {
+            if (verifiedRegistry.selectTypeDay() == 3 | verifiedRegistry.selectTypeDay() == 4) {
                 return 0;
             } else {
                 return 24;
@@ -77,6 +78,8 @@ public class AddRegistry extends javax.swing.JFrame {
             }
         });
 
+        verifiedRegistry = new VerifiedAddRegistry(this.time1, time2, date1, date2);
+
     }
 
     /**
@@ -103,8 +106,8 @@ public class AddRegistry extends javax.swing.JFrame {
 
     private void preChargedData() {
         if (registry != null) {
-            this.jDateChooser1.setDate(registry.getStartDay());
-            jDateChooser1.setSelectableDateRange(registry.getStartDay(), registry.getStartDay());
+            this.date1.setDate(registry.getStartDay());
+            date1.setSelectableDateRange(registry.getStartDay(), registry.getStartDay());
 
         }
     }
@@ -122,29 +125,34 @@ public class AddRegistry extends javax.swing.JFrame {
         table.setNumRows(0);
 
         int n = horas.length;
-        
+
         for (int i = 0; i < n; i++) {
 
             if (horas[i] != 0) {
 
                 //Mostrar primero info domingo o festivo
-                if (n > 5 & this.selectTypeDay.getSelectedIndex() == 3) {
+                if (n > 5 & verifiedRegistry.selectTypeDay() == 4) {
                     if (i < 5) {
 
                         if (i != 4) {
                             table.addRow(new Object[]{nameHours(i + 5), horas[i], costo[i]});
-                        }
+                        } else
+                            table.addRow(new Object[]{nameHours(i), horas[i], costo[i]});
 
                     } else {
-                        table.addRow(new Object[]{nameHours(i - 5), horas[i], costo[i]});
+                        if (i < 9) {
+                            table.addRow(new Object[]{nameHours(i - 5), horas[i], costo[i]});
+                        } else {
+                            table.addRow(new Object[]{nameHours(i), horas[i], costo[i]});
+                        }
 
                     }
 
-                 //Mostrar info turno de dos dias ordinario
-                } else if (getTimeChooser(time2) < getTimeChooser(time1)) {
+                    //Mostrar info turno de dos dias ordinario
+                } else if (getTimeChooser(time2) < getTimeChooser(time1) & verifiedRegistry.selectTypeDay() == 1) {
 
                     if (i > 4 & i < 9) {
-                        table.addRow(new Object[]{nameHours(i-5), horas[i], costo[i]});
+                        table.addRow(new Object[]{nameHours(i - 5), horas[i], costo[i]});
                     } else {
                         table.addRow(new Object[]{nameHours(i), horas[i], costo[i]});
                     }
@@ -157,47 +165,6 @@ public class AddRegistry extends javax.swing.JFrame {
 
         }
 
-    }
-
-    private boolean verifiedEntries() {
-
-        try {
-
-            if (this.selectTypeDay.getSelectedIndex() != -1) {
-
-                if (!this.salary.getText().isEmpty()) {
-
-                    if (getTimeChooser(time1) != getTimeChooser(time2)) {
-
-                        //Advertencia: uso de condicionales
-                        if (!((time2.getSelectedIndex() >= time1.getSelectedIndex()) & ((selectTypeDay.getSelectedIndex() == 2)
-                                | (selectTypeDay.getSelectedIndex() == 3)))) {
-
-                            if (this.jDateChooser1.getCalendar() != null) {
-                                return true;
-                            } else {
-                                JOptionPane.showMessageDialog(rootPane, "Seleccione la fecha");
-                            }
-
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "Turno mayor o igual a 24 horas");
-                            //time1.setSelectedIndex(0);
-                            // time2.setSelectedIndex(0);
-                        }
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Escriba un rango de horas valido : (1-24)");
-                        return false;
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Seleccione el tipo de dia");
-            }
-
-        } catch (java.lang.NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -213,8 +180,8 @@ public class AddRegistry extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         calculate = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        date1 = new com.toedter.calendar.JDateChooser();
+        date2 = new com.toedter.calendar.JDateChooser();
         selectTypeDay = new javax.swing.JComboBox<>();
         saveRegistry = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
@@ -229,6 +196,7 @@ public class AddRegistry extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        salary.setEditable(false);
         salary.setBackground(new java.awt.Color(171, 235, 198));
         salary.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -269,11 +237,11 @@ public class AddRegistry extends javax.swing.JFrame {
         jTable1.setGridColor(new java.awt.Color(171, 235, 198));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, 110));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 480, 110));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Tipo de dia");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
+        jLabel5.setText("Seleccione un turno");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, -1, -1));
 
         calculate.setBackground(new java.awt.Color(40, 180, 99));
         calculate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -286,21 +254,21 @@ public class AddRegistry extends javax.swing.JFrame {
         });
         getContentPane().add(calculate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 120, 40));
 
-        jDateChooser1.setBackground(new java.awt.Color(171, 235, 198));
-        jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        date1.setBackground(new java.awt.Color(171, 235, 198));
+        date1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateChooser1PropertyChange(evt);
+                date1PropertyChange(evt);
             }
         });
-        getContentPane().add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 110, 30));
+        getContentPane().add(date1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 110, 30));
 
-        jDateChooser2.setBackground(new java.awt.Color(171, 235, 198));
-        jDateChooser2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        date2.setBackground(new java.awt.Color(171, 235, 198));
+        date2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jDateChooser2PropertyChange(evt);
+                date2PropertyChange(evt);
             }
         });
-        getContentPane().add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 110, 30));
+        getContentPane().add(date2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 110, 30));
 
         selectTypeDay.setBackground(new java.awt.Color(171, 235, 198));
         selectTypeDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes a Sabado", "Dominical Festivo", "Inicia dia Ordinario Termina Dominical/Festivo", "Inicia Dominical Festivo Termina Dia Ordinario" }));
@@ -360,6 +328,11 @@ public class AddRegistry extends javax.swing.JFrame {
         getContentPane().add(time1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, -1, 30));
 
         time2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
+        time2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                time2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(time2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, -1, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maxresdefault.jpg"))); // NOI18N
@@ -373,15 +346,17 @@ public class AddRegistry extends javax.swing.JFrame {
         Calculator calc;
         jTable1.removeAll();
         jTable1.updateUI();
+        verifiedRegistry.verifiedDates();
 
-        if (verifiedEntries()) {
+        if (verifiedRegistry.verifiedEntries()) {
 
             String sal = this.salary.getText().replaceAll(" ", "");
 
             double i = Double.parseDouble(sal);
 
             calc = new Calculator(getTimeChooser(time1), getTimeChooser(time2), (int) i);
-            calc.setDia(selectTypeDay.getSelectedIndex() + 1);
+            System.out.println(verifiedRegistry.selectTypeDay());
+            calc.setDia(verifiedRegistry.selectTypeDay());
             showData(calc);
 
         }
@@ -399,25 +374,26 @@ public class AddRegistry extends javax.swing.JFrame {
 
     private void saveRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRegistryActionPerformed
         // TODO add your handling code here:
-        if (verifiedEntries()) {
+        verifiedRegistry.verifiedDates();
+        if (verifiedRegistry.verifiedEntries()) {
 
             String sal = this.salary.getText().replace(" ", "");
             double i = Double.parseDouble(sal);
 
             Calculator calc = new Calculator(getTimeChooser(time1), getTimeChooser(time2),
                     (int) i);
-            calc.setDia(selectTypeDay.getSelectedIndex() + 1);
+            calc.setDia(verifiedRegistry.selectTypeDay());
 
             if (registry == null) {
 
-                boolean h = managing.saveRegistry(this.jDateChooser1, this.jDateChooser2, calc);
+                boolean h = managing.saveRegistry(this.date1, this.date2, calc);
                 if (h) {
                     dispose();
                 }
 
             } else {
 
-                managing.updateRegistry(jDateChooser1, jDateChooser2, calc);
+                managing.updateRegistry(date1, date2, calc);
 
             }
             //managing.updateLastSalary(salary, "prueba");
@@ -436,7 +412,7 @@ public class AddRegistry extends javax.swing.JFrame {
 
         Calendar calendarNow;
         calendarNow = Calendar.getInstance();
-        this.jDateChooser1.setCalendar(calendarNow);
+        this.date1.setCalendar(calendarNow);
 
     }//GEN-LAST:event_startTodayActionPerformed
 
@@ -444,23 +420,23 @@ public class AddRegistry extends javax.swing.JFrame {
         // TODO add your handling code here:
         Calendar calendarNow;
         calendarNow = Calendar.getInstance();
-        this.jDateChooser2.setCalendar(calendarNow);
+        this.date2.setCalendar(calendarNow);
     }//GEN-LAST:event_finishTodayActionPerformed
 
-    private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
+    private void date1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_date1PropertyChange
         // TODO add your handling code here:
 
-        if (this.jDateChooser2.getCalendar() == null) {
-            if (selectTypeDay.getSelectedIndex() > 1) {
-                Calendar c = jDateChooser1.getCalendar();
+        if (this.date2.getCalendar() == null & verifiedRegistry != null) {
+            if (verifiedRegistry.selectTypeDay() > 1) {
+                Calendar c = date1.getCalendar();
                 c.roll(Calendar.DAY_OF_MONTH, 1);
-                jDateChooser2.setCalendar(c);
+                date2.setCalendar(c);
             }
 
         }
-    }//GEN-LAST:event_jDateChooser1PropertyChange
+    }//GEN-LAST:event_date1PropertyChange
 
-    private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
+    private void date2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_date2PropertyChange
         // TODO add your handling code here:
         /*if (this.jDateChooser1.getCalendar() == null) {
             
@@ -471,7 +447,12 @@ public class AddRegistry extends javax.swing.JFrame {
             }
 
         }*/
-    }//GEN-LAST:event_jDateChooser2PropertyChange
+    }//GEN-LAST:event_date2PropertyChange
+
+    private void time2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_time2ActionPerformed
+        // TODO add your handling code here:
+        verifiedRegistry.verifiedDates();
+    }//GEN-LAST:event_time2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -521,9 +502,9 @@ public class AddRegistry extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton calculate;
     private javax.swing.JButton cancel;
+    private com.toedter.calendar.JDateChooser date1;
+    private com.toedter.calendar.JDateChooser date2;
     private javax.swing.JCheckBox finishToday;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

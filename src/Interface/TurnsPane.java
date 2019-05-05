@@ -50,6 +50,11 @@ public class TurnsPane extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        time1 = new javax.swing.JComboBox<>();
+        time2 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,25 +69,43 @@ public class TurnsPane extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Hora Entrada", "Hora Salida"
+                "Numero Turno", "Hora Entrada", "Hora Salida"
             }
         ));
         jScrollPane4.setViewportView(jTable1);
 
         add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, 100));
+
+        time1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
+        add(time1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, 30));
+
+        time2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
+        add(time2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, 30));
+
+        jLabel1.setText("Hora entrada");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
+
+        jLabel2.setText("Hora salida");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, -1));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Plus_Math_24px.png"))); // NOI18N
+        jButton1.setText("Agregar");
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 110, 40));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> time1;
+    private javax.swing.JComboBox<String> time2;
     // End of variables declaration//GEN-END:variables
 }
