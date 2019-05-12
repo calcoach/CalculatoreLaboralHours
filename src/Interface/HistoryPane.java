@@ -222,6 +222,7 @@ public class HistoryPane extends javax.swing.JPanel {
         if (rowSelected != -1) {
             DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
             Vector v = (Vector) m.getDataVector().get(rowSelected);
+            
             AddRegistry editRegistry = new AddRegistry(managing.searchRegistry((String) v.get(0)), user);
             editRegistry.setVisible(true);
             editRegistry.addWindowListener(new ClosedWindowEvent(this));

@@ -5,8 +5,14 @@
  */
 package Interface;
 
+import Inputs.VerifiedAddTurn;
+import horaslaborales.ManagingDataUser;
 import horaslaborales.ManagingRegistry;
 import horaslaborales.Sesion;
+import horaslaborales.Turn;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,11 +24,13 @@ public class TurnsPane extends javax.swing.JPanel {
      * Creates new form HomePane
      */
     Sesion user;
-    ManagingRegistry managing;
+    ManagingDataUser managing;
+    ArrayList<Turn> turns;
+    
     public TurnsPane(Sesion user) {
         initComponents();
         this.user = user;
-        managing = new ManagingRegistry(user);
+        managing = new ManagingDataUser(user);
         preconfig();
     }
     
@@ -31,8 +39,25 @@ public class TurnsPane extends javax.swing.JPanel {
     
     private void preconfig(){
         
+       jTable1.getTableHeader().setBackground(new java.awt.Color(0, 204, 51));
+       jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+        
+       DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+       model.setNumRows(0);
+       turns = managing.getTurns();
+       
+        for (Turn turn : turns) {
+            
+            model.addRow(new Object [] {turn.getNameTurn(), turn.getHourStart(), turn.getHourFinish()});
+        }
        
         
+    }
+    
+    private void update(){
+        
+        this.jTable1.removeAll();
+        preconfig();
     }
     
     
@@ -50,62 +75,119 @@ public class TurnsPane extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        time1 = new javax.swing.JComboBox<>();
-        time2 = new javax.swing.JComboBox<>();
+        hourStart = new javax.swing.JComboBox<>();
+        hourFinish = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        addTurn = new javax.swing.JButton();
+        nameTurn = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        deleteTurn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Turnos");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Agregar Turnos Frecuentes");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Numero Turno", "Hora Entrada", "Hora Salida"
+                "Nombre Turno", "Hora Entrada", "Hora Salida"
             }
         ));
+        jTable1.setSelectionBackground(new java.awt.Color(0, 204, 51));
+        jTable1.setShowHorizontalLines(false);
         jScrollPane4.setViewportView(jTable1);
 
-        add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, 100));
+        add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, -1, 100));
 
-        time1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
-        add(time1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, 30));
+        hourStart.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
+        add(hourStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, 30));
 
-        time2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
-        add(time2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, 30));
+        hourFinish.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
+        add(hourFinish, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, 30));
 
         jLabel1.setText("Hora entrada");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         jLabel2.setText("Hora salida");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Plus_Math_24px.png"))); // NOI18N
-        jButton1.setText("Agregar");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 110, 40));
+        addTurn.setBackground(new java.awt.Color(51, 0, 255));
+        addTurn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Plus_Math_24px.png"))); // NOI18N
+        addTurn.setText("Agregar");
+        addTurn.setBorderPainted(false);
+        addTurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTurnActionPerformed(evt);
+            }
+        });
+        add(addTurn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 110, 40));
+        add(nameTurn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 150, 30));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Nombre Turno");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+
+        deleteTurn.setBackground(new java.awt.Color(255, 51, 51));
+        deleteTurn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Trash_Can_24px_1.png"))); // NOI18N
+        deleteTurn.setText("Elininar Turno");
+        deleteTurn.setBorderPainted(false);
+        deleteTurn.setFocusable(false);
+        deleteTurn.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        deleteTurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteTurnActionPerformed(evt);
+            }
+        });
+        add(deleteTurn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 510, 130, 30));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTurnActionPerformed
+        // TODO add your handling code here:
+        if(new VerifiedAddTurn(nameTurn, hourStart,hourFinish).verifiedEntries()){
+            
+            managing.insertTurn(new Turn(nameTurn.getText(),(String)hourStart.getSelectedItem(),
+                    (String)hourFinish.getSelectedItem()));
+            
+            preconfig();
+        }
+    }//GEN-LAST:event_addTurnActionPerformed
+
+    private void deleteTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTurnActionPerformed
+        // TODO add your handling code here:
+        int item  = jTable1.getSelectedRow();
+        
+        if(item>=0){
+            
+            managing.deleteTurn(turns.get(item).getNum());
+            preconfig();
+        } else{
+            JOptionPane.showMessageDialog(null, "Seleccione el turno a elimnar en la tabla");
+        }
+    }//GEN-LAST:event_deleteTurnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addTurn;
+    private javax.swing.JButton deleteTurn;
+    private javax.swing.JComboBox<String> hourFinish;
+    private javax.swing.JComboBox<String> hourStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JComboBox<String> time1;
-    private javax.swing.JComboBox<String> time2;
+    private javax.swing.JTextField nameTurn;
     // End of variables declaration//GEN-END:variables
 }

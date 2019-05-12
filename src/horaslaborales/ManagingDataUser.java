@@ -5,6 +5,8 @@
  */
 package horaslaborales;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Alejandro
@@ -17,6 +19,11 @@ public class ManagingDataUser {
    public ManagingDataUser(Sesion user){
        this.user = user;
        database = new ODBC("Prueba.db",user);
+   }
+   
+   public void deleteTurn(int IdTurn){
+       
+       database.deleteTurn(IdTurn);
    }
    
    public void updateTerminationPayment(String terminationPayment){
@@ -49,6 +56,17 @@ public class ManagingDataUser {
        return database.transportAssistance();
    }
    
+   public ArrayList<Turn> getTurns(){
+       
+       database.createTableTurns();
+       return database.selectTurns();
+   }
+   
+   public void insertTurn(Turn turn){
+       
+       database.insertTurn(turn);
+   }
+    
    public void updateBonuses(String bonus){
        
        database.updateBonuses(bonus);

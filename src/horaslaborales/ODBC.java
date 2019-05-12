@@ -61,6 +61,20 @@ public class ODBC {
         }
     }
 
+    public void createTableTurns() {
+
+        String sql = "CREATE TABLE IF NOT EXISTS " + ses.user + "_Turns" + "(NumTurn integer PRIMARY KEY, NameTurn text,"
+                + " HourStart text, HourFinish text)";
+
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+
+            System.out.println(e);
+        }
+    }
+
     public void createNewTableUsers() {
         // SQLite connection string
 
@@ -125,12 +139,12 @@ public class ODBC {
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
 
-            while(rs.next()){
-                
+            while (rs.next()) {
+
                 comisions = rs.getBoolean(1);
             }
-            
-        } catch(SQLException ex){
+
+        } catch (SQLException ex) {
             System.out.println(ex);
         }
         return comisions;
@@ -151,14 +165,14 @@ public class ODBC {
             System.out.println(e);
         }
     }
-    
-    public void updateTransportationAssistance(boolean transportation ) {
-        
+
+    public void updateTransportationAssistance(boolean transportation) {
+
         String sql = "UPDATE Users SET transport_assistance = ? WHERE user LIKE '" + this.ses.getUser() + "'";
         try (Connection conn = this.connect()) {
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            
+
             stmt.setBoolean(1, transportation);
             stmt.executeUpdate();
 
@@ -214,8 +228,9 @@ public class ODBC {
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
+                //double d =rs.getDouble(1);
                 revenues.add(rs.getDouble(1));
-
+                //System.out.println(d);
             }
 
         } catch (SQLException ex) {
@@ -268,6 +283,23 @@ public class ODBC {
             System.out.println(e.getMessage());
         }
     }
+    
+    public void insertTurn(Turn turn){
+        
+        String sql = "INSERT INTO " + ses.getUser()+"_Turns" + "(NameTurn, HourStart, HourFinish) VALUES(?,?,?)";
+        
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            
+            pstmt.setString(1, turn.getNameTurn());
+            pstmt.setString(2, turn.getHourStart());
+            pstmt.setString(3, turn.getHourFinish());
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+    }
 
     public void deleteRegistry(String consult) {
 
@@ -285,6 +317,19 @@ public class ODBC {
             System.out.println(e.getMessage());
         }
 
+    }
+    
+    public void deleteTurn(int IdTurn){
+        
+        String sql = "DELETE FROM "+ ses.getUser() +"_Turns"+" WHERE NumTurn = "+String.valueOf(IdTurn);
+        
+        try(Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
     public Registry selectRegistry(String consult) throws ExceptionLaboralHours, ParseException {
@@ -382,6 +427,31 @@ public class ODBC {
         return bonus;
     }
 
+    public ArrayList<Turn> selectTurns() {
+
+        ArrayList<Turn> turns = new ArrayList();
+        String sql = "SELECT NumTurn, NameTurn , HourStart, HourFinish FROM " + ses.getUser() + "_Turns";
+
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+
+                Turn t = new Turn();
+                t.setNum(rs.getInt(1));
+                t.setNameTurn(rs.getString(2));
+                t.setHourStart(rs.getString(3));
+                t.setHourFinish(rs.getString(4));
+                turns.add(t);
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return turns;
+    }
+
     public void updateBonuses(String bonus) {
 
         String sql = "UPDATE Users SET mensualBonuses = ? WHERE User LIKE '" + ses.getUser() + "'";
@@ -476,7 +546,7 @@ public class ODBC {
     }
 
     public String selectTerminationPayment() {
-        
+
         String terminationPayment = "";
         String sql = "SELECT termination_payment FROM Users WHERE user LIKE '" + ses.getUser() + "';";
         try (Connection conn = this.connect()) {

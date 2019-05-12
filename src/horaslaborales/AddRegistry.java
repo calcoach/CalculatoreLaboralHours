@@ -6,6 +6,7 @@
 package horaslaborales;
 
 import Inputs.VerifiedAddRegistry;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
@@ -21,13 +22,16 @@ public class AddRegistry extends javax.swing.JFrame {
      */
     Registry registry;
     ManagingRegistry managing;
+    ManagingDataUser managingData;
     Sesion user;
     VerifiedAddRegistry verifiedRegistry;
+    ArrayList<Turn> turnsUser;
 
     public AddRegistry(Sesion user) {
         this.user = user;
         initComponents();
         managing = new ManagingRegistry(user);
+        managingData = new ManagingDataUser(user);
         preConfigureWindow();
 
     }
@@ -37,6 +41,7 @@ public class AddRegistry extends javax.swing.JFrame {
         this.user = user;
         this.registry = reg;
         managing = new ManagingRegistry(user);
+        managingData = new ManagingDataUser(user);
         preChargedData();
         preConfigureWindow();
 
@@ -61,7 +66,13 @@ public class AddRegistry extends javax.swing.JFrame {
         managing.getSalary(salary, user.getUser());
 
         //Edit Table contents
-        this.selectTypeDay.setSelectedIndex(-1);
+        
+        turnsUser = managingData.getTurns();
+        
+        for (Turn turn : turnsUser) {
+            
+            turns.addItem(turn.getNameTurn());
+        }
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -79,6 +90,8 @@ public class AddRegistry extends javax.swing.JFrame {
         });
 
         verifiedRegistry = new VerifiedAddRegistry(this.time1, time2, date1, date2);
+        
+        
 
     }
 
@@ -182,7 +195,7 @@ public class AddRegistry extends javax.swing.JFrame {
         calculate = new javax.swing.JButton();
         date1 = new com.toedter.calendar.JDateChooser();
         date2 = new com.toedter.calendar.JDateChooser();
-        selectTypeDay = new javax.swing.JComboBox<>();
+        turns = new javax.swing.JComboBox<>();
         saveRegistry = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -270,14 +283,14 @@ public class AddRegistry extends javax.swing.JFrame {
         });
         getContentPane().add(date2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 110, 30));
 
-        selectTypeDay.setBackground(new java.awt.Color(171, 235, 198));
-        selectTypeDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes a Sabado", "Dominical Festivo", "Inicia dia Ordinario Termina Dominical/Festivo", "Inicia Dominical Festivo Termina Dia Ordinario" }));
-        selectTypeDay.addActionListener(new java.awt.event.ActionListener() {
+        turns.setBackground(new java.awt.Color(171, 235, 198));
+        turns.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        turns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectTypeDayActionPerformed(evt);
+                turnsActionPerformed(evt);
             }
         });
-        getContentPane().add(selectTypeDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 270, 30));
+        getContentPane().add(turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 270, 30));
 
         saveRegistry.setBackground(new java.awt.Color(40, 180, 99));
         saveRegistry.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -367,10 +380,20 @@ public class AddRegistry extends javax.swing.JFrame {
 
     }//GEN-LAST:event_salaryKeyPressed
 
-    private void selectTypeDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectTypeDayActionPerformed
+    private void turnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_turnsActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_selectTypeDayActionPerformed
+        int numTurn = turns.getSelectedIndex();
+       
+        if(numTurn>=0){
+            
+            time1.setSelectedItem(turnsUser.get(numTurn-1).getHourStart());
+            time2.setSelectedItem(turnsUser.get(numTurn-1).getHourFinish());
+            
+            System.out.println(turnsUser.get(numTurn-1).getHourStart());
+        }
+        
+    }//GEN-LAST:event_turnsActionPerformed
 
     private void saveRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRegistryActionPerformed
         // TODO add your handling code here:
@@ -515,9 +538,9 @@ public class AddRegistry extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField salary;
     private javax.swing.JButton saveRegistry;
-    private javax.swing.JComboBox<String> selectTypeDay;
     private javax.swing.JCheckBox startToday;
     private javax.swing.JComboBox<String> time1;
     private javax.swing.JComboBox<String> time2;
+    private javax.swing.JComboBox<String> turns;
     // End of variables declaration//GEN-END:variables
 }
