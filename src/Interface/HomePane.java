@@ -5,7 +5,6 @@
  */
 package Interface;
 
-import horaslaborales.AddRegistry;
 import horaslaborales.ClosedWindowEvent;
 import horaslaborales.DeductionsCalculator;
 import Inputs.FieldString;
@@ -141,8 +140,8 @@ public class HomePane extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Sueldo");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 50, -1));
+        jLabel1.setText("Salario básico");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 100, 30));
 
         salary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +239,7 @@ public class HomePane extends javax.swing.JPanel {
         addRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Clock_64px_1.png"))); // NOI18N
         addRegistry.setText("Agregar Jornada");
         addRegistry.setBorderPainted(false);
+        addRegistry.setFocusPainted(false);
         addRegistry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addRegistryActionPerformed(evt);
@@ -251,6 +251,7 @@ public class HomePane extends javax.swing.JPanel {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Money_Bag_48px.png"))); // NOI18N
         jButton2.setText(" Ingresos Adicionales");
         jButton2.setBorderPainted(false);
+        jButton2.setFocusPainted(false);
         jButton2.setMargin(new java.awt.Insets(2, 10, 2, 10));
         add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 440, 230, 60));
 
@@ -298,9 +299,9 @@ public class HomePane extends javax.swing.JPanel {
 
         add(panelVariable, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 300, 100));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel11.setText("TOTAL A RECIBIR : ");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 120, 30));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setText("Neto a recibir: ");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 110, 30));
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
         add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 20, 300));

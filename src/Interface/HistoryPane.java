@@ -5,7 +5,6 @@
  */
 package Interface;
 
-import horaslaborales.AddRegistry;
 import horaslaborales.ClosedWindowEvent;
 import horaslaborales.ManagingRegistry;
 import horaslaborales.Sesion;
@@ -38,12 +37,11 @@ public class HistoryPane extends javax.swing.JPanel {
         this.user = user;
         managing = new ManagingRegistry(user);
 
-        managing.chargueYearRegistries(selectYear);
-        int m = selectYear.getItemCount();
-        selectYear.setSelectedIndex(m - 1);
-        managing.chargueMonthRegistries(this.selectMonth, jTable1, this.selectYear);
+        managing.chargueYearRegistries(selectMonth, jTable1, selectYear,true);
         int n = selectMonth.getItemCount();
         selectMonth.setSelectedIndex(n - 1);
+        managing.chargueMonthRegistries(this.selectMonth, jTable1, this.selectYear);
+        
         this.jTable1.setVisible(true);
         jTable1.getTableHeader().setBackground(new java.awt.Color(0, 204, 51));
         jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
@@ -73,14 +71,10 @@ public class HistoryPane extends javax.swing.JPanel {
     }
 
     public void updateTable() {
-
-        System.out.println(selectYear.getItemCount());
-        managing.chargueYearRegistries(selectYear);
-        int m = selectYear.getItemCount();
-
-        selectYear.setSelectedIndex(m - 1);
+        
         java.awt.event.ActionEvent evt = null;
         selectMonthActionPerformed(evt);
+        
     }
 
     /**
@@ -203,7 +197,7 @@ public class HistoryPane extends javax.swing.JPanel {
     private void selectYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectYearActionPerformed
         // TODO add your handling code here:
         selectMonth.removeAllItems();
-        managing.chargueMonthRegistries(selectMonth, jTable1, selectYear);
+        managing.chargueYearRegistries(selectMonth, jTable1, selectYear, false);
 
     }//GEN-LAST:event_selectYearActionPerformed
 

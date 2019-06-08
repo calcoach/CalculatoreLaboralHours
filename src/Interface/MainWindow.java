@@ -242,10 +242,10 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btn_HistoryLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(25, 25, 25))
+                .addGap(26, 26, 26))
         );
 
-        sidepane.add(btn_History, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 140, 70));
+        sidepane.add(btn_History, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 140, 70));
 
         btn_Turns.setBackground(new java.awt.Color(0, 204, 51));
         btn_Turns.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,7 +279,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        sidepane.add(btn_Turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 150, 70));
+        sidepane.add(btn_Turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 70));
 
         parent.add(sidepane, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 820, -1));
 
@@ -428,10 +428,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void showAbout() {
 
-        background.removeAll();
+        /*background.removeAll();
         InfoPane info = new InfoPane(this.user);
+        info.setVisible(true);*/
+        background.removeAll();
+        CalendarHistoryPane info = new CalendarHistoryPane();
         info.setVisible(true);
-        background.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+        background.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 0, 800, 600));
 
         background.updateUI();
     }

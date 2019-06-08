@@ -75,7 +75,7 @@ public class Calculator {
 
     public int[] calcularHoras() {
 
-        if ((dia == 1 | dia == 2) & (fin > inicio)) {
+        if ((dia == 1 | dia == 2) & ((inicio < fin) | inicio ==24)) {
 
             return calcularHoras(inicio, fin);
         } else {
@@ -113,6 +113,7 @@ public class Calculator {
                     subhoras = sueldoDiaOrdinario(horas);
                 } else {
 
+                    
                     contT = 0;
                     int[] horasdia1 = calcularHoras(inicio, 24);
                     int[] horasdia2 = calcularHoras(0, fin);
@@ -137,6 +138,7 @@ public class Calculator {
 
             case 2:
                 subhoras = sueldoDiaFestivo(horas);
+                
                 break;
 
             case 3:
@@ -216,4 +218,10 @@ public class Calculator {
     public void setDia(int dia) {
         this.dia = dia;
     }
+
+    public void setContT(int contT) {
+        this.contT = contT;
+    }
+    
+    
 }

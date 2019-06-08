@@ -131,6 +131,7 @@
               <Image iconType="3" name="/images/icons8_User_Account_52px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Crear cuenta"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>

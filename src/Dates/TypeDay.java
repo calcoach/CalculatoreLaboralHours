@@ -6,9 +6,13 @@
 package Dates;
 
 import de.jollyday.Holiday;
+import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
+import de.jollyday.ManagerParameter;
+import de.jollyday.ManagerParameters;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -37,6 +41,7 @@ public class TypeDay {
         for (Holiday h : holidays) {
 
             holidayDates.add(h.getDate());
+            System.out.println(h.getDate());
 
         }
         

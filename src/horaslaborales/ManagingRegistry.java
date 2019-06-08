@@ -29,7 +29,7 @@ public class ManagingRegistry {
     ODBC conect;
 
     public ManagingRegistry(Sesion sesion) {
-       
+
         ses = sesion;
         conect = new ODBC(URL_ODBC, ses);
         conect.createNewTableUser();
@@ -43,7 +43,6 @@ public class ManagingRegistry {
 
     public void getSalary(JTextField salary, String user) {
 
-        
         String s = conect.selectSalary(user);
         salary.setText(FieldString.fieldNum(s));
 
@@ -56,9 +55,9 @@ public class ManagingRegistry {
 
             CalendarString date = new CalendarString(fecha1.getCalendar());
 
-            int[] horas = cal.calcularHoras();
+            int[] horas = sumHours(cal.calcularHoras());
 
-            conect.insert(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
+            conect.insert(date.getStringDate(), date.getStringDate(), horas, sumSueldo(cal.calcularSueldo()));
             //Succesfullsave
             return true;
 
@@ -79,9 +78,9 @@ public class ManagingRegistry {
 
             CalendarString date = new CalendarString(fecha1.getCalendar());
 
-            int[] horas = cal.calcularHoras();
+            int[] horas = sumHours(cal.calcularHoras());
 
-            conect.update(date.getStringDate(), date.getStringDate(), horas, cal.calcularSueldo()[4]);
+            conect.update(date.getStringDate(), "", horas, sumSueldo(cal.calcularSueldo()));    
 
         } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");
@@ -90,49 +89,51 @@ public class ManagingRegistry {
         }
     }
 
+    /**
+     * Carga los r
+     *
+     * @param JCombo
+     * @param table
+     * @param year
+     */
     public void chargueMonthRegistries(JComboBox JCombo, JTable table, JComboBox year) {
 
-        //ComboBox Year need contain year
-        if (year.getItemCount() > 0) {
-
+        if(JCombo.getSelectedItem()!=null){
             int yearInt = Integer.valueOf((String) year.getSelectedItem());
-            if (JCombo.getItemCount() == 0) {
 
-                ArrayList<Integer> registries = conect.selectRegistriesMonthYear((String) year.getSelectedItem());
-
-                for (Integer registry : registries) {
-
-                    JCombo.addItem(CalendarString.getNameMounth(registry));
-
-                }
-
-                chargueRegistries(table, CalendarString.getYearMonthByNameMonth(yearInt,
-                        (String) JCombo.getSelectedItem()));
-
-            } else {
-
-                chargueRegistries(table, CalendarString.getYearMonthByNameMonth(yearInt,
-                        (String) JCombo.getSelectedItem()));
-            }
-
+            chargueRegistries(table, CalendarString.getYearMonthByNameMonth(yearInt,
+                    (String) JCombo.getSelectedItem()));
         }
+        
 
     }
 
-    public void chargueYearRegistries(JComboBox year) {
+    public void chargueYearRegistries(JComboBox month, JTable table, JComboBox year, boolean firtsTime) {
 
-        ArrayList<String> registries = conect.selectRegistriesYears();
+        if (year.getItemCount() == 0 & firtsTime) {
 
-        year.removeAllItems();
+            ArrayList<String> registriesYears = conect.selectRegistriesYears();
 
-        for (String registry : registries) {
+            for (String registry : registriesYears) {
 
-            year.addItem(registry);
+                year.addItem(registry);
+
+            }
+
+            int m = year.getItemCount();
+            year.setSelectedIndex(m - 1);
+        }
+        
+        month.removeAllItems();
+
+        ArrayList<Integer> registries = conect.selectRegistriesMonthYear((String) year.getSelectedItem());
+
+        for (Integer registry : registries) {
+
+            month.addItem(CalendarString.getNameMounth(registry));
 
         }
 
-        int n = year.getItemCount();
-        year.setSelectedIndex(n - 1);
     }
 
     private void chargueRegistries(JTable table, String consult) {
@@ -212,6 +213,38 @@ public class ManagingRegistry {
 
         }
 
+    }
+
+    /**
+     * Método temporal mientras se corrije base de datos para que acepte turno
+     * de dos horas
+     *
+     * @param calHours hours generated for calculator hours
+     * @return Sum day 1 and day 2
+     */
+    private int[] sumHours(int[] calHours) {
+
+        int[] hours = calHours;
+
+        if (hours.length > 5) {
+
+            hours[0] = hours[0] + hours[5];
+            hours[1] = hours[1] + hours[6];
+            hours[2] = hours[2] + hours[7];
+            hours[3] = hours[3] + hours[8];
+            hours[4] = hours[4] + hours[10];
+        }
+        return hours;
+    }
+    
+    private double sumSueldo(double[] sueldo ){
+        
+        if(sueldo.length >5){
+            return sueldo[10];
+        } else{
+            
+            return sueldo[4];
+        }
     }
 
 }

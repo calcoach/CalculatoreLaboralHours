@@ -26,6 +26,7 @@ public class ODBCSesion {
 
     public ODBCSesion(String url) {
         this.url = this.url.concat(url);
+        createNewTableUsers();
     }
 
     private Connection connect() {
@@ -115,6 +116,22 @@ public class ODBCSesion {
         return 1;
     }
     
-    
+    public void createNewTableUsers() {
+        // SQLite connection string
+
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS Users(ID integer PRIMARY KEY,"
+                + "user text,pass text, last_salary text, periods_payment Integer, mensualBonuses text, "
+                + "termination_payment text, comisions boolean, transport_assistance boolean);";
+
+        try (Connection conn = this.connect();
+                Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }

@@ -108,6 +108,7 @@ public class SesionWindow extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_Account_52px.png"))); // NOI18N
         jButton2.setText("Crear cuenta");
+        jButton2.setFocusable(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

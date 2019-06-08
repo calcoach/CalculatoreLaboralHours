@@ -6,6 +6,7 @@
 package horaslaborales;
 
 import java.util.ArrayList;
+import models.VacationsInability;
 
 /**
  *
@@ -14,11 +15,13 @@ import java.util.ArrayList;
 public class ManagingDataUser {
     
    ODBC database ;
+   ODBCRegistries databaseReg;
    Sesion user;
    
    public ManagingDataUser(Sesion user){
        this.user = user;
        database = new ODBC("Prueba.db",user);
+       databaseReg = new ODBCRegistries("Prueba.db", user);
    }
    
    public void deleteTurn(int IdTurn){
@@ -51,15 +54,30 @@ public class ManagingDataUser {
        return database.selectPeriodsPayment();
    }
    
+   public double getSalary(){
+       
+       return Double.valueOf( database.selectSalary(user.getUser()));
+   }
+   
    public boolean getTransportAssistance(){
        
        return database.transportAssistance();
    }
    
+   public ArrayList<VacationsInability> getVacationsInability(){
+       
+       return databaseReg.selectVacationsInability();
+   } 
+   
    public ArrayList<Turn> getTurns(){
        
        database.createTableTurns();
        return database.selectTurns();
+   }
+   
+   public void insertVacationsInability(String startday, String finisfday, double sueldo, int type){
+       
+       databaseReg.addVacationsInability(startday, finisfday, sueldo, type);
    }
    
    public void insertTurn(Turn turn){

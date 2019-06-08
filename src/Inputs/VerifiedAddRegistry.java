@@ -9,6 +9,7 @@ import Dates.TypeDay;
 import com.toedter.calendar.JDateChooser;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -36,8 +37,8 @@ public class VerifiedAddRegistry {
 
     public boolean verifiedEntries() {
 
-        if ( calendarEntryNotNull() & calendarExitNotNull() & timesDiferent() & turnIsCorrect()) {
-            
+        if (calendarEntryNotNull() & calendarExitNotNull() & timesDiferent() & turnIsCorrect()) {
+
             return true;
         } else {
             this.firsMessageShow = false;
@@ -49,7 +50,7 @@ public class VerifiedAddRegistry {
 
         if (getTimeChooser(time1) != getTimeChooser(time2)) {
             return true;
-        } else if(!this.firsMessageShow) {
+        } else if (!this.firsMessageShow) {
             JOptionPane.showMessageDialog(null, "Escriba un rango de horas valido : (1-24)");
             this.firsMessageShow = true;
         }
@@ -59,7 +60,7 @@ public class VerifiedAddRegistry {
     private boolean calendarEntryNotNull() {
         if (this.date1.getCalendar() != null) {
             return true;
-        } else if (!this.firsMessageShow){
+        } else if (!this.firsMessageShow) {
             JOptionPane.showMessageDialog(null, "Seleccione la fecha de entrada");
             this.firsMessageShow = true;
         }
@@ -69,11 +70,11 @@ public class VerifiedAddRegistry {
     private boolean calendarExitNotNull() {
         if (this.date2.getCalendar() != null) {
             return true;
-        } else if(!this.firsMessageShow) {
+        } else if (!this.firsMessageShow) {
             JOptionPane.showMessageDialog(null, "Seleccione la fecha de salida");
             this.firsMessageShow = true;
         }
-        
+
         return false;
     }
 
@@ -97,6 +98,11 @@ public class VerifiedAddRegistry {
                 | (selectTypeDay() == 4)))) {
 
             return true;
+        } else if (!(date2.getCalendar().get(Calendar.DATE) > date1.getCalendar().get(Calendar.DATE))
+                & time2.getSelectedIndex() >= time1.getSelectedIndex()) {
+            
+           return true;
+            
         } else if (!this.firsMessageShow) {
             JOptionPane.showMessageDialog(null, "Turno mayor o igual a 24 horas");
             this.firsMessageShow = true;
@@ -107,19 +113,38 @@ public class VerifiedAddRegistry {
     public void verifiedDates() {
 
         this.firsMessageShow = true;
-        if (this.calendarEntryNotNull()& this.calendarExitNotNull()) {
-  
+        if (this.calendarEntryNotNull() & this.calendarExitNotNull()) {
+
             if (date1 != null & date2 != null) {
 
-                int day1 = date1.getCalendar().get(Calendar.DAY_OF_MONTH);
-                int day2 = date2.getCalendar().get(Calendar.DAY_OF_MONTH);
-                if ((day1 == day2) & getTimeChooser(time2) < getTimeChooser(time1)) {
+                if (getTimeChooser(time2) < getTimeChooser(time1)) {
 
-                    Calendar c = date2.getCalendar();
+                    Calendar c = date1.getCalendar();
                     c.roll(Calendar.DAY_OF_MONTH, 1);
                     date2.setCalendar(c);
-                    System.out.println("jajaa");
+
                 }
+            }
+        }
+
+        this.firsMessageShow = false;
+    }
+
+    public void updateDates() {
+        this.firsMessageShow = true;
+        if (this.calendarEntryNotNull()) {
+
+            if (date1 != null & date2 != null) {
+
+                Calendar c = date1.getCalendar();
+                Date firstday = c.getTime();
+                c.roll(Calendar.DAY_OF_MONTH, 1);
+
+                Date seconday = c.getTime();
+
+                date2.setMinSelectableDate(firstday);
+                date2.setMaxSelectableDate(seconday);
+
             }
         }
 

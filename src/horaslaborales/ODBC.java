@@ -364,7 +364,7 @@ public class ODBC {
     }
 
     public ArrayList<Integer> selectRegistriesMonthYear(String year) {
-        String sql = "SELECT start_day FROM " + ses.user + " ;";
+        String sql = "SELECT start_day FROM " + ses.user + " ORDER BY start_day ASC;";
         ArrayList<Integer> months = new ArrayList();
 
         try (Connection conn = this.connect();
@@ -387,7 +387,7 @@ public class ODBC {
     }
 
     public ArrayList<String> selectRegistriesYears() {
-        String sql = "SELECT start_day FROM " + ses.user + " ;";
+        String sql = "SELECT start_day FROM " + ses.user + "  ORDER BY start_day ASC;";
         ArrayList<String> years = new ArrayList();
 
         try (Connection conn = this.connect();
@@ -521,6 +521,22 @@ public class ODBC {
     public void update(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {
         String sql = "UPDATE " + ses.user + " SET time_start_day = ?, Ordinaria = ?, RNocturno = ?, ExtraDiurna = ?,"
                 + "ExtraNocturna = ?, SueldoDia = ? WHERE start_day = ?";
+        
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, date);
+            pstmt.setInt(2, horas[0]);
+            pstmt.setInt(3, horas[1]);
+            pstmt.setInt(4, horas[2]);
+            pstmt.setInt(5, horas[3]);
+            pstmt.setDouble(6, sueldo);
+            pstmt.setString(7, date);
+            
+            pstmt.executeUpdate();
+        } catch(SQLException e){
+            
+        }
 
     }
 
