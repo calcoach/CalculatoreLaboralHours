@@ -5,8 +5,6 @@
  */
 package horaslaborales;
 
-import java.util.Scanner;
-
 /**
  *
  * @author Alejandro

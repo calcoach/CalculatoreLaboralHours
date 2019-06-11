@@ -5,6 +5,8 @@
  */
 package horaslaborales;
 
+import Dates.CalendarString;
+import models.Registry;
 import Inputs.FieldString;
 import com.toedter.calendar.JDateChooser;
 import java.text.DecimalFormat;
@@ -22,28 +24,27 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Alejandro
  */
-public class ManagingRegistry {
+public class ManagingRegistry extends DataUser{
 
     public static String URL_ODBC = "Prueba.db";
     private Sesion ses;
     ODBC conect;
 
     public ManagingRegistry(Sesion sesion) {
-
-        ses = sesion;
-        conect = new ODBC(URL_ODBC, ses);
-        conect.createNewTableUser();
+        
+        super(sesion);
+        
     }
 
     public void updateLastSalary(JTextField salary) {
 
-        conect.editSalary(FieldString.deleteWhiteSpaces(salary.getText()), ses.getUser());
+        this.database.editSalary(FieldString.deleteWhiteSpaces(salary.getText()), this.ses.getUser());
 
     }
 
     public void getSalary(JTextField salary, String user) {
 
-        String s = conect.selectSalary(user);
+        String s = this.database.selectSalary(user);
         salary.setText(FieldString.fieldNum(s));
 
     }
@@ -57,7 +58,7 @@ public class ManagingRegistry {
 
             int[] horas = sumHours(cal.calcularHoras());
 
-            conect.insert(date.getStringDate(), date.getStringDate(), horas, sumSueldo(cal.calcularSueldo()));
+            this.database.insert(date.getStringDate(), date.getStringDate(), horas, sumSueldo(cal.calcularSueldo()));
             //Succesfullsave
             return true;
 
@@ -80,7 +81,7 @@ public class ManagingRegistry {
 
             int[] horas = sumHours(cal.calcularHoras());
 
-            conect.update(date.getStringDate(), "", horas, sumSueldo(cal.calcularSueldo()));    
+            this.database.update(date.getStringDate(), "", horas, sumSueldo(cal.calcularSueldo()));    
 
         } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");
@@ -112,7 +113,7 @@ public class ManagingRegistry {
 
         if (year.getItemCount() == 0 & firtsTime) {
 
-            ArrayList<String> registriesYears = conect.selectRegistriesYears();
+            ArrayList<String> registriesYears = this.database.selectRegistriesYears();
 
             for (String registry : registriesYears) {
 
@@ -126,7 +127,7 @@ public class ManagingRegistry {
         
         month.removeAllItems();
 
-        ArrayList<Integer> registries = conect.selectRegistriesMonthYear((String) year.getSelectedItem());
+        ArrayList<Integer> registries = this.database.selectRegistriesMonthYear((String) year.getSelectedItem());
 
         for (Integer registry : registries) {
 
@@ -140,7 +141,7 @@ public class ManagingRegistry {
 
         try {
 
-            ArrayList<Registry> registries = conect.selectMonthRegistries(consult);
+            ArrayList<Registry> registries = this.database.selectMonthRegistries(consult);
 
             DefaultTableModel deftable = (DefaultTableModel) table.getModel();
             deftable.setNumRows(0);
@@ -177,7 +178,7 @@ public class ManagingRegistry {
 
     public void deleteRegistry(String date) {
 
-        conect.deleteRegistry(date);
+        this.database.deleteRegistry(date);
 
     }
 
@@ -185,7 +186,7 @@ public class ManagingRegistry {
 
         try {
 
-            return conect.selectRegistry(consult);
+            return this.database.selectRegistry(consult);
         } catch (ExceptionLaboralHours ex) {
             Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException e) {

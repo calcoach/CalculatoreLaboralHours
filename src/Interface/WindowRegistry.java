@@ -10,7 +10,6 @@ import horaslaborales.ODBCSesion;
 import horaslaborales.Question;
 import horaslaborales.Sesion;
 import java.awt.Color;
-import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import models.NewRegistry;
@@ -293,8 +292,7 @@ public class WindowRegistry extends javax.swing.JFrame {
                 JLabel message = new JLabel("Este usuario ya existe");
                 message.setForeground(Color.red);
                 this.jPanel2.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30));
-                System.out.println(reg.getSalary());
-                System.out.println(this.numquestion);
+               
             }
 
         }

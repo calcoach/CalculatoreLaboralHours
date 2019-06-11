@@ -86,19 +86,19 @@ public class ClosedWindowEvent implements WindowListener, MouseListener, MouseMo
     public void mouseClicked(MouseEvent e) {
 
         this.ses.dispose();
-        System.out.println("aqui");
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         this.ses.dispose();
-        System.out.println("aqui");
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         this.ses.dispose();
-        System.out.println("aqui");
+
     }
 
     @Override

@@ -16,12 +16,12 @@ public class CompareDates {
  
     
     public static int contDates(Calendar cal1, Calendar cal2){
-        
-       LocalDate lc = LocalDate.now();
        
-       int day1 =  cal1.get(Calendar.DAY_OF_MONTH);
-       int day2 =  cal2.get(Calendar.DAY_OF_MONTH);
+       int day1 =  cal1.get(Calendar.DAY_OF_YEAR);
+       int day2 =  cal2.get(Calendar.DAY_OF_YEAR);
         
         return day2-day1;
     }
+    
+    
 }

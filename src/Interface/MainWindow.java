@@ -80,6 +80,7 @@ public class MainWindow extends javax.swing.JFrame {
         parent.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(11, 198, 62));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_User_96px_1.png"))); // NOI18N
@@ -101,11 +102,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanel1.add(closeSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
-        parent.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 690));
+        parent.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 710));
 
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        parent.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 920, 590));
+        parent.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 920, 630));
 
         sidepane.setBackground(new java.awt.Color(0, 204, 51));
         sidepane.setMinimumSize(new java.awt.Dimension(600, 200));
@@ -281,9 +282,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         sidepane.add(btn_Turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, -1, 70));
 
-        parent.add(sidepane, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 820, -1));
+        parent.add(sidepane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 870, -1));
 
-        getContentPane().add(parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 0, 1110, 690));
+        getContentPane().add(parent, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 0, 1110, 730));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -434,7 +435,7 @@ public class MainWindow extends javax.swing.JFrame {
         background.removeAll();
         CalendarHistoryPane info = new CalendarHistoryPane();
         info.setVisible(true);
-        background.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 0, 800, 600));
+        background.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 860, 623));
 
         background.updateUI();
     }
@@ -442,7 +443,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void showConfig() {
 
         background.removeAll();
-        ConfigPane config = new ConfigPane(this.user);
+        ConfigPane config = new ConfigPane(this.user, this);
         config.setVisible(true);
         background.add(config, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
         background.updateUI();

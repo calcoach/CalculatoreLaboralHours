@@ -1,0 +1,2 @@
+esta seguro que desea eliminar su cuenta?
+si da clic en aceptar se le borrarán toda la información que ha ingresado hasta el momento.

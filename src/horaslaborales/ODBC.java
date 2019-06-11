@@ -5,6 +5,9 @@
  */
 package horaslaborales;
 
+import Dates.CalendarString;
+import models.Turn;
+import models.Registry;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -87,9 +90,30 @@ public class ODBC {
             // create a new table
             stmt.execute(sql);
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void deleteUser(){
+        
+        String sql = "DROP TABLE "+ses.getUser();
+        String sql2 = "DROP TABLE IF EXISTS "+ses.user + "_Turns";
+        String sql3 = "DELETE FROM Users WHERE user = ?";
+        
+        try(Connection conn = connect()){
+            
+            Statement stmt = conn.createStatement();
+            stmt.execute(sql);
+            stmt.execute(sql2);
+            PreparedStatement pstmt = conn.prepareStatement(sql3);
+            pstmt.setString(1, ses.getUser());
+            pstmt.executeUpdate();
+            
+        } catch(SQLException ex){
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     //Agregar usuarios
@@ -256,6 +280,7 @@ public class ODBC {
 
         } catch (SQLException ex) {
             Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         return last_salary;

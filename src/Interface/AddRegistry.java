@@ -9,15 +9,12 @@ import Inputs.VerifiedAddRegistry;
 import Interface.RegistryPane;
 import horaslaborales.ManagingDataUser;
 import horaslaborales.ManagingRegistry;
-import horaslaborales.Registry;
+import models.Registry;
 import horaslaborales.Sesion;
-import horaslaborales.Turn;
+import models.Turn;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Calendar;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -42,7 +39,9 @@ public class AddRegistry extends javax.swing.JFrame {
         managingData = new ManagingDataUser(user);
         preConfigureWindow();
 
-        jPanel1.add(new RegistryPane(user, this),new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 530));
+       java.awt.event.MouseEvent evt = null;
+       this.jPanel5MouseClicked(evt);
+      
     }
 
     public AddRegistry(Registry reg, Sesion user) {

@@ -5,18 +5,16 @@
  */
 package horaslaborales;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
  *
  * @author Alejandro
  */
-public class DeductionsCalculator {
+public class DeductionsCalculator extends DataUser{
 
-    Sesion user;
-    ODBC database;
+    //Sesion user;
+    //ODBC database;
     double currentSalary;
     double health;
     double pension;
@@ -24,6 +22,14 @@ public class DeductionsCalculator {
     int cut1 = 0;
     int cut2 = 0;
 
+    public DeductionsCalculator(Sesion user) {
+        super(user);
+        //this.user = user;
+        //database = new ODBC("Prueba.db", user);
+        
+        this.currentSalary = CurrentSalary();
+    }
+    
     public void setCut1(int cut1) {
 
         this.cut1 = cut1;
@@ -34,13 +40,6 @@ public class DeductionsCalculator {
 
         this.cut2 = cut2;
         recalculateCurrentSalary();
-    }
-
-    public DeductionsCalculator(Sesion user) {
-        this.user = user;
-        database = new ODBC("Prueba.db", user);
-        database.createNewTableUser();
-        currentSalary = CurrentSalary();
     }
 
     public void recalculateCurrentSalary() {
@@ -86,7 +85,7 @@ public class DeductionsCalculator {
         return getTotalIncomes() - getTotalDeductions();
     }
 
-    public String[] getPeriod() {
+   /* public String[] getPeriod() {
 
         String[] periodsPayment = new String[2];
 
@@ -131,18 +130,18 @@ public class DeductionsCalculator {
         }
 
         return periodsPayment;
-    }
+    }*/
 
     public String getMensualBonuses() {
 
-        String bonuses = String.valueOf(database.selectMensualBonuses());
+        String bonuses = String.valueOf(this.database.selectMensualBonuses());
 
         return bonuses;
     }
     
     public double getTransportAssistance(){
         
-        if(database.transportAssistance()){
+        if(this.database.transportAssistance()){
            return transportAssistance;
         } else{
             return 0;
@@ -151,7 +150,7 @@ public class DeductionsCalculator {
 
     public String getTerminationPayment() {
 
-        String payment = database.selectTerminationPayment();
+        String payment = this.database.selectTerminationPayment();
         return payment;
     }
 

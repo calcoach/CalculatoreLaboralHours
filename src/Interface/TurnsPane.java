@@ -9,7 +9,7 @@ import Inputs.VerifiedAddTurn;
 import horaslaborales.ManagingDataUser;
 import horaslaborales.ManagingRegistry;
 import horaslaborales.Sesion;
-import horaslaborales.Turn;
+import models.Turn;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
