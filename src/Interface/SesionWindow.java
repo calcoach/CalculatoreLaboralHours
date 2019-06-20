@@ -6,8 +6,6 @@
 package Interface;
 
 import horaslaborales.ODBCSesion;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
 /**

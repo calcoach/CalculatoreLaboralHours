@@ -8,7 +8,7 @@ package Interface;
 import Inputs.VerifiedAddRegistry;
 import Interface.RegistryPane;
 import horaslaborales.ManagingDataUser;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import models.Registry;
 import horaslaborales.Sesion;
 import models.Turn;
@@ -26,7 +26,7 @@ public class AddRegistry extends javax.swing.JFrame {
      * Creates new form Home
      */
     Registry registry;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
     ManagingDataUser managingData;
     Sesion user;
     VerifiedAddRegistry verifiedRegistry;
@@ -35,12 +35,12 @@ public class AddRegistry extends javax.swing.JFrame {
     public AddRegistry(Sesion user) {
         this.user = user;
         initComponents();
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
         preConfigureWindow();
 
        java.awt.event.MouseEvent evt = null;
-       this.jPanel5MouseClicked(evt);
+       this.turnMouseClicked(evt);
       
     }
 
@@ -48,7 +48,7 @@ public class AddRegistry extends javax.swing.JFrame {
         initComponents();
         this.user = user;
         this.registry = reg;
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
         
         preConfigureWindow();
@@ -80,7 +80,7 @@ public class AddRegistry extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        turn = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -119,21 +119,21 @@ public class AddRegistry extends javax.swing.JFrame {
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 110, 90));
 
-        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        turn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel5MouseClicked(evt);
+                turnMouseClicked(evt);
             }
         });
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        turn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Schedule_48px_1.png"))); // NOI18N
-        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        turn.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setText("Turno");
-        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 70, 20));
+        turn.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 70, 20));
 
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 110, 90));
+        jPanel3.add(turn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 110, 90));
 
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,15 +158,15 @@ public class AddRegistry extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+    private void turnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_turnMouseClicked
         // TODO add your handling code here:
         resetColor();
-        setColor(jPanel5);
+        setColor(turn);
         
         jPanel1.removeAll();
         jPanel1.add(new RegistryPane(this.user, this), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 530));
         jPanel1.updateUI();
-    }//GEN-LAST:event_jPanel5MouseClicked
+    }//GEN-LAST:event_turnMouseClicked
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
@@ -233,7 +233,7 @@ public class AddRegistry extends javax.swing.JFrame {
     }
     
     private void resetColor(){
-        jPanel5.setBackground(new Color(0, 204, 51));
+        turn.setBackground(new Color(0, 204, 51));
         jPanel4.setBackground(new Color(0, 204, 51));
         jPanel6.setBackground(new Color(0, 204, 51));
     }
@@ -255,7 +255,7 @@ public class AddRegistry extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel turn;
     // End of variables declaration//GEN-END:variables
 }

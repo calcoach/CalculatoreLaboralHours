@@ -50,13 +50,14 @@ public class ODBC {
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS " + ses.user + "(ID integer PRIMARY KEY,"
-                + "start_day text,"
-                + "time_start_day text, Ordinaria double, RNocturno double,"
-                + "ExtraDiurna double, ExtraNocturna double, SueldoDia double)";
+                + "start_day text, time_start_day text, Ordinaria double, RNocturno double,"
+                + "ExtraDiurna double, ExtraNocturna double, SueldoDia double, finish_day text,"
+                + " time_finish_day text,Ordinaria2 int, RNocturno2 int, ExtraDiurna2 int,"
+                + " ExtraNocturna2 int, SueldoDia2 double)";
 
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement()) {
-            // create a new table
+            //create a new table
             stmt.execute(sql);
 
         } catch (SQLException e) {
@@ -94,26 +95,26 @@ public class ODBC {
             Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void deleteUser(){
-        
-        String sql = "DROP TABLE "+ses.getUser();
-        String sql2 = "DROP TABLE IF EXISTS "+ses.user + "_Turns";
+
+    public void deleteUser() {
+
+        String sql = "DROP TABLE " + ses.getUser();
+        String sql2 = "DROP TABLE IF EXISTS " + ses.user + "_Turns";
         String sql3 = "DELETE FROM Users WHERE user = ?";
-        
-        try(Connection conn = connect()){
-            
+
+        try (Connection conn = connect()) {
+
             Statement stmt = conn.createStatement();
             stmt.execute(sql);
             stmt.execute(sql2);
             PreparedStatement pstmt = conn.prepareStatement(sql3);
             pstmt.setString(1, ses.getUser());
             pstmt.executeUpdate();
-            
-        } catch(SQLException ex){
+
+        } catch (SQLException ex) {
             Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     //Agregar usuarios
@@ -280,19 +281,21 @@ public class ODBC {
 
         } catch (SQLException ex) {
             Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
 
         return last_salary;
     }
 
-    public void insert(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {
+    public void insert(String date, String time, int[] horas, double sueldo, String date2, String time2,
+            double sueldo2) throws ExceptionLaboralHours {
         //String sql = "INSERT INTO primera_tabla(name,capacity) VALUES(?,?)";
 
         this.checkRepeatRegistry(date);
         String sql = "INSERT INTO " + ses.user + "(start_day, time_start_day, Ordinaria, RNocturno, ExtraDiurna,"
-                + "ExtraNocturna, SueldoDia)\n"
-                + " VALUES(?,?,?,?,?,?,?)";
+                + "ExtraNocturna, SueldoDia, finish_day, time_finish_day, Ordinaria2, RNocturno2, Extradiurna2"
+                + ", ExtraNocturna2, SueldoDia2)\n"
+                + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -303,25 +306,45 @@ public class ODBC {
             pstmt.setInt(5, horas[2]);
             pstmt.setInt(6, horas[3]);
             pstmt.setDouble(7, sueldo);
+            pstmt.setString(8, date2);
+            pstmt.setString(9, time2);
+
+            if (horas.length > 5) {
+                
+                pstmt.setInt(10, horas[5]);
+                pstmt.setInt(11, horas[6]);
+                pstmt.setInt(12, horas[7]);
+                pstmt.setInt(13, horas[8]);
+                pstmt.setDouble(14, sueldo2);
+                
+            } else{
+                
+                pstmt.setInt(10, 0);
+                pstmt.setInt(11, 0);
+                pstmt.setInt(12, 0);
+                pstmt.setInt(13, 0);
+                pstmt.setDouble(14, 0);
+            }
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void insertTurn(Turn turn){
-        
-        String sql = "INSERT INTO " + ses.getUser()+"_Turns" + "(NameTurn, HourStart, HourFinish) VALUES(?,?,?)";
-        
+
+    public void insertTurn(Turn turn) {
+
+        String sql = "INSERT INTO " + ses.getUser() + "_Turns" + "(NameTurn, HourStart, HourFinish) VALUES(?,?,?)";
+
         try (Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)){
-            
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, turn.getNameTurn());
             pstmt.setString(2, turn.getHourStart());
             pstmt.setString(3, turn.getHourFinish());
             pstmt.executeUpdate();
-            
-        } catch (SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -343,15 +366,15 @@ public class ODBC {
         }
 
     }
-    
-    public void deleteTurn(int IdTurn){
-        
-        String sql = "DELETE FROM "+ ses.getUser() +"_Turns"+" WHERE NumTurn = "+String.valueOf(IdTurn);
-        
-        try(Connection conn = this.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+    public void deleteTurn(int IdTurn) {
+
+        String sql = "DELETE FROM " + ses.getUser() + "_Turns" + " WHERE NumTurn = " + String.valueOf(IdTurn);
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.executeUpdate();
-            
+
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -360,7 +383,8 @@ public class ODBC {
     public Registry selectRegistry(String consult) throws ExceptionLaboralHours, ParseException {
 
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM " + ses.user + " WHERE start_day LIKE '%" + consult + "%'"
+                + "ExtraDiurna, ExtraNocturna, SueldoDia, finish_day, time_finish_day"
+                + " FROM " + ses.user + " WHERE start_day LIKE '%" + consult + "%'"
                 + "ORDER BY start_day ASC";
 
         try (Connection conn = this.connect();
@@ -372,12 +396,16 @@ public class ODBC {
             while (rs.next()) {
 
                 CalendarString date = new CalendarString(rs.getString("start_day"));
+                CalendarString date2 = new CalendarString(rs.getString("finish_day"));
                 reg.setStartDay(date.getDate());
+                reg.setTime_startDay(rs.getString("time_start_day"));
                 reg.setOrdinaria(rs.getInt("Ordinaria"));
                 reg.setRNocturno(rs.getInt("RNocturno"));
                 reg.setExtraDiurna(rs.getInt("ExtraDiurna"));
                 reg.setExtranocturna(rs.getInt("ExtraNocturna"));
                 reg.setSueldo(rs.getDouble("SueldoDia"));
+                reg.setFinishDay(date2.getDate());
+                reg.setTime_finishDay(rs.getString("time_finish_day"));
 
             }
             return reg;
@@ -513,7 +541,8 @@ public class ODBC {
         ArrayList<Registry> a = new ArrayList();
 
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia FROM " + ses.user + " WHERE start_day LIKE '%" + consult + "%'"
+                + "ExtraDiurna, ExtraNocturna, SueldoDia, finish_day, time_finish_day"
+                + " FROM " + ses.user + " WHERE start_day LIKE '%" + consult + "%'"
                 + "ORDER BY start_day ASC";
 
         try (Connection conn = this.connect();
@@ -525,13 +554,17 @@ public class ODBC {
 
                 Registry reg = new Registry();
                 CalendarString date = new CalendarString(rs.getString("start_day"));
+                CalendarString date2 = new CalendarString(rs.getString("finish_day"));
                 reg.setStartDay(date.getDate());
-                //reg.setID(rs.getInt("ID"));
+                reg.setTime_startDay(rs.getString("time_start_day"));
                 reg.setOrdinaria(rs.getInt("Ordinaria"));
                 reg.setRNocturno(rs.getInt("RNocturno"));
                 reg.setExtraDiurna(rs.getInt("ExtraDiurna"));
                 reg.setExtranocturna(rs.getInt("ExtraNocturna"));
                 reg.setSueldo(rs.getDouble("SueldoDia"));
+                reg.setFinishDay(date2.getDate());
+                reg.setTime_finishDay(rs.getString("time_finish_day"));
+         
                 a.add(reg);
 
             }
@@ -543,24 +576,44 @@ public class ODBC {
 
     }
 
-    public void update(String date, String time, int[] horas, double sueldo) throws ExceptionLaboralHours {
+    public void update(String date, String time, int[] horas, double sueldo, String time2) throws ExceptionLaboralHours {
         String sql = "UPDATE " + ses.user + " SET time_start_day = ?, Ordinaria = ?, RNocturno = ?, ExtraDiurna = ?,"
-                + "ExtraNocturna = ?, SueldoDia = ? WHERE start_day = ?";
-        
+                + "ExtraNocturna = ?, SueldoDia = ?, time_finish_day = ?, Ordinaria2 = ?, RNocturno2 = ?, ExtraDiurna2 = ?,"
+                + "ExtraNocturna2 = ? , sueldoDia2 = ? WHERE start_day = ?";
+
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, date);
+
+            pstmt.setString(1, time);
             pstmt.setInt(2, horas[0]);
             pstmt.setInt(3, horas[1]);
             pstmt.setInt(4, horas[2]);
             pstmt.setInt(5, horas[3]);
             pstmt.setDouble(6, sueldo);
-            pstmt.setString(7, date);
-            
+            pstmt.setString(7, time2);
+
+            if (horas.length > 5) {
+                
+                pstmt.setInt(8, horas[5]);
+                pstmt.setInt(9, horas[6]);
+                pstmt.setInt(10, horas[7]);
+                pstmt.setInt(11, horas[8]);
+                pstmt.setDouble(12, sueldo);
+                
+            } else{
+                
+                pstmt.setInt(8, 0);
+                pstmt.setInt(9, 0);
+                pstmt.setInt(10, 0);
+                pstmt.setInt(11, 0);
+                pstmt.setDouble(12, 0);
+            }
+
+            pstmt.setString(13, date);
             pstmt.executeUpdate();
-        } catch(SQLException e){
-            
+        } catch (SQLException ex) {
+
+            Logger.getLogger(ODBC.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

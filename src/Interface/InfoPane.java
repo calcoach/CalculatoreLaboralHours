@@ -5,7 +5,7 @@
  */
 package Interface;
 
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import horaslaborales.Sesion;
 
 /**
@@ -18,11 +18,11 @@ public class InfoPane extends javax.swing.JPanel {
      * Creates new form HomePane
      */
     Sesion user;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
     public InfoPane(Sesion user) {
         initComponents();
         this.user = user;
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         preconfig();
     }
     

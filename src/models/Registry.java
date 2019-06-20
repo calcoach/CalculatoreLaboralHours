@@ -16,9 +16,9 @@ public class Registry {
     
     int ID;
     Date startDay;
-    Date time_startDay;
+    String time_startDay;
     Date finishDay;
-    Date time_finishDay;
+    String time_finishDay;
     int Ordinaria;
     int RNocturno;
     int ExtraDiurna;
@@ -53,11 +53,11 @@ public class Registry {
         this.startDay = startDay;
     }
 
-    public Date getTime_startDay() {
+    public String getTime_startDay() {
         return time_startDay;
     }
 
-    public void setTime_startDay(Date time_startDay) {
+    public void setTime_startDay(String time_startDay) {
         this.time_startDay = time_startDay;
     }
 
@@ -69,11 +69,11 @@ public class Registry {
         this.finishDay = finishDay;
     }
 
-    public Date getTime_finishDay() {
+    public String getTime_finishDay() {
         return time_finishDay;
     }
 
-    public void setTime_finishDay(Date time_finishDay) {
+    public void setTime_finishDay(String time_finishDay) {
         this.time_finishDay = time_finishDay;
     }
 

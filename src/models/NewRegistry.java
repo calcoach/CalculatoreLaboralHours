@@ -12,6 +12,7 @@ package models;
 public class NewRegistry {
     
     String nameUser;
+    String name;
     String salary;
     int periods_payment;
     String mensualBonuses;
@@ -48,7 +49,9 @@ public class NewRegistry {
         return transportAssistance;
     }
     
-    
+     public String getName() {
+        return name;
+    }
 
     public void setPeriods_payment(int periods_payment) {
         this.periods_payment = periods_payment;
@@ -60,6 +63,11 @@ public class NewRegistry {
 
     public void setMensualBonuses(String mensualBonuses) {
         this.mensualBonuses = mensualBonuses;
+    }
+    
+    public void setName(String name){
+        
+        this.name = name;
     }
 
     public String getTerminationPayment() {
@@ -82,5 +90,6 @@ public class NewRegistry {
         
         this.transportAssistance = transportAssistance;
     }
+
     
 }

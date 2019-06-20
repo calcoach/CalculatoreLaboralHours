@@ -7,7 +7,7 @@ package Interface;
 
 import Inputs.VerifiedAddTurn;
 import horaslaborales.ManagingDataUser;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import horaslaborales.Sesion;
 import models.Turn;
 import java.util.ArrayList;

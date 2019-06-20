@@ -8,7 +8,7 @@ package Interface;
 import horaslaborales.ClosedWindowEvent;
 import horaslaborales.DeductionsCalculator;
 import Inputs.FieldString;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import horaslaborales.Sesion;
 import java.util.Calendar;
 import static java.util.Calendar.getInstance;
@@ -24,7 +24,7 @@ public class HomePane extends javax.swing.JPanel {
      * Creates new form HomePane
      */
     Sesion user;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
     DeductionsCalculator cal;
     boolean datechanged = false;
 
@@ -32,7 +32,7 @@ public class HomePane extends javax.swing.JPanel {
        
         initComponents();
         this.user = user;
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         cal = new DeductionsCalculator(user);
         preconfig();
     }

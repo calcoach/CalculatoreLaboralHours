@@ -41,7 +41,6 @@ public class TypeDay {
         for (Holiday h : holidays) {
 
             holidayDates.add(h.getDate());
-
         }
 
         if (day.getDayOfWeek().getValue() == 7 | holidayDates.contains(day)) {

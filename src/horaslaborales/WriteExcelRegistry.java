@@ -73,10 +73,10 @@ public class WriteExcelRegistry {
             wb.write(fileOut);
             wb.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InterfaceHistory.class.getName()).log(Level.SEVERE, null, ex);
             
         } catch (IOException ex) {
-            Logger.getLogger(ManagingRegistry.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InterfaceHistory.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
         return 1;

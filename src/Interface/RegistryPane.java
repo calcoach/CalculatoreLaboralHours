@@ -7,7 +7,7 @@ package Interface;
 import Inputs.VerifiedAddRegistry;
 import horaslaborales.Calculator;
 import horaslaborales.ManagingDataUser;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import models.Registry;
 import horaslaborales.Sesion;
 import models.Turn;
@@ -29,7 +29,7 @@ public class RegistryPane extends javax.swing.JPanel {
      * Creates new form RegistryPane
      */
     Registry registry;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
     ManagingDataUser managingData;
     Sesion user;
     VerifiedAddRegistry verifiedRegistry;
@@ -42,7 +42,7 @@ public class RegistryPane extends javax.swing.JPanel {
         this.user = user;
         this.wregistry = wregistry;
         initComponents();
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
         preConfigureWindow();
 
@@ -54,7 +54,7 @@ public class RegistryPane extends javax.swing.JPanel {
         this.registry = reg;
         this.wregistry = wregistry;
         
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
         
         preConfigureWindow();
@@ -107,9 +107,7 @@ public class RegistryPane extends javax.swing.JPanel {
         });
 
         verifiedRegistry = new VerifiedAddRegistry(this.time1, time2, date1, date2);
-        
-        
-
+  
     }
 
     /**
@@ -137,7 +135,11 @@ public class RegistryPane extends javax.swing.JPanel {
     private void preChargedData() {
         if (registry != null) {
             this.date1.setDate(registry.getStartDay());
+            this.date2.setDate(registry.getFinishDay());
             date1.setSelectableDateRange(registry.getStartDay(), registry.getStartDay());
+            
+            time1.setSelectedItem(registry.getTime_startDay());
+            time2.setSelectedItem(registry.getTime_finishDay());
  
             date2.setEnabled(true);
             verifiedRegistry.updateDates();
@@ -406,9 +408,14 @@ public class RegistryPane extends javax.swing.JPanel {
             String sal = this.salary.getText().replaceAll(" ", "");
 
             double i = Double.parseDouble(sal);
-
             calc = new Calculator(getTimeChooser(time1), getTimeChooser(time2), (int) i);
-
+            
+            
+            if(date1.getCalendar().get(Calendar.DAY_OF_MONTH)!=date2.getCalendar().get(Calendar.DAY_OF_MONTH)){
+                calc.setNextDay(true);
+                
+            } 
+            
             calc.setDia(verifiedRegistry.selectTypeDay());
             showData(calc);
 
@@ -462,18 +469,24 @@ public class RegistryPane extends javax.swing.JPanel {
 
             Calculator calc = new Calculator(getTimeChooser(time1), getTimeChooser(time2),
                 (int) i);
+            
+            if(date1.getCalendar().get(Calendar.DAY_OF_MONTH)!=date2.getCalendar().get(Calendar.DAY_OF_MONTH)){
+                calc.setNextDay(true);
+                
+            } 
+            
             calc.setDia(verifiedRegistry.selectTypeDay());
 
             if (registry == null) {
 
-                boolean h = managing.saveRegistry(this.date1, this.date2, calc);
+                boolean h = managing.saveRegistry(this.date1, time1, this.date2, time2, calc);
                 if (h) {
                     wregistry.dispose();
                 }
 
             } else {
 
-                managing.updateRegistry(date1, date2, calc);
+                managing.updateRegistry(date1,time1,date2, calc, time2);
                 wregistry.dispose();
 
             }

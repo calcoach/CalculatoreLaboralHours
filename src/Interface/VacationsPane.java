@@ -8,7 +8,7 @@ package Interface;
 import Dates.CalendarString;
 import Inputs.VerifiedAddVacationsInability;
 import horaslaborales.ManagingDataUser;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import models.Registry;
 import horaslaborales.Sesion;
 import horaslaborales.VacationsInabilityCalculator;
@@ -28,7 +28,7 @@ public class VacationsPane extends javax.swing.JPanel {
      * Creates new form RegistryPane
      */
     Registry registry;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
     ManagingDataUser managingData;
     Sesion user;
     VerifiedAddVacationsInability verifiedRegistry;
@@ -39,7 +39,7 @@ public class VacationsPane extends javax.swing.JPanel {
         this.user = user;
         this.wregistry = wregistry;
         initComponents();
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
         preConfigureWindow();
 
@@ -51,7 +51,7 @@ public class VacationsPane extends javax.swing.JPanel {
         this.registry = reg;
         this.wregistry = wregistry;
 
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
 
         preConfigureWindow();

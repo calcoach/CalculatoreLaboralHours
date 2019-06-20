@@ -8,7 +8,7 @@ package Interface;
 import Dates.CalendarString;
 import Inputs.FieldString;
 import horaslaborales.ManagingDataUser;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import horaslaborales.Sesion;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -25,14 +25,14 @@ public class ConfigPane extends javax.swing.JPanel {
      * Creates new form HomePane
      */
     Sesion user;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
     ManagingDataUser managingData;
     MainWindow mw;
 
     public ConfigPane(Sesion user, MainWindow mw) {
         initComponents();
         this.user = user;
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
         this.mw = mw;
         preconfig();

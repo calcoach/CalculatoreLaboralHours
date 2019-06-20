@@ -5,6 +5,10 @@
  */
 package Interface;
 
+import Interface.Questions.Question0;
+import Interface.Questions.Question3;
+import Interface.Questions.Question2;
+import Interface.Questions.Question1;
 import horaslaborales.ODBC;
 import horaslaborales.ODBCSesion;
 import horaslaborales.Question;
@@ -44,13 +48,13 @@ public class WindowRegistry extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        nameUser = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         back = new javax.swing.JButton();
         questionpane = new javax.swing.JPanel();
         cancel = new javax.swing.JButton();
         next = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        user = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -72,16 +76,6 @@ public class WindowRegistry extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("Nombre y Apellido*");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 130, 30));
-
-        nameUser.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                nameUserKeyReleased(evt);
-            }
-        });
-        jPanel2.add(nameUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 203, 34));
 
         jLabel10.setBackground(new java.awt.Color(255, 0, 0));
         jLabel10.setText("Los campos con ( * )son obligatorios. ");
@@ -121,6 +115,17 @@ public class WindowRegistry extends javax.swing.JFrame {
         });
         jPanel2.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, 100, 30));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Nombre de usuario");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 150, -1));
+
+        user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                userKeyReleased(evt);
+            }
+        });
+        jPanel2.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 203, 34));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 670, 460));
 
         pack();
@@ -149,7 +154,7 @@ public class WindowRegistry extends javax.swing.JFrame {
                 if (!checkInputs((Question) actualQuestion)) {
 
                     questionpane.removeAll();
-                    if (numquestion <= 2) {
+                    if (numquestion <= 3) {
 
                         numquestion++;
                     }
@@ -163,11 +168,6 @@ public class WindowRegistry extends javax.swing.JFrame {
         chargeQuestion();
     }//GEN-LAST:event_nextActionPerformed
 
-    private void nameUserKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameUserKeyReleased
-        // TODO add your handling code here:
-        reg.setNameUser(this.nameUser.getText());
-    }//GEN-LAST:event_nameUserKeyReleased
-
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         // TODO add your handling code here:
         SesionWindow w = new SesionWindow();
@@ -175,6 +175,12 @@ public class WindowRegistry extends javax.swing.JFrame {
         w.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void userKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userKeyReleased
+        // TODO add your handling code here:
+        reg.setNameUser(user.getText().trim().replaceAll(" ", ""));
+
+    }//GEN-LAST:event_userKeyReleased
 
     /**
      * @param args the command line arguments
@@ -215,26 +221,34 @@ public class WindowRegistry extends javax.swing.JFrame {
 
         switch (numquestion) {
             case 1:
-                Question2 q2 = new Question2(reg);
-                questionpane.add(q2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 260));
+                Question1 q1 = new Question1(reg);
+                questionpane.add(q1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 260));
                 break;
 
             case 2:
 
-                Question3 q3 = new Question3(reg);
-                questionpane.add(q3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 260));
+                Question2 q2 = new Question2(reg);
+                questionpane.add(q2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 260));
                 this.next.setText("Finalizar");
                 break;
 
             case 3:
+
+                Question3 q3 = new Question3(reg);
+                questionpane.add(q3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 260));
+                this.next.setText("Finalizar");
+
+                break;
+                
+            case 4:
 
                 createUser();
 
                 break;
 
             default:
-                Question1 q1 = new Question1(reg);
-                questionpane.add(q1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 260));
+                Question0 q0 = new Question0(reg);
+                questionpane.add(q0, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 260));
 
                 break;
 
@@ -246,13 +260,13 @@ public class WindowRegistry extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cancel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField nameUser;
     private javax.swing.JButton next;
     private javax.swing.JPanel questionpane;
+    private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 
     private boolean checkInputs(Question question) {
@@ -262,7 +276,7 @@ public class WindowRegistry extends javax.swing.JFrame {
 
     private boolean checkNameUser() {
 
-        if (nameUser.getText().equals("")) {
+        if (user.getText().equals("")) {
             JLabel message = new JLabel("Escriba el nombre de usuario");
             message.setForeground(Color.red);
             jPanel2.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70));
@@ -281,6 +295,7 @@ public class WindowRegistry extends javax.swing.JFrame {
             int response = odb.createUser(reg);
 
             if (response == 1) {
+                
                 ODBC database = new ODBC("Prueba.db", new Sesion(reg.getNameUser(), ""));
                 database.createNewTableUser();
                 SesionWindow w = new SesionWindow();
@@ -288,10 +303,11 @@ public class WindowRegistry extends javax.swing.JFrame {
                 w.setLocationRelativeTo(null);
                 this.dispose();
             } else {
-
-                JLabel message = new JLabel("Este usuario ya existe");
-                message.setForeground(Color.red);
-                this.jPanel2.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30));
+                
+                JLabel mess = new JLabel("Este usuario ya existe");
+                mess.setForeground(Color.red);
+                this.jPanel2.add(mess, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70));
+                this.jPanel2.updateUI();
                
             }
 

@@ -25,6 +25,7 @@ public class VerifiedAddRegistry {
     JDateChooser date2;
     int selectTypeDay;
     boolean firsMessageShow;
+    boolean nextDay = false;
 
     public VerifiedAddRegistry(JComboBox time1, JComboBox time2, JDateChooser date1,
             JDateChooser date2) {
@@ -33,6 +34,20 @@ public class VerifiedAddRegistry {
         this.date1 = date1;
         this.date2 = date2;
 
+    }
+
+    public boolean daysDiferent() {
+
+        ///Temporal
+        if(!(calendarEntryNotNull() & calendarExitNotNull())){
+            return false;
+        }
+        if (date1.getCalendar().get(Calendar.DAY_OF_MONTH) != date2.getCalendar().get(Calendar.DAY_OF_MONTH)) {
+             return true;
+        } else{
+            
+            return false;
+        }
     }
 
     public boolean verifiedEntries() {
@@ -48,11 +63,13 @@ public class VerifiedAddRegistry {
 
     private boolean timesDiferent() {
 
-        if (getTimeChooser(time1) != getTimeChooser(time2)) {
+        if (getTimeChooser(time1) != getTimeChooser(time2) | this.daysDiferent()) {
             return true;
-        } else if (!this.firsMessageShow) {
-            JOptionPane.showMessageDialog(null, "Escriba un rango de horas valido : (1-24)");
+        } else if (!this.firsMessageShow & !this.daysDiferent()) {
+            JOptionPane.showMessageDialog(null, "Las horas son iguales ");
             this.firsMessageShow = true;
+        } else {
+            return true;
         }
         return false;
     }
@@ -92,19 +109,37 @@ public class VerifiedAddRegistry {
             return select;
         }
     }
+    
+    
 
-    private boolean turnIsCorrect() {
+    /*private boolean turnIsCorrect() {
         if (!((time2.getSelectedIndex() >= time1.getSelectedIndex()) & ((selectTypeDay() == 3)
                 | (selectTypeDay() == 4)))) {
 
             return true;
+            
         } else if (!(date2.getCalendar().get(Calendar.DATE) > date1.getCalendar().get(Calendar.DATE))
                 & time2.getSelectedIndex() >= time1.getSelectedIndex()) {
-            
-           return true;
-            
+
+            return true;
+
         } else if (!this.firsMessageShow) {
             JOptionPane.showMessageDialog(null, "Turno mayor o igual a 24 horas");
+            this.firsMessageShow = true;
+        
+        } else if(this.daysDiferent()){
+            return true;
+        }
+        
+        return false;
+    }*/
+    
+    private boolean turnIsCorrect(){
+        if(!(time2.getSelectedIndex() < time1.getSelectedIndex() & (time2.getSelectedIndex()!=0) 
+                &(date2.getCalendar().get(Calendar.DATE)==date1.getCalendar().get(Calendar.DATE)))){
+            return true;
+        } else if(!this.firsMessageShow){
+            JOptionPane.showMessageDialog(null, "Hora fin menor que hora inicio");
             this.firsMessageShow = true;
         }
         return false;
@@ -117,7 +152,7 @@ public class VerifiedAddRegistry {
 
             if (date1 != null & date2 != null) {
 
-                if (getTimeChooser(time2) < getTimeChooser(time1)) {
+                if (getTimeChooser(time2) < getTimeChooser(time1) & getTimeChooser(time1) != 24) {
 
                     Calendar c = date1.getCalendar();
                     c.roll(Calendar.DAY_OF_MONTH, 1);
@@ -169,6 +204,7 @@ public class VerifiedAddRegistry {
             } else if (type1.getTypeDay() == 1 & type2.getTypeDay() == 1) {
                 return 2;
             } else if (type1.getTypeDay() == 0 & type2.getTypeDay() == 1) {
+                System.out.println(type2.getTypeDay());
                 return 3;
             } else if (type1.getTypeDay() == 1 & type2.getTypeDay() == 0) {
                 return 4;

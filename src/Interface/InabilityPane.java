@@ -11,7 +11,7 @@ import Inputs.VerifiedAddRegistry;
 import Inputs.VerifiedAddVacationsInability;
 import horaslaborales.IOPanel;
 import horaslaborales.ManagingDataUser;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import models.Registry;
 import horaslaborales.Sesion;
 import horaslaborales.VacationsInabilityCalculator;
@@ -29,7 +29,7 @@ public final class InabilityPane extends javax.swing.JPanel implements IOPanel {
      * Creates new form RegistryPane
      */
     Registry registry;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
     ManagingDataUser managingData;
     Sesion user;
     VerifiedAddVacationsInability verifiedRegistry;
@@ -39,7 +39,7 @@ public final class InabilityPane extends javax.swing.JPanel implements IOPanel {
         this.user = user;
         this.wregistry = wregistry;
         initComponents();
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
         preConfiguredWindow();
 
@@ -51,7 +51,7 @@ public final class InabilityPane extends javax.swing.JPanel implements IOPanel {
         this.registry = reg;
         this.wregistry = wregistry;
 
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
         managingData = new ManagingDataUser(user);
 
         preConfiguredWindow();

@@ -96,7 +96,7 @@ public class ODBCSesion {
         
         // !!! VALIDAR SI USUAARIO ESTA REPETIDO
                String sql = "INSERT INTO Users(user, last_salary, periods_payment, mensualBonuses, termination_payment,"
-                + "comisions, transport_assistance) VALUES(?,?,?,?,?,?,?)";
+                + "comisions, transport_assistance, name) VALUES(?,?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -107,6 +107,7 @@ public class ODBCSesion {
             pstmt.setString(5, reg.getTerminationPayment());
             pstmt.setBoolean(6, reg.Comision());
             pstmt.setBoolean(7, reg.isTransportAssistance());
+            pstmt.setString(8, reg.getName());
             
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -121,7 +122,7 @@ public class ODBCSesion {
 
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Users(ID integer PRIMARY KEY,"
-                + "user text,pass text, last_salary text, periods_payment Integer, mensualBonuses text, "
+                + "user text,pass text, name text, last_salary text, periods_payment Integer, mensualBonuses text, "
                 + "termination_payment text, comisions boolean, transport_assistance boolean);";
 
         try (Connection conn = this.connect();

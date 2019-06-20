@@ -93,12 +93,12 @@ public class CalendarString {
         return fecha.toString();
     }
 
-    public static String YearMonthString(int year, int month) {
+    public static String YearMonthString(int year, int month, int plus) {
 
         StringBuilder fecha = new StringBuilder();
         fecha.append(year)
                 .append("-");
-        if (month < 10) {
+        if (month < 10 + plus) {
             fecha.append("0").append(month);
         } else {
             fecha.append(month);

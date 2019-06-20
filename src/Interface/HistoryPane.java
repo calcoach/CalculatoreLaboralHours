@@ -6,7 +6,7 @@
 package Interface;
 
 import horaslaborales.ClosedWindowEvent;
-import horaslaborales.ManagingRegistry;
+import horaslaborales.InterfaceHistory;
 import horaslaborales.Sesion;
 import java.io.File;
 import java.util.Vector;
@@ -30,12 +30,12 @@ public class HistoryPane extends javax.swing.JPanel {
      */
     File file;
     Sesion user;
-    ManagingRegistry managing;
+    InterfaceHistory managing;
 
     public HistoryPane(Sesion user ) { 
         initComponents();
         this.user = user;
-        managing = new ManagingRegistry(user);
+        managing = new InterfaceHistory(user);
 
         managing.chargueYearRegistries(selectMonth, jTable1, selectYear,true);
         int n = selectMonth.getItemCount();
@@ -86,6 +86,7 @@ public class HistoryPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -96,6 +97,7 @@ public class HistoryPane extends javax.swing.JPanel {
         editRegistry = new javax.swing.JButton();
         deleteRegistry = new javax.swing.JButton();
         exportToExcel = new javax.swing.JButton();
+        selectRangeDate = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(900, 600));
@@ -126,7 +128,7 @@ public class HistoryPane extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Seleccionar mes");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 130, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 130, -1));
 
         selectMonth.setBorder(null);
         selectMonth.addActionListener(new java.awt.event.ActionListener() {
@@ -134,18 +136,18 @@ public class HistoryPane extends javax.swing.JPanel {
                 selectMonthActionPerformed(evt);
             }
         });
-        add(selectMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 150, 30));
+        add(selectMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 150, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Seleccionar año");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 110, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 110, -1));
 
         selectYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectYearActionPerformed(evt);
             }
         });
-        add(selectYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 90, 30));
+        add(selectYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 90, 30));
 
         AddRegistry.setBackground(new java.awt.Color(0, 204, 51));
         AddRegistry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Plus_Math_24px.png"))); // NOI18N
@@ -187,6 +189,15 @@ public class HistoryPane extends javax.swing.JPanel {
             }
         });
         add(exportToExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 440, 160, 40));
+
+        selectRangeDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mensual", "Quincenal", "Semanal", "Dia" }));
+        selectRangeDate.setBorder(null);
+        selectRangeDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectRangeDateActionPerformed(evt);
+            }
+        });
+        add(selectRangeDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 130, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectMonthActionPerformed
@@ -257,9 +268,16 @@ public class HistoryPane extends javax.swing.JPanel {
         //
     }//GEN-LAST:event_exportToExcelActionPerformed
 
+    private void selectRangeDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectRangeDateActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_selectRangeDateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddRegistry;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton deleteRegistry;
     private javax.swing.JButton editRegistry;
     private javax.swing.JButton exportToExcel;
@@ -268,6 +286,7 @@ public class HistoryPane extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> selectMonth;
+    private javax.swing.JComboBox<String> selectRangeDate;
     private javax.swing.JComboBox<String> selectYear;
     // End of variables declaration//GEN-END:variables
 }
