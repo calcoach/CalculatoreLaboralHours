@@ -95,7 +95,7 @@ public class AddRegistry extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 610, 530));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 610, 600));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -164,7 +164,7 @@ public class AddRegistry extends javax.swing.JFrame {
         setColor(turn);
         
         jPanel1.removeAll();
-        jPanel1.add(new RegistryPane(this.user, this), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 530));
+        jPanel1.add(new RegistryPane(this.user, this), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 600));
         jPanel1.updateUI();
     }//GEN-LAST:event_turnMouseClicked
 
@@ -174,7 +174,7 @@ public class AddRegistry extends javax.swing.JFrame {
         setColor(jPanel4);
         
         jPanel1.removeAll();
-        jPanel1.add(new InabilityPane(this.user, this), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 530));
+        jPanel1.add(new InabilityPane(this.user, this), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 600));
         jPanel1.updateUI();
     }//GEN-LAST:event_jPanel4MouseClicked
 
@@ -184,7 +184,7 @@ public class AddRegistry extends javax.swing.JFrame {
         setColor(jPanel6);
         
         jPanel1.removeAll();
-        jPanel1.add(new VacationsPane(this.user, this), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 530));
+        jPanel1.add(new VacationsPane(this.user, this), new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 600));
         jPanel1.updateUI();
     }//GEN-LAST:event_jPanel6MouseClicked
 

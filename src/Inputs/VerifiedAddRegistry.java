@@ -52,13 +52,16 @@ public class VerifiedAddRegistry {
 
     public boolean verifiedEntries() {
 
-        if (calendarEntryNotNull() & calendarExitNotNull() & timesDiferent() & turnIsCorrect()) {
+        if (calendarEntryNotNull() & calendarExitNotNull()) {
 
-            return true;
-        } else {
+            if(timesDiferent() & turnIsCorrect()){
+               return true; 
+            }
+              
+        } 
             this.firsMessageShow = false;
             return false;
-        }
+       
     }
 
     private boolean timesDiferent() {
@@ -151,13 +154,17 @@ public class VerifiedAddRegistry {
         if (this.calendarEntryNotNull() & this.calendarExitNotNull()) {
 
             if (date1 != null & date2 != null) {
-
-                if (getTimeChooser(time2) < getTimeChooser(time1) & getTimeChooser(time1) != 24) {
+                
+                int day1= date1.getCalendar().get(Calendar.DATE);
+                int day2= date2.getCalendar().get(Calendar.DATE);
+                
+                if (getTimeChooser(time2) < getTimeChooser(time1) & getTimeChooser(time1) != 24 & (day1==day2)) {
 
                     Calendar c = date1.getCalendar();
                     c.roll(Calendar.DAY_OF_MONTH, 1);
                     date2.setCalendar(c);
-
+                    
+                    
                 }
             }
         }

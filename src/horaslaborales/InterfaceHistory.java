@@ -27,7 +27,6 @@ import javax.swing.table.DefaultTableModel;
 public class InterfaceHistory extends DataUser{
 
     public static String URL_ODBC = "Prueba.db";
-    private Sesion ses;
     ODBC conect;
 
     public InterfaceHistory(Sesion sesion) {
@@ -38,7 +37,7 @@ public class InterfaceHistory extends DataUser{
 
     public void updateLastSalary(JTextField salary) {
 
-        this.database.editSalary(FieldString.deleteWhiteSpaces(salary.getText()), this.ses.getUser());
+        this.database.editSalary(FieldString.deleteWhiteSpaces(salary.getText()), this.user.getUser());
 
     }
 
@@ -50,7 +49,8 @@ public class InterfaceHistory extends DataUser{
     }
 
     //Modificacion en registro: Incluir hora de inicio y hora fin
-    public boolean saveRegistry(JDateChooser fecha1, JComboBox time1, JDateChooser fecha2, JComboBox time2, Calculator cal) {
+    public boolean saveRegistry(JDateChooser fecha1, JComboBox time1, JDateChooser fecha2, JComboBox time2, Calculator cal,
+            JComboBox turn) {
 
         try {
 
@@ -58,10 +58,11 @@ public class InterfaceHistory extends DataUser{
             CalendarString date2 = new CalendarString(fecha2.getCalendar());
 
             int[] horas = sumHours(cal.calcularHoras());
+            String stringTurn = (String)turn.getSelectedItem();
 
             this.database.insert(date.getStringDate(),(String)time1.getSelectedItem(), horas, 
                     sumSueldo(cal.calcularSueldo()),date2.getStringDate(),(String)time2.getSelectedItem(),
-                    sumSueldo(cal.calcularSueldo()));
+                    sumSueldo(cal.calcularSueldo()),stringTurn);
             //Succesfullsave
             return true;
 
@@ -76,16 +77,18 @@ public class InterfaceHistory extends DataUser{
     }
 
     //MOdificacion en registro: Incluir hora de inicio y hora fin
-    public void updateRegistry(JDateChooser fecha1, JComboBox time, JDateChooser fecha2, Calculator cal, JComboBox time2) {
+    public void updateRegistry(JDateChooser fecha1, JComboBox time, JDateChooser fecha2, Calculator cal, JComboBox time2,
+            JComboBox turn) {
 
         try {
 
             CalendarString date = new CalendarString(fecha1.getCalendar());
 
             int[] horas = sumHours(cal.calcularHoras());
+            String stringTurn = (String)turn.getSelectedItem();
 
             this.database.update(date.getStringDate(),(String)time.getSelectedItem(), horas, sumSueldo(cal.calcularSueldo()), 
-                   (String) time2.getSelectedItem());    
+                   (String) time2.getSelectedItem(),stringTurn);    
 
         } catch (java.lang.NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Error");

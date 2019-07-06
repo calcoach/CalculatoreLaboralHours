@@ -121,7 +121,7 @@ public class CalendarString {
         names[10] = "Noviembre";
         names[11] = "Diciembre";
 
-        return names[i - 1];
+        return names[i -1];
 
     }
 

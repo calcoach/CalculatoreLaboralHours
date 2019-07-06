@@ -5,6 +5,7 @@
  */
 package Inputs;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -18,12 +19,14 @@ public class VerifiedAddTurn {
     JTextField nameTurn;
     JComboBox time1;
     JComboBox time2;
+    JCheckBox nextDay;
     boolean firsMessageShow;
 
-    public VerifiedAddTurn(JTextField nameTurn, JComboBox time1, JComboBox time2) {
+    public VerifiedAddTurn(JTextField nameTurn, JComboBox time1, JComboBox time2, JCheckBox nextDay) {
         this.nameTurn = nameTurn;
         this.time1 = time1;
         this.time2 = time2;
+        this.nextDay = nextDay;
     }
     
     public boolean verifiedEntries() {
@@ -54,8 +57,15 @@ public class VerifiedAddTurn {
 
         if(!(this.time1.getSelectedIndex() == time2.getSelectedIndex())){
             
+            if(!(false==nextDay.isSelected()& this.time2.getSelectedIndex() < time1.getSelectedIndex())){
+                
+                return true;
+            } else if(!firsMessageShow){
+                JOptionPane.showMessageDialog(null, "Hora fin menor que hora inicio");
+                this.firsMessageShow = true;
+            }
             
-            return true;
+            
         } else if(!firsMessageShow){
             JOptionPane.showMessageDialog(null, "Horas iguales");
             this.firsMessageShow = true;

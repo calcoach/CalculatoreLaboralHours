@@ -5,10 +5,13 @@
  */
 package Interface;
 
+import Dates.CalendarString;
 import horaslaborales.ClosedWindowEvent;
 import horaslaborales.DeductionsCalculator;
 import Inputs.FieldString;
 import horaslaborales.InterfaceHistory;
+import horaslaborales.ODBC;
+import horaslaborales.ODBCRegistries;
 import horaslaborales.Sesion;
 import java.util.Calendar;
 import static java.util.Calendar.getInstance;
@@ -27,6 +30,7 @@ public class HomePane extends javax.swing.JPanel {
     InterfaceHistory managing;
     DeductionsCalculator cal;
     boolean datechanged = false;
+    ODBC database;
 
     public HomePane(Sesion user) {
        
@@ -34,6 +38,7 @@ public class HomePane extends javax.swing.JPanel {
         this.user = user;
         managing = new InterfaceHistory(user);
         cal = new DeductionsCalculator(user);
+        database = new ODBC("Prueba.db", user);
         preconfig();
     }
 
@@ -50,12 +55,50 @@ public class HomePane extends javax.swing.JPanel {
     private void chargeCalendar(){
        
         Calendar calendar = getInstance();
+        
+        int periods = database.selectPeriodsPayment();
+        
         String datePay = cal.getPeriod()[1];
         String[] split = datePay.split("-");
+        
+        int year = Integer.valueOf(split[0]);
+        int month = Integer.valueOf(split[1]) - 1;
+        int day = Integer.valueOf(split[2]);
 
-        calendar.set(Integer.valueOf(split[0]), Integer.valueOf(split[1]) - 1, Integer.valueOf(split[2]));
-
+        calendar.set(year,month,day);
         date.setCalendar(calendar);
+        
+        switch(periods){
+            
+            case 1:
+              jLabel3.setText("Total Ingresos y deduciones del mes de "+ CalendarString.getNameMounth(month+1));
+              break;
+              
+            case 2:
+                if (day <=15){
+                    jLabel3.setText("Total Ingresos y deduciones Quincena 1 mes de "+ CalendarString.getNameMounth(month+1));
+                } else{
+                    jLabel3.setText("Total Ingresos y deduciones Quincena 2 mes de "+ CalendarString.getNameMounth(month+1));
+                }
+              break;
+              
+            case 4:
+                String sem ="1";
+                if(day <= 7)
+                    sem = "1";
+                if(day <=14)
+                    sem = "2";
+                if(day <=21)
+                    sem = "3";
+                else
+                    sem = "4";
+                
+                jLabel3.setText("Total Ingresos y deduciones semana "+sem+" mes de "+ CalendarString.getNameMounth(month+1));
+                break;
+                    
+        }
+        
+        
     }
     
     public void updateInfo(){
@@ -157,7 +200,7 @@ public class HomePane extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Total Ingresos y Deducciones  del mes de marzo");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 334, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 490, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("Bonos ");
@@ -269,10 +312,10 @@ public class HomePane extends javax.swing.JPanel {
                 dateVetoableChange(evt);
             }
         });
-        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 110, 30));
+        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 50, 110, 30));
 
         jLabel14.setText("Fecha de pago");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, -1, -1));
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, -1, -1));
 
         panelVariable.setBackground(new java.awt.Color(255, 255, 255));
         panelVariable.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

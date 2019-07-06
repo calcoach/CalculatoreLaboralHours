@@ -31,10 +31,10 @@ public class Calculator {
         this.nextDay = nextDay;
     }
 
-    public int[] calcularHoras(int inicio, int fin) {
+    private int[] calcularHoras(int inicio, int fin) {
 
         int i = inicio;
-        int cont = 0;
+        int cont = contT;
 
         int[] horas = new int[5];
         if(inicio == 24)
@@ -70,12 +70,14 @@ public class Calculator {
 
         }
         horas[4] = horas[0] + horas[1] + horas[2] + horas[3];
-
+        contT = cont;
+        
         return horas;
     }
 
     public int[] calcularHoras() {
-
+        
+        contT = 0;
         if (inicio < fin & !nextDay |(fin == 24 & nextDay)) {
 
             return calcularHoras(inicio, fin);
@@ -97,7 +99,9 @@ public class Calculator {
 
             return horasT;
 
-        }
+        }  
+        
+        System.out.println(nextDay);
 
         return null;
     }
@@ -144,6 +148,7 @@ public class Calculator {
     public double[] calcularSueldo() {
 
         int[] horas = this.calcularHoras();
+        System.out.println(horas[4]);
         double[] subhoras = null;
 
         switch (dia) {

@@ -45,15 +45,17 @@ public class DataUser {
                 break;
 
             case 2:
-                if (day > 20) {
-                    periodsPayment[0] = localDate.withDayOfMonth(15).toString();
+                
+                if (day > 15) {
+                    
+                    periodsPayment[0] = localDate.withDayOfMonth(16).toString();
                     periodsPayment[1] = (cut2 == 0) ? localDate.withDayOfMonth(localDate.lengthOfMonth()).toString()
                             : localDate.withDayOfMonth(cut2).toString();
 
                 } else {
 
                     periodsPayment[0] = localDate.withDayOfMonth(1).toString();
-                    periodsPayment[1] = (cut2 == 0) ? localDate.withDayOfMonth(16).toString()
+                    periodsPayment[1] = (cut2 == 0) ? localDate.withDayOfMonth(15).toString()
                             : localDate.withDayOfMonth(cut2).toString();
                 }
                 break;

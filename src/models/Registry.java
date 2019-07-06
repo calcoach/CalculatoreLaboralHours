@@ -24,6 +24,15 @@ public class Registry {
     int ExtraDiurna;
     int Extranocturna;
     double sueldo;
+    String Turn;
+
+    public String getTurn() {
+        return Turn;
+    }
+
+    public void setTurn(String Turn) {
+        this.Turn = Turn;
+    }
 
     public double getSueldo() {
         return sueldo;

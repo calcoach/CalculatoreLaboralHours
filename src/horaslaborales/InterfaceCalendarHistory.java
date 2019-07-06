@@ -30,7 +30,8 @@ public class InterfaceCalendarHistory extends DataUser {
 
     }
 
-    public void chargeRegistries(ArrayList<JLabel> money, LocalDate date, ArrayList<JLabel> hour, ArrayList<JPanel> panels) {
+    public void chargeRegistries(ArrayList<JLabel> money, LocalDate date, ArrayList<JLabel> hour, ArrayList<JPanel> panels,
+            ArrayList<JLabel> turns) {
 
         CalendarLibrary cal = new CalendarLibrary();
         LocalDate day1;
@@ -61,10 +62,10 @@ public class InterfaceCalendarHistory extends DataUser {
                  //Day with doble turn      
                 if (panels.get(position).getComponentCount()!=1 ) {
 
-                    dayNormal(position, position2, panels, money, hour, registries.get(i),day2.getDayOfMonth());
+                    dayNormal(position, position2, panels,turns, money, hour, registries.get(i),day2.getDayOfMonth());
                 } else {
 
-                    dayDouble(position, position2, panels, money, hour, registries.get(i));
+                    dayDouble(position, position2, panels,turns, money, hour, registries.get(i));
                 }
 
             }
@@ -74,21 +75,24 @@ public class InterfaceCalendarHistory extends DataUser {
         }
     }
 
-    private void dayNormal(int position, int position2, ArrayList<JPanel> panels, ArrayList<JLabel> money,
+    private void dayNormal(int position, int position2, ArrayList<JPanel> panels,ArrayList<JLabel> turns, ArrayList<JLabel> money,
             ArrayList<JLabel> hour, Registry reg, int day) {
 
         if (position == position2) {
+            turns.get(position).setText(reg.getTurn());
             money.get(position).setText("$ " + String.valueOf((int) reg.getSueldo()));
             hour.get(position).setText(reg.getTime_startDay() + " - " + reg.getTime_finishDay());
            
         } else {
 
+            turns.get(position).setText(reg.getTurn());
             money.get(position).setText("$ " + String.valueOf((int) reg.getSueldo()));
             hour.get(position).setText(reg.getTime_startDay() + " - Sig dia");
 
             TwoTurnsPane pane = new TwoTurnsPane();
+            pane.setTurnDay1(reg.getTurn());
             pane.setDay(String.valueOf(day));
-            pane.setHourDay1("Fin turno- " + reg.getTime_finishDay());
+            pane.setHourDay1("Fin turno - " + reg.getTime_finishDay());
 
             pane.setVisible(true);
 
@@ -99,22 +103,24 @@ public class InterfaceCalendarHistory extends DataUser {
         }
     }
 
-    private void dayDouble(int position, int position2, ArrayList<JPanel> panels, ArrayList<JLabel> money,
-            ArrayList<JLabel> hour, Registry reg) {
+    private void dayDouble(int position, int position2, ArrayList<JPanel> panels,ArrayList<JLabel> turns,
+            ArrayList<JLabel> money,ArrayList<JLabel> hour, Registry reg) {
 
        
         if (position == position2) {
             
-            
             TwoTurnsPane pane = (TwoTurnsPane) panels.get(position).getComponent(0);
+            pane.setTurnDay2(reg.getTurn());
             pane.setMoney("$ "+String.valueOf((int)reg.getSueldo()));
             pane.setHourDay2(reg.getTime_startDay() + " - " + reg.getTime_finishDay());
             
         } else {
 
-            hour.get(position).setText(reg.getTime_startDay() + " -");
+            hour.get(position).setText(reg.getTime_startDay() + " - ");
 
             TwoTurnsPane pane = new TwoTurnsPane();
+            System.out.println("jajaa");
+            pane.setTurnDay1(reg.getTurn());
             pane.setDay(String.valueOf(position2));
             pane.setHourDay1(" - " + reg.getTime_finishDay());
 

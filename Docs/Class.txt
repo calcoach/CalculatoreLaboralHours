@@ -1,0 +1,11 @@
+PaneRegistry
+
+  managingRegistry
+
+    .updateRegistry
+    .saveRegistry
+
+     ODBC
+       .updateRegistry
+       .saveRegistry
+

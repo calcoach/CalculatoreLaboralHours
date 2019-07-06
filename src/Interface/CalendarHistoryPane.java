@@ -367,7 +367,7 @@ public class CalendarHistoryPane extends javax.swing.JPanel {
         paintDayActually(date, info[1]);
         paintDateText(date);
         
-        interfaceCal.chargeRegistries(money, date , hours, panels);
+        interfaceCal.chargeRegistries(money, date , hours, panels, turns);
 
         //</editor-fold>
     }
@@ -731,8 +731,6 @@ public class CalendarHistoryPane extends javax.swing.JPanel {
         dateText = new javax.swing.JLabel();
         nextMonth = new javax.swing.JButton();
         lastMonth = new javax.swing.JButton();
-        listView = new javax.swing.JToggleButton();
-        calendarView = new javax.swing.JToggleButton();
 
         p111.setBackground(new java.awt.Color(255, 255, 255));
         p111.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 233, 79)));
@@ -2027,7 +2025,7 @@ public class CalendarHistoryPane extends javax.swing.JPanel {
         dateText.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         dateText.setText("Junio de 2018");
         dateText.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        add(dateText, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 250, 30));
+        add(dateText, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 250, 30));
 
         nextMonth.setBackground(new java.awt.Color(51, 204, 0));
         nextMonth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Forward_30px.png"))); // NOI18N
@@ -2038,7 +2036,7 @@ public class CalendarHistoryPane extends javax.swing.JPanel {
                 nextMonthActionPerformed(evt);
             }
         });
-        add(nextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 50, 30));
+        add(nextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 50, 30));
 
         lastMonth.setBackground(new java.awt.Color(51, 204, 0));
         lastMonth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Back_30px.png"))); // NOI18N
@@ -2049,19 +2047,7 @@ public class CalendarHistoryPane extends javax.swing.JPanel {
                 lastMonthActionPerformed(evt);
             }
         });
-        add(lastMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 50, 30));
-
-        listView.setBackground(new java.awt.Color(11, 198, 62));
-        listView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Bulleted_List_40px.png"))); // NOI18N
-        listView.setBorderPainted(false);
-        listView.setFocusPainted(false);
-        add(listView, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 40, 40));
-
-        calendarView.setBackground(new java.awt.Color(11, 198, 62));
-        calendarView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Calendar_40px_1.png"))); // NOI18N
-        calendarView.setBorderPainted(false);
-        calendarView.setFocusPainted(false);
-        add(calendarView, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 40, 40));
+        add(lastMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 50, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextMonthActionPerformed
@@ -2102,16 +2088,15 @@ public class CalendarHistoryPane extends javax.swing.JPanel {
         int month = date.getMonthValue();
         if(month==11 | month==9  | month==12){
   
-            this.add(nextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 50, 30));
+            this.add(nextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 50, 30));
             
         } else{
             
-            this.add(nextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 50, 30));
+            this.add(nextMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 50, 30));
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton calendarView;
     private javax.swing.JLabel d1;
     private javax.swing.JLabel d10;
     private javax.swing.JLabel d11;
@@ -2298,7 +2283,6 @@ public class CalendarHistoryPane extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JButton lastMonth;
-    private javax.swing.JToggleButton listView;
     private javax.swing.JLabel m1;
     private javax.swing.JLabel m10;
     private javax.swing.JLabel m11;

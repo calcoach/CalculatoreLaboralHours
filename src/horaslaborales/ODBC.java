@@ -53,7 +53,7 @@ public class ODBC {
                 + "start_day text, time_start_day text, Ordinaria double, RNocturno double,"
                 + "ExtraDiurna double, ExtraNocturna double, SueldoDia double, finish_day text,"
                 + " time_finish_day text,Ordinaria2 int, RNocturno2 int, ExtraDiurna2 int,"
-                + " ExtraNocturna2 int, SueldoDia2 double)";
+                + " ExtraNocturna2 int, SueldoDia2 double, Turn text)";
 
         try (Connection conn = this.connect();
                 Statement stmt = conn.createStatement()) {
@@ -288,14 +288,14 @@ public class ODBC {
     }
 
     public void insert(String date, String time, int[] horas, double sueldo, String date2, String time2,
-            double sueldo2) throws ExceptionLaboralHours {
+            double sueldo2, String turn) throws ExceptionLaboralHours {
         //String sql = "INSERT INTO primera_tabla(name,capacity) VALUES(?,?)";
 
         this.checkRepeatRegistry(date);
         String sql = "INSERT INTO " + ses.user + "(start_day, time_start_day, Ordinaria, RNocturno, ExtraDiurna,"
                 + "ExtraNocturna, SueldoDia, finish_day, time_finish_day, Ordinaria2, RNocturno2, Extradiurna2"
-                + ", ExtraNocturna2, SueldoDia2)\n"
-                + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + ", ExtraNocturna2, SueldoDia2, Turn)\n"
+                + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -325,7 +325,7 @@ public class ODBC {
                 pstmt.setInt(13, 0);
                 pstmt.setDouble(14, 0);
             }
-
+            pstmt.setString(15,turn);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -383,7 +383,7 @@ public class ODBC {
     public Registry selectRegistry(String consult) throws ExceptionLaboralHours, ParseException {
 
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia, finish_day, time_finish_day"
+                + "ExtraDiurna, ExtraNocturna, SueldoDia, finish_day, time_finish_day,Turn"
                 + " FROM " + ses.user + " WHERE start_day LIKE '%" + consult + "%'"
                 + "ORDER BY start_day ASC";
 
@@ -406,7 +406,7 @@ public class ODBC {
                 reg.setSueldo(rs.getDouble("SueldoDia"));
                 reg.setFinishDay(date2.getDate());
                 reg.setTime_finishDay(rs.getString("time_finish_day"));
-
+                reg.setTurn("Turn");
             }
             return reg;
         } catch (SQLException e) {
@@ -541,7 +541,7 @@ public class ODBC {
         ArrayList<Registry> a = new ArrayList();
 
         String sql = "SELECT ID,start_day,time_start_day, Ordinaria, RNocturno,"
-                + "ExtraDiurna, ExtraNocturna, SueldoDia, finish_day, time_finish_day"
+                + "ExtraDiurna, ExtraNocturna, SueldoDia, finish_day, time_finish_day, Turn"
                 + " FROM " + ses.user + " WHERE start_day LIKE '%" + consult + "%'"
                 + "ORDER BY start_day ASC";
 
@@ -564,6 +564,7 @@ public class ODBC {
                 reg.setSueldo(rs.getDouble("SueldoDia"));
                 reg.setFinishDay(date2.getDate());
                 reg.setTime_finishDay(rs.getString("time_finish_day"));
+                reg.setTurn(rs.getString("Turn"));
          
                 a.add(reg);
 
@@ -576,10 +577,10 @@ public class ODBC {
 
     }
 
-    public void update(String date, String time, int[] horas, double sueldo, String time2) throws ExceptionLaboralHours {
+    public void update(String date, String time, int[] horas, double sueldo, String time2, String turn) throws ExceptionLaboralHours {
         String sql = "UPDATE " + ses.user + " SET time_start_day = ?, Ordinaria = ?, RNocturno = ?, ExtraDiurna = ?,"
                 + "ExtraNocturna = ?, SueldoDia = ?, time_finish_day = ?, Ordinaria2 = ?, RNocturno2 = ?, ExtraDiurna2 = ?,"
-                + "ExtraNocturna2 = ? , sueldoDia2 = ? WHERE start_day = ?";
+                + "ExtraNocturna2 = ? , sueldoDia2 = ?, Turn = ? WHERE start_day = ?";
 
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -610,6 +611,7 @@ public class ODBC {
             }
 
             pstmt.setString(13, date);
+            pstmt.setString(14, turn);
             pstmt.executeUpdate();
         } catch (SQLException ex) {
 

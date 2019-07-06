@@ -166,11 +166,10 @@ public class MainWindow extends javax.swing.JFrame {
         btn_ConfigLayout.setHorizontalGroup(
             btn_ConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_ConfigLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
         );
         btn_ConfigLayout.setVerticalGroup(
             btn_ConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +180,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        sidepane.add(btn_Config, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 150, -1));
+        sidepane.add(btn_Config, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 170, -1));
 
         btn_History.setBackground(new java.awt.Color(0, 204, 51));
         btn_History.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -303,11 +302,11 @@ public class MainWindow extends javax.swing.JFrame {
         btn_AboutLayout.setHorizontalGroup(
             btn_AboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btn_AboutLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         btn_AboutLayout.setVerticalGroup(
             btn_AboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +317,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        sidepane.add(btn_About, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 100, 70));
+        sidepane.add(btn_About, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 110, 70));
 
         parent.add(sidepane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 870, -1));
 
@@ -488,7 +487,7 @@ public class MainWindow extends javax.swing.JFrame {
         btn_main.removeAll();
         InfoPane info = new InfoPane(this.user);
         info.setVisible(true);
-        btn_main.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+        btn_main.add(info, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 630));
         btn_main.updateUI();
        
     }

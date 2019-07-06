@@ -47,62 +47,120 @@ public class InfoPane extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea4 = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea5 = new javax.swing.JTextArea();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTextArea6 = new javax.swing.JTextArea();
+        jLabel11 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Pension");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, -1, -1));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Son los aportes que realiza el trabajador");
-        jScrollPane1.setViewportView(jTextArea1);
-
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 340, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Cesantias");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, -1, -1));
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jTextArea2.setText("Son los aportes que realiza el trabajador");
         jScrollPane2.setViewportView(jTextArea2);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 340, -1));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 370, 70));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Deducciones ");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, -1, -1));
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setText("Son los aportes que realiza el trabajador");
-        jScrollPane3.setViewportView(jTextArea3);
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Total devengado * 4%");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, 160, 30));
 
-        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 340, -1));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("CALCULO");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("Un mes de salario anual");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, 160, 30));
+
+        jLabel7.setText("Son los aportes que realiza el trabajador");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 230, 20));
+
+        jTextArea4.setColumns(20);
+        jTextArea4.setRows(5);
+        jTextArea4.setText("Son los aportes que realiza el trabajador");
+        jScrollPane4.setViewportView(jTextArea4);
+
+        add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 360, 50));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("Salud");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 50, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setText("Total devengado * 4%");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 280, 160, 30));
+
+        jTextArea5.setColumns(20);
+        jTextArea5.setRows(5);
+        jTextArea5.setText("Son los aportes que realiza el trabajador\npara su seguro. \nEl empleado aporta un 4% de su sueldo y el\nempleador un 10 %\n\n");
+        jScrollPane5.setViewportView(jTextArea5);
+
+        add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 370, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setText("Auxilio de transporte");
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 530, -1, -1));
+
+        jTextArea6.setColumns(20);
+        jTextArea6.setRows(5);
+        jTextArea6.setText("Son los aportes que realiza el trabajador");
+        jScrollPane6.setViewportView(jTextArea6);
+
+        add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 550, 370, 70));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel11.setText("$ 93 032");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 540, 160, 30));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JTextArea jTextArea4;
+    private javax.swing.JTextArea jTextArea5;
+    private javax.swing.JTextArea jTextArea6;
     // End of variables declaration//GEN-END:variables
 }

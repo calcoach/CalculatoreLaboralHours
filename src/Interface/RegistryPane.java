@@ -90,6 +90,7 @@ public class RegistryPane extends javax.swing.JPanel {
         
         //
         date2.setEnabled(false);
+        
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
@@ -107,6 +108,7 @@ public class RegistryPane extends javax.swing.JPanel {
         });
 
         verifiedRegistry = new VerifiedAddRegistry(this.time1, time2, date1, date2);
+        this.finishMultiplyTurns.setVisible(false);
   
     }
 
@@ -238,6 +240,9 @@ public class RegistryPane extends javax.swing.JPanel {
         finishToday = new javax.swing.JCheckBox();
         time1 = new javax.swing.JComboBox<>();
         time2 = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
+        multiplyTurns = new javax.swing.JCheckBox();
+        finishMultiplyTurns = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -254,19 +259,19 @@ public class RegistryPane extends javax.swing.JPanel {
                 salaryKeyPressed(evt);
             }
         });
-        add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 110, 30));
+        add(salary, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 110, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setText("Sueldo");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 70, 30));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 70, 30));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Fecha/Hora Fin");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 160, 30));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 160, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Fecha/Hora Inicio");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 170, 30));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 170, 30));
 
         jTable1.setBackground(new java.awt.Color(130, 224, 170));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -288,11 +293,11 @@ public class RegistryPane extends javax.swing.JPanel {
         jTable1.setGridColor(new java.awt.Color(171, 235, 198));
         jScrollPane1.setViewportView(jTable1);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 480, 110));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 480, 110));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Seleccione un turno");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, -1, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, -1, -1));
 
         calculate.setBackground(new java.awt.Color(0, 204, 51));
         calculate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -304,7 +309,7 @@ public class RegistryPane extends javax.swing.JPanel {
                 calculateActionPerformed(evt);
             }
         });
-        add(calculate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 120, 40));
+        add(calculate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 120, 40));
 
         date1.setBackground(new java.awt.Color(171, 235, 198));
         date1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -312,7 +317,7 @@ public class RegistryPane extends javax.swing.JPanel {
                 date1PropertyChange(evt);
             }
         });
-        add(date1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 110, 30));
+        add(date1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 110, 30));
 
         date2.setBackground(new java.awt.Color(171, 235, 198));
         date2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -320,7 +325,7 @@ public class RegistryPane extends javax.swing.JPanel {
                 date2PropertyChange(evt);
             }
         });
-        add(date2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 110, 30));
+        add(date2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 110, 30));
 
         turns.setBackground(new java.awt.Color(171, 235, 198));
         turns.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
@@ -329,7 +334,7 @@ public class RegistryPane extends javax.swing.JPanel {
                 turnsActionPerformed(evt);
             }
         });
-        add(turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 270, 30));
+        add(turns, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 270, 30));
 
         saveRegistry.setBackground(new java.awt.Color(0, 204, 51));
         saveRegistry.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -341,7 +346,7 @@ public class RegistryPane extends javax.swing.JPanel {
                 saveRegistryActionPerformed(evt);
             }
         });
-        add(saveRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, -1, 40));
+        add(saveRegistry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 450, -1, 40));
 
         cancel.setBackground(new java.awt.Color(0, 204, 51));
         cancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -353,14 +358,14 @@ public class RegistryPane extends javax.swing.JPanel {
                 cancelActionPerformed(evt);
             }
         });
-        add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, 130, 40));
+        add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 450, 130, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("$");
         jLabel6.setAlignmentX(1.0F);
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 30, 30));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 30, 30));
 
         startToday.setText("Hoy");
         startToday.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +373,7 @@ public class RegistryPane extends javax.swing.JPanel {
                 startTodayActionPerformed(evt);
             }
         });
-        add(startToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
+        add(startToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
         finishToday.setText("Hoy");
         finishToday.addActionListener(new java.awt.event.ActionListener() {
@@ -376,10 +381,10 @@ public class RegistryPane extends javax.swing.JPanel {
                 finishTodayActionPerformed(evt);
             }
         });
-        add(finishToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, -1));
+        add(finishToday, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, -1));
 
         time1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
-        add(time1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, 30));
+        add(time1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, 30));
 
         time2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12 am", "01 am", "02 am", "03 am", "04 am", "05 am", "06 am", "07 am", "08 am", "09 am", "10 am", "11 am", "12 pm", "01 pm", "02 pm", "03 pm", "04 pm", "05 pm", "06 pm", "07 pm", "08 pm", "09 pm", "10 pm", "11 pm" }));
         time2.addActionListener(new java.awt.event.ActionListener() {
@@ -387,7 +392,28 @@ public class RegistryPane extends javax.swing.JPanel {
                 time2ActionPerformed(evt);
             }
         });
-        add(time2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 230, -1, 30));
+        add(time2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, -1, 30));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 650, -1));
+
+        multiplyTurns.setText("Agrega varios turnos");
+        multiplyTurns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                multiplyTurnsActionPerformed(evt);
+            }
+        });
+        add(multiplyTurns, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+
+        finishMultiplyTurns.setBackground(new java.awt.Color(0, 204, 51));
+        finishMultiplyTurns.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        finishMultiplyTurns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_Calculator_24px.png"))); // NOI18N
+        finishMultiplyTurns.setText("Finalizar Multiples Turnos");
+        finishMultiplyTurns.setFocusPainted(false);
+        finishMultiplyTurns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishMultiplyTurnsActionPerformed(evt);
+            }
+        });
+        add(finishMultiplyTurns, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 310, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void salaryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_salaryKeyPressed
@@ -461,7 +487,7 @@ public class RegistryPane extends javax.swing.JPanel {
 
     private void saveRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRegistryActionPerformed
         // TODO add your handling code here:
-        verifiedRegistry.verifiedDates();
+         verifiedRegistry.verifiedDates();
         if (verifiedRegistry.verifiedEntries()) {
 
             String sal = this.salary.getText().replace(" ", "");
@@ -479,14 +505,20 @@ public class RegistryPane extends javax.swing.JPanel {
 
             if (registry == null) {
 
-                boolean h = managing.saveRegistry(this.date1, time1, this.date2, time2, calc);
-                if (h) {
-                    wregistry.dispose();
+                boolean h = managing.saveRegistry(this.date1, time1, this.date2, time2, calc,turns);
+                if (h ) {
+                    
+                    JOptionPane.showMessageDialog(null, "Registro guardado");
+                    if(!multiplyTurns.isSelected()){
+                        
+                        wregistry.dispose();
+                    }
+                    
                 }
 
             } else {
 
-                managing.updateRegistry(date1,time1,date2, calc, time2);
+                managing.updateRegistry(date1,time1,date2, calc, time2,turns);
                 wregistry.dispose();
 
             }
@@ -525,12 +557,29 @@ public class RegistryPane extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_salaryActionPerformed
 
+    private void finishMultiplyTurnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishMultiplyTurnsActionPerformed
+        // TODO add your handling code here:
+        this.wregistry.dispose();
+    }//GEN-LAST:event_finishMultiplyTurnsActionPerformed
+
+    private void multiplyTurnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplyTurnsActionPerformed
+        // TODO add your handling code here:
+        
+        if(this.multiplyTurns.isSelected()){
+            finishMultiplyTurns.setVisible(true);
+        } else{
+            finishMultiplyTurns.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_multiplyTurnsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calculate;
     private javax.swing.JButton cancel;
     private com.toedter.calendar.JDateChooser date1;
     private com.toedter.calendar.JDateChooser date2;
+    private javax.swing.JButton finishMultiplyTurns;
     private javax.swing.JCheckBox finishToday;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -538,7 +587,9 @@ public class RegistryPane extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JCheckBox multiplyTurns;
     private javax.swing.JTextField salary;
     private javax.swing.JButton saveRegistry;
     private javax.swing.JCheckBox startToday;
